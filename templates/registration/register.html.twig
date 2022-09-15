@@ -1,17 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+	<main>
+		<section class="form_container">
+            <article>
+                <h1>Inscription</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+                {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                        label: 'Mot de passe'
+                    }) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                <button type="submit" class="btn">S'inscrire</button>
+                {{ form_end(registrationForm) }}
+            </article>
+            <div class="barre_ou">
+                <div class="barre"></div>
+                <span>ou</span> 
+                <div class="barre"></div>
+            </div>
+            <a href="#">
+                <div class="google-btn">
+                    <div class="google-icon-wrapper">
+                        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                    </div>
+                    <p class="btn-text"><b>Continuer avec Google</b></p>
+                </div>
+            </a>
+		</section>
+	</main>
 {% endblock %}

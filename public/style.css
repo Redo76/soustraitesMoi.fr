@@ -8,6 +8,9 @@
 
 :root{
     --primary: #d2b511;
+    --secondary : #f6f6f6;
+    --first-color: #3E3F3A;
+    --button-active-blue: #1669F2;
 }
 
 body{
@@ -98,6 +101,7 @@ footer{
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 5%;
 }
 .column ul{
     align-items: center;
@@ -105,6 +109,7 @@ footer{
 }
 .column h5{
     font-size: 25px;
+    padding-bottom: 10px;
 }
 .column li{
     font-size: 22px;
@@ -328,6 +333,80 @@ header span {
     padding-bottom: 2%;
 
 }
+.form_container{
+    margin: 10%;
+    padding: 5%;
+    background-color: var(--secondary);
+}
+.form_container a{
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.585);
+    display: flex;
+    justify-content: center;
+}
+.form_container article{
+    padding: 5% 0;
+}
+.form_container h1{
+    padding-bottom: 4%;
+}
+.form_container .btn{
+    margin-top: 3%;
+    width: 100%;
+    background-color: var(--first-color);
+    color: white;
+}
+.barre_ou{
+    display: flex;
+}
+.barre_ou span{
+    font-size: 25px;
+    padding: 0 5%;
+    margin-bottom: 6px;
+}
+.barre{
+    border: none;
+    border-bottom: rgba(0, 0, 0, 0.599) 1px solid;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.google-btn {
+    width: 58%;
+    height: 42px;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,.25);
+}
+.google-btn p {
+    text-align: center;
+    
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.google-btn:hover {
+    box-shadow: 0 0 6px var(--google-blue);
+}
+.google-btn:active {
+    background: var(--button-active-blue);
+}
+
+.google-icon-wrapper {
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 1px;
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: white;
+}
+.google-icon {
+    position: absolute;
+    margin-top: 11px;
+    margin-left: 11px;
+    width: 18px;
+    height: 18px;
+}
     /* Main */
 
 
@@ -344,7 +423,9 @@ header span {
     /* Main */
     /* Footer */
     footer{
-        padding: 5% 5%;
+        padding:0 5%;
+        padding-top: 5%;
+        padding-bottom: 2%;
     }
     .misc_row{
         flex-direction: row;
