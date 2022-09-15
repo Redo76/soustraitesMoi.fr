@@ -15,24 +15,42 @@ body{
     flex-direction: column;
     height: 100vh;
 }
+
+a{
+    color:#d2b511c6;
+}
+a:hover{
+    color: antiquewhite;
+}
+
+    /* Footer */
 footer{
     margin-top:auto; 
-    padding: 0 10%;
+    padding: 10% 5%;
     border: 0px;
+}
+.misc_row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.social_div{
+    order: -2;
+    padding-bottom: 5%;
 }
 .social{
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
 }
 .social a {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
-    margin: 0 10px;
-    width: 38px;
-    height: 38px;
+    font-size: 25px;
+    margin: 0 20px;
+    width: 50px;
+    height: 50px;
     border: 1px #d2b511ae solid;
     border-radius: 45%;
 }
@@ -47,17 +65,23 @@ footer{
 .payment{
     display: flex;
     align-items: center;
-    font-size: 35px;
+    justify-content: center;
+    font-size: 50px;
     padding-bottom: 1.1rem;
 }
 
 .payment i{
-    padding: 0 5px;
+    padding: 0 10px;
     color: rgb(145, 145, 145);
 }
-
+.paymentsWrapper p{
+    font-size: 20px;
+}
+.copyright{
+    font-size: 20px;
+}
 .minilogo, .paymentsWrapper, .social_div{
-    padding: 0 20px;
+    padding: 13px 0;
 }
 .minologo{
     align-self: center;
@@ -68,21 +92,40 @@ footer{
 }
 
 .copyright{
-    font-size: 15px;
+    font-size: 18px;
 }
-
 .column{
-    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+.column ul{
+    align-items: center;
 
+}
+.column h5{
+    font-size: 25px;
+}
 .column li{
+    font-size: 22px;
+}
+.column p{
     font-size: 15px;
+}
+.contact{
+    margin-top: 20px;
+}
+.contact p{
+    font-size: 20px;
 }
 
 hr{
     color: white;
 }
 
+    /* Footer */
+
+    /* Header */
 .sectionheader {
     display: flex;
     flex-direction: column;
@@ -123,28 +166,28 @@ hr{
     transform: translateY(4px);
 }
 
-.nav {
+header .nav {
     transition: 0.3s ease;
     display: none;
 }
 
-.nav ul {
+header .nav ul {
     padding: 8px 8px;
 }
 
-.nav li {
+header .nav li {
     list-style: none;
     padding: 8px 8px;
 }
 
-.nav li a {
+header .nav li a {
     color: black;
     font-size: 20px;
     font-weight: bold;
     text-decoration: none;
 }
 
-.nav li a:hover {
+header .nav li a:hover {
     font-weight: bold;
 }
 
@@ -213,7 +256,7 @@ hr{
     font-family: 'Rampart One', cursive;
 }
 
-span {
+header span {
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -261,21 +304,90 @@ span {
     color: white;
     box-shadow: 2px 2px 2px 2px white;
 }
+    /* Header */
 
-body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+/* #carouselExampleCaptions{
+    height: 40%;
+} */
+.carousel-items img{
+    height: 500px;
 }
 
-footer {
-    margin-top: auto;
-    border: 0px;
-}
 
 /* media queries pour responsive */
-@media only screen and (min-width: 320px) and (max-width: 1023px) {
+@media only screen and (min-width: 400px){
     .sectionheader {
         height: 25vh;
     }
 }
+
+@media only screen and (min-width: 768px){
+    footer{
+        padding: 5% 5%;
+    }
+    .misc_row{
+        flex-direction: row;
+    }
+    .social{
+        justify-content: flex-end;
+    }
+    .social_div{
+        order: 2;
+    }
+    .bottom{
+        justify-content: space-between;
+    }
+    .social a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        margin: 0 10px;
+        width: 38px;
+        height: 38px;
+        border: 1px #d2b511ae solid;
+        border-radius: 45%;
+    }
+    .payment{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 35px;
+        padding-bottom: 1.1rem;
+    }
+    
+    .payment i{
+        padding: 0 5px;
+        color: rgb(145, 145, 145);
+    }
+    
+    .minilogo, .paymentsWrapper, .social_div{
+        padding: 0 20px;
+    }
+    .minologo{
+        align-self: center;
+    }
+    .minilogo img{
+        height: auto;
+        width: 70px;
+    }
+    
+    .copyright{
+        font-size: 15px;
+    }
+    
+    .column{
+        width: 25%;
+    }
+    
+    .column li{
+        font-size: 15px;
+    }
+    .column p{
+        font-size: 15px;
+    }
+    .contact{
+        margin-top: 20px;
+    }
+}
+
