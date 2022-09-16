@@ -356,6 +356,10 @@ header span {
     background-color: var(--first-color);
     color: white;
 }
+.mdp_link{
+    text-decoration: underline !important; 
+    justify-content: flex-start ! important;
+}
 .barre_ou{
     display: flex;
 }
@@ -419,7 +423,12 @@ header span {
 
 @media only screen and (min-width: 768px){
     /* Main */
-    
+    .google-btn {
+        width: 35%;
+    }
+    .barre_ou span{
+        padding: 0 2%;
+    }
     /* Main */
     /* Footer */
     footer{
