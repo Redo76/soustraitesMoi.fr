@@ -4,33 +4,42 @@
 {% endblock %}
 
 {% block body %}
-	<main>
-		<section class="form_container">
-            <article>
-                <h1>Inscription</h1>
+	<main class="row justify-content-md-center">
+		<section class="form_container col col-md-8 col-xl-6">
+            <article >
+                <h1>Renseignez vos informations</h1>
+
+                <a href="#">
+                    <div class="google-btn">
+                        <div class="google-icon-wrapper">
+                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                        </div>
+                        <p class="btn-text"><b>Inscription avec Google</b></p>
+                    </div>
+                </a>
+
+                <div class="barre_ou">
+                    <div class="barre"></div>
+                    <span>ou</span> 
+                    <div class="barre"></div>
+                </div>
 
                 {{ form_start(registrationForm) }}
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(registrationForm.firstname) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(registrationForm.lastname) }}
+                    </div>
+                </div>
                 {{ form_row(registrationForm.email) }}
                 {{ form_row(registrationForm.password, {
-                        label: 'Mot de passe'
+                        label: 'Mot de passe',
                     }) }}
-
                 <button type="submit" class="btn">S'inscrire</button>
                 {{ form_end(registrationForm) }}
             </article>
-            <div class="barre_ou">
-                <div class="barre"></div>
-                <span>ou</span> 
-                <div class="barre"></div>
-            </div>
-            <a href="#">
-                <div class="google-btn">
-                    <div class="google-icon-wrapper">
-                        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-                    </div>
-                    <p class="btn-text"><b>Continuer avec Google</b></p>
-                </div>
-            </a>
 		</section>
 	</main>
 {% endblock %}
