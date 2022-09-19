@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register-client', name: 'app_register_client')]
+    #[Route('/inscription-client', name: 'app_register_client')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -51,7 +51,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/register-expert', name: 'app_register_expert')]
+    #[Route('/inscription-expert', name: 'app_register_expert')]
     public function registerExpert(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();

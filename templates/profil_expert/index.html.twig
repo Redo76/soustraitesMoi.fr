@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+<aside>
+    <div class="profil_picture">
+        <img  class="img-fluid" {% if (app.user.googleId) %} src="{{app.user.avatar}}" {% else %}({% if app.user.avatar == null %} src="{{asset("uploads/avatar/default.png")}}" {% else %} src="{{asset("uploads/avatar/" ~  app.user.avatar)}}") {% endif %}{% endif %}  alt="Photo de profil">
+    </div>
+</aside>
+{# <style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/Users/Redou/OneDrive/Documents/DWWM2/soustraitesMoi.fr-1/src/Controller/ExpertController.php'|file_link(0) }}">src/Controller/ExpertController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/Redou/OneDrive/Documents/DWWM2/soustraitesMoi.fr-1/templates/expert/index.html.twig'|file_link(0) }}">templates/expert/index.html.twig</a></code></li>
+    </ul>
+</div> #}
+{% endblock %}
