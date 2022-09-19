@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription Client
+{% block title %}Inscription expert
 {% endblock %}
 
 {% block body %}
@@ -24,21 +24,22 @@
                     <div class="barre"></div>
                 </div>
 
-                {{ form_start(registrationForm) }}
+                {{ form_start(registrationExpertForm) }}
                 <div class="row">
                     <div class="col">
-                        {{ form_row(registrationForm.firstname) }}
+                        {{ form_row(registrationExpertForm.firstname) }}
                     </div>
                     <div class="col">
-                        {{ form_row(registrationForm.lastname) }}
+                        {{ form_row(registrationExpertForm.lastname) }}
                     </div>
                 </div>
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.password, {
+                {{ form_row(registrationExpertForm.email) }}
+                {{ form_row(registrationExpertForm.password, {
                         label: 'Mot de passe',
                     }) }}
+                {{ form_row(registrationExpertForm.address) }}
                 <button type="submit" class="btn">S'inscrire</button>
-                {{ form_end(registrationForm) }}
+                {{ form_end(registrationExpertForm) }}
             </article>
 		</section>
 	</main>
