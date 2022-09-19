@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('client/register', name: 'app_register_client')]
+    #[Route('/register-client', name: 'app_register_client')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -32,6 +32,8 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
+
+            $user->setRoles(["ROLE_CLIENT"]);
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -49,7 +51,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('expert/register', name: 'app_register_expert')]
+    #[Route('/register-expert', name: 'app_register_expert')]
     public function registerExpert(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -64,6 +66,8 @@ class RegistrationController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
+
+            $user->setRoles(["ROLE_EXPERT"]);
 
             $entityManager->persist($user);
             $entityManager->flush();
