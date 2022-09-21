@@ -135,16 +135,12 @@ hr{
     /* Header */
 
     /* Main */
-
+/* Accueil */
 .home_container{
     padding: 6%;
 }
-/* .asection_projet{
-    position: relative;
-    overflow: hidden;
-} */
-.article_projet h1{
-    font-size: 35px;
+.article_projet h2, section h2{
+    font-size: 33px;
     margin-top: 3%;
 }
 .article_projet p{
@@ -159,6 +155,12 @@ hr{
 .row_info p{
     margin: 0;
     margin-left: 10%;
+}
+.row_info div{
+    width: 15%;
+}
+.row_info div img{
+    width: 100%;
 }
 .background{
 
@@ -185,15 +187,128 @@ hr{
     border-radius: 5px;
 }
 .section_info{
-    background-color: var(--primary);
+    background-color: #FFBF23;
 }
-.section_info h1{
-    font-size: 35px;
-    margin-top: 3%;
-}
+
 .section_info p{
     font-size: 23px;
     padding-top: 3%;
+}
+.section_info2 p{
+    font-size: 18px;
+}
+.flex_info2{
+    display: flex;
+    flex-direction: column;
+}
+.center_img{
+    display: flex;
+    justify-content: center;
+}
+.article_info2{
+    padding: 5% 0;
+}
+.article_info2 img{
+    width: 50%;
+    margin: 10%;
+    border: black 3px solid;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.article_info2 h3{
+    font-weight: 700;
+    font-size: 22px;
+}
+.section_info3 h3{
+    padding: 3% 0;
+    font-size: 27px;
+}
+.section_partenaire{
+    background-color: #FFD7EF;
+}
+.section_partenaire h2{
+    padding: 5% 0;
+}
+.grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 5% 0;
+    /* gap: 5%; */
+}
+.grid .logo_partenaire{
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    padding: 8%;
+    overflow: hidden;
+}
+.grid div{
+    border-radius: 11px;
+    margin: 8%;
+}
+.grid div img{
+    width: 100%;
+    height: 100%;
+}
+.flex_quote{
+    display: flex;
+    flex-direction: column;
+}
+.quote_card{
+    position: relative;
+    border: 2px black solid;
+    margin: 15% 5% 25% 5%;
+    border-radius: 20px;
+}
+.quote_card .bar{
+    background-color: #FFBF23;
+    display: flex;
+    padding: 0 5%;
+    border-bottom: 2px black solid ;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.quote{
+    font-size: 20px;
+    padding: 12% 10%;
+}
+.quote_name{
+    position: absolute;
+    bottom: 2%;
+    right: 15%;
+}
+.quote_name p {
+    margin-bottom: 1px;
+    font-size: 13px;
+    font-weight: 600;
+}
+.quote_art{
+    position: absolute;
+    width: 40%;
+    bottom: -19%;
+    left: -5%;
+}
+.quote_art img{
+    width: 100%;
+}
+.fa-circle{
+    font-size: 10px;
+    padding: 10px 3px;
+}
+.section_projet2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.section_projet2 h2{
+    font-size: 30px;
+    text-align: center;
+}
+.section_projet2 a{
+    width: 60%;
+}
+.section_projet2 img{
+    width: 100%;
 }
 .carousel-items{
     object-fit: contain;
@@ -205,6 +320,7 @@ hr{
 .container{
     padding: 10%;
 }
+/* Accueil */
 /* Inscription */
 .container h1{
     font-size: 40px;
@@ -214,7 +330,6 @@ hr{
 .container p{
     font-size: 25px;
     padding-bottom: 2%;
-
 }
 .form_container{
     margin: 10%;

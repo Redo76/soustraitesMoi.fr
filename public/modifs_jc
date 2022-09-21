@@ -1,0 +1,358 @@
+index.html.twig   A METTRE AU DESSUS DU MAIN
+
+<section id="finder">
+
+        <div id="carousel">
+
+            <div class="hideLeft">
+                <img src="https://i1.sndcdn.com/artworks-000165384395-rhrjdn-t500x500.jpg">
+            </div>
+
+            <div class="prevLeftSecond">
+                <img src="https://i1.sndcdn.com/artworks-000185743981-tuesoj-t500x500.jpg">
+            </div>
+
+            <div class="prev">
+                <img src="https://i1.sndcdn.com/artworks-000158708482-k160g1-t500x500.jpg">
+            </div>
+
+            <div class="selected">
+                <img src="https://i1.sndcdn.com/artworks-000062423439-lf7ll2-t500x500.jpg">
+            </div>
+
+            <div class="next">
+                <img src="https://i1.sndcdn.com/artworks-000028787381-1vad7y-t500x500.jpg">
+            </div>
+
+            <div class="nextRightSecond">
+                <img src="https://i1.sndcdn.com/artworks-000108468163-dp0b6y-t500x500.jpg">
+            </div>
+
+            <div class="hideRight">
+                <img src="https://i1.sndcdn.com/artworks-000064920701-xrez5z-t500x500.jpg">
+            </div>
+
+        </div>
+
+        <!-- <div class="buttons">
+            <button id="prev">Prev</button>
+            <button id="next">Next</button>
+        </div> -->
+
+    </section>
+    
+    
+    style.css
+    
+    /* carousel Finder */
+
+    #finder {
+        width: 65%;
+        height: 100%;
+        margin: auto;
+        padding: 0;
+    }
+
+
+#carousel {
+    position: relative;
+    height: 400px;
+    top: 50%;
+    transform: translateY(-50%);
+    overflow: hidden;
+}
+
+#carousel div {
+    position: absolute;
+    transition: transform 1s, left 1s, opacity 1s, z-index 0s;
+    opacity: 1;
+}
+
+#carousel div img {
+    width: 400px;
+    transition: width 1s;
+}
+
+#carousel div.hideLeft {
+    left: 0%;
+    opacity: 0;
+    transform: translateY(50%) translateX(-50%);
+}
+
+#carousel div.hideLeft img {
+    width: 200px;
+}
+
+#carousel div.hideRight {
+    left: 100%;
+    opacity: 0;
+    transform: translateY(50%) translateX(-50%);
+}
+
+#carousel div.hideRight img {
+    width: 200px;
+}
+
+#carousel div.prev {
+    z-index: 5;
+    left: 30%;
+    transform: translateY(50px) translateX(-50%);
+}
+
+#carousel div.prev img {
+    width: 300px;
+}
+
+#carousel div.prevLeftSecond {
+    z-index: 4;
+    left: 15%;
+    transform: translateY(50%) translateX(-50%);
+    opacity: .7;
+}
+
+#carousel div.prevLeftSecond img {
+    width: 200px;
+}
+
+#carousel div.selected {
+    z-index: 10;
+    left: 50%;
+    transform: translateY(0px) translateX(-50%);
+}
+
+#carousel div.next {
+    z-index: 5;
+    left: 70%;
+    transform: translateY(50px) translateX(-50%);
+}
+
+#carousel div.next img {
+    width: 300px;
+}
+
+#carousel div.nextRightSecond {
+    z-index: 4;
+    left: 85%;
+    transform: translateY(50%) translateX(-50%);
+    opacity: .7;
+}
+
+#carousel div.nextRightSecond img {
+    width: 200px;
+}
+
+/* .buttons {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+} */
+
+@media only screen and (max-width: 600px) {
+
+    #carousel div img {
+        width: 200px;
+        transition: width 1s;
+    }
+    
+    #carousel div.hideLeft img {
+        width: 100px;
+    }
+    
+    #carousel div.hideRight img {
+        width: 100px;
+    }
+    
+    #carousel div.prev img {
+        width: 150px;
+    }
+    
+    #carousel div.prevLeftSecond img {
+        width: 100px;
+    }
+    
+    #carousel div.next img {
+        width: 150px;
+    }
+    
+    #carousel div.nextRightSecond img {
+        width: 100px;
+    } 
+}
+/* fin du carousel */
+
+app.js
+
+function moveToSelected(element) {
+
+    if (element == "next") {
+        var selected = $(".selected").next();
+    } else if (element == "prev") {
+        var selected = $(".selected").prev();
+    } else {
+        var selected = element;
+    }
+
+    var next = $(selected).next();
+    var prev = $(selected).prev();
+    var prevSecond = $(prev).prev();
+    var nextSecond = $(next).next();
+
+    $(selected).removeClass().addClass("selected");
+
+    $(prev).removeClass().addClass("prev");
+    $(next).removeClass().addClass("next");
+
+    $(nextSecond).removeClass().addClass("nextRightSecond");
+    $(prevSecond).removeClass().addClass("prevLeftSecond");
+
+    $(nextSecond).nextAll().removeClass().addClass('hideRight');
+    $(prevSecond).prevAll().removeClass().addClass('hideLeft');
+
+}
+
+// Eventos teclado
+$(document).keydown(function (e) {
+    switch (e.which) {
+        case 37: // left
+            moveToSelected('prev');
+            break;
+
+        case 39: // right
+            moveToSelected('next');
+            break;
+
+        default: return;
+    }
+    e.preventDefault();
+});
+
+à mettre dans Controller__ DoclegaleController
+
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+class DoclegaleController extends AbstractController
+{
+    #[Route('/doclegale', name: 'app_doclegale')]
+    public function index(): Response
+    {
+        return $this->render('doclegale/mentions_legales.html.twig', [
+            'controller_name' => 'DoclegaleController',
+        ]);
+    }
+}
+
+
+à mettre dans templeate doclegale mentions_legales.html.twig
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DoclegaleController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div id="mentions_legales">
+<h2>Mentions Légales</h2>
+
+<p class="mentions_num">1. Site internet - Application</p>
+
+<span class="italique">Identité</span>
+
+Le site internet disponible à l’adresse: www.<span class="couleur">soustraitesmoi.fr</span> (ci-après dénommé le «<span class="italique">Site</span>») et l’application mobile <span class="couleur">SOUSTRAITES MOI</span> (ci-après dénommée l'«<span class="italique">Application</span> ») sont édités par la société <span class="italique">MESNIL BIEN ÊTRE</span>, société par actions simplifiée au capital de 2.000,00 euros, immatriculée au registre du commerce et des sociétés de Rouen sous le numéro 889 017 620 et dont le siège social se situe 120 route de Paris – 76240 Le Mesnil-Esnard, France (ci-après dénommée «<span class="italique"> MESNIL BIEN ÊTRE</span> »).<br><br>
+
+N° TVA intracommunautaire : <span class="italique">FR 42 88 90 17 620.</span><br><br>
+
+<span class="italique">Directeur de la publication</span><br>
+
+Madame Joffrine DEHAIS.<br>
+
+<span class="italique">Contact</span><br>
+
+Adresse e-mail : <span class="couleur">soustraitesmoi@gmail.com.</span><br>
+
+<span class="italique">Hébergement</span><br>
+
+Le Site est hébergé par la société américaine <span class="italique">Go Daddy</span> dont le siège social est situé 4455 N. Hayden Road, Scottsdale, Arizona 85260, États-Unis.<br>
+
+<span class="italique">Numéro de téléphone</span><br>
+
+<span class="couleur">889 017 620</span><br>
+
+
+<p class="mentions_num">2. Reseaux sociaux</p>
+
+<span class="italique">Identité</span><br>
+
+Les sites ou les réseaux sociaux Facebook, Snapchat, TikTok, Twitter et Instagram de <span class="couleur">SOUSTRAITESMOI</span> et/ou MESNIL BIEN ÊTRE sont également édités par MESNIL BIEN ÊTRE.<br>
+
+<p class="mentions_num">3. Contenu et utilisation des informations</p><br>
+
+L’ensemble des contenus, pages, scripts, graphismes, photographies et icônes du Site, de l’Application et/ou des réseaux sociaux de <span class="couleur">SOUSTRAITES MOI</span> et/ou MESNIL BIEN ÊTRE est la propriété exclusive de MESNIL BIEN ÊTRE ou de tiers ayant autorisé MESNIL BIEN ÊTRE à les utiliser. Tous droits de reproduction ou de représentation de ceux-ci sont strictement réservés.<br>
+
+Par conséquent, toute reproduction, représentation, utilisation, adaptation, modification, incorporation, traduction, commercialisation, partielles ou intégrales, du Site, de l’Application et/ou des réseaux sociaux de <span class="couleur">SOUSTRAITES MOI</span> et/ou MESNIL BIEN ÊTRE, par quelque procédé et sur quelque support que ce soit (papier, numérique, …) sont interdites, sans l’autorisation écrite préalable de MESNIL BIEN ÊTRE, sous peine de constituer un délit de contrefaçon de droit d’auteur et/ou de dessins et modèles et/ou de marque.
+
+Les logos, marques, iconographies, relatifs à toutes autres sociétés et produits cités sur le Site, sur l’Application et/ou sur les réseaux sociaux de <span class="couleur">SOUSTRAITESMOI</span> et/ou MESNIL BIEN ÊTRE, sont la propriété respective de leurs auteurs et/ou titulaires.
+
+<p class="mentions_num">4. Liens hypertextes</p>
+
+À partir du Site ou de l’Application, les utilisateurs pourront avoir accès à différents liens les dirigeant vers des sites tiers.<br>
+
+MESNIL BIEN ÊTRE ne sera en aucun cas responsable concernant:<br> 
+
+le contenu des sites référencés sur le Site, sur l’Application et/ou sur les réseaux sociaux de <span class="couleur">SOUSTRAITES MOI</span> et/ou MESNIL BIEN ÊTRE;<br> 
+
+les informations ou contenus fournis par des tiers.<br>
+
+MESNIL BIEN ÊTRE n’exerce aucun contrôle sur les liens hypertextes et/ou autres formats promotionnels.<br>
+
+Par conséquent, MESNIL BIEN ÊTRE ne donne aucune garantie concernant notamment :<br>
+
+la véracité, la qualité, la complétude et l’exhaustivité du contenu des sites internet indexés ; ou<br>
+les difficultés d’accès et de fonctionnement des sites internet indexés ;
+
+et ne pourra en aucun cas être tenue pour responsable dans le cadre d’un litige survenant entre un site internet indexé sur le Site, sur l’Application et/ou MESNIL BIEN ÊTRE et un des utilisateurs, notamment en raison des pertes ou des dommages subis, les exploitants des sites internet indexés étant seuls responsables du contenu de leur site.
+
+<p class="mentions_num">5. Traitement des données à caractère personnel</p>
+
+Lors de la navigation sur le Site ou lors de l’utilisation de l’Application, les utilisateurs sont amenés à communiquer des données personnelles.<br>
+
+Les dispositions relatives à cette section sont disponibles dans la Politique de Confidentialité du Site accessible à partir de l’adresse suivante: <span class="couleur">Mentions Légales</span> , ou de l’Application disponible dans l’onglet <span class="couleur">Mentions Légales</span><br>
+
+À ce titre, les données recueillies par MESNIL BIEN ÊTRE sont utilisées pour les finalités et la durée prévues dans la Politique de Confidentialité. Elles sont destinées aux services de MESNIL BIEN ÊTRE et à ses prestataires pour l’inscription, l’identification et la fourniture des produits et services proposés par MESNIL BIEN ÊTRE.<br><br>
+
+Conformément:<br><br>
+
+au Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016 dit le <span class="italique">« RGPD »</span>relatif à la protection des personnes physiques à l’égard du traitement des données à caractère personnel et à la libre circulation de ces données; et<br>
+
+à la loi n°78-17 dite « Informatique et Libertés » du 6 janvier 1978, modifiée par la loi 2004-801 du 6 août 2004 relative à l’informatique, aux fichiers et aux libertés;<br>
+
+les utilisateurs disposent d’un droit d’accès, de modification, de rectification, de limitation, de portabilité et de suppression des données les concernant.
+
+Pour toute demande, les utilisateurs doivent s’adresser : soustraitesmoi@gmail.com.<br>
+MESNIL BIEN ÊTRE s’engage à la confidentialité et à la protection des données des utilisateurs.
+
+<p class="mentions_num">6. Modifications des mentions légales</p>
+
+MESNIL BIEN ÊTRE se réserve le droit de modifier, à tout moment, les présentes mentions légales, afin notamment de prendre en compte toute évolution légale, jurisprudentielle, éditoriale, fonctionnelle et/ou technique.<br>
+
+La version qui prévaut est celle qui est accessible en ligne au jour de la consultation du Site ou de l’utilisation de l’Application.<br> 
+
+Toute consultation du Site ou de l’Application après publication des mentions légales modifiées vaut acceptation sans réserve par ce dernier des nouvelles mentions légales.
+
+<p class="mentions_num">7. Loi applicable</p>
+
+Le Site et l’Application sont régis par le droit français.
+
+
+</div>
+{% endblock %}
