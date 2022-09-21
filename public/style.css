@@ -136,8 +136,8 @@ hr{
 
     /* Main */
 
-main{
-    padding: 0 6%;
+.home_container{
+    padding: 6%;
 }
 /* .asection_projet{
     position: relative;
@@ -183,6 +183,17 @@ main{
     color: white;
     text-decoration: none;
     border-radius: 5px;
+}
+.section_info{
+    background-color: var(--primary);
+}
+.section_info h1{
+    font-size: 35px;
+    margin-top: 3%;
+}
+.section_info p{
+    font-size: 23px;
+    padding-top: 3%;
 }
 .carousel-items{
     object-fit: contain;
@@ -252,7 +263,7 @@ main{
 }
 
 .google-btn {
-    width: 80%;
+    width: 90%;
     height: 42px;
     background-color: white;
     border-radius: 15px;
