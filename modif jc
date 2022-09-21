@@ -1,281 +1,228 @@
-controller contact
+index.html.twig   A METTRE AU DESSUS DU MAIN
 
-<?php
+<section id="finder">
 
-namespace App\Controller;
+        <div id="carousel">
 
-use App\Entity\Contact;
-use App\Form\ContactType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+            <div class="hideLeft">
+                <img src="https://i1.sndcdn.com/artworks-000165384395-rhrjdn-t500x500.jpg">
+            </div>
 
-class ContactController extends AbstractController
-{
-    #[Route('/contact', name: 'app_contact')]
-    public function index(): Response
-    {
-        $contact = new Contact();
-        $form = $this->createForm(ContactType::class, $contact);
+            <div class="prevLeftSecond">
+                <img src="https://i1.sndcdn.com/artworks-000185743981-tuesoj-t500x500.jpg">
+            </div>
 
-        return $this->render('contact/index.html.twig', [
-            'form' => $form->createview(),
-        ]);
+            <div class="prev">
+                <img src="https://i1.sndcdn.com/artworks-000158708482-k160g1-t500x500.jpg">
+            </div>
+
+            <div class="selected">
+                <img src="https://i1.sndcdn.com/artworks-000062423439-lf7ll2-t500x500.jpg">
+            </div>
+
+            <div class="next">
+                <img src="https://i1.sndcdn.com/artworks-000028787381-1vad7y-t500x500.jpg">
+            </div>
+
+            <div class="nextRightSecond">
+                <img src="https://i1.sndcdn.com/artworks-000108468163-dp0b6y-t500x500.jpg">
+            </div>
+
+            <div class="hideRight">
+                <img src="https://i1.sndcdn.com/artworks-000064920701-xrez5z-t500x500.jpg">
+            </div>
+
+        </div>
+
+        <!-- <div class="buttons">
+            <button id="prev">Prev</button>
+            <button id="next">Next</button>
+        </div> -->
+
+    </section>
+    
+    
+    style.css
+    
+    /* carousel Finder */
+
+    #finder {
+        width: 65%;
+        height: 100%;
+        margin: auto;
+        padding: 0;
     }
+
+
+#carousel {
+    position: relative;
+    height: 400px;
+    top: 50%;
+    transform: translateY(-50%);
+    overflow: hidden;
 }
 
-entity contact
-
-<?php
-
-namespace App\Controller;
-
-use App\Entity\Contact;
-use App\Form\ContactType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-
-class ContactController extends AbstractController
-{
-    #[Route('/contact', name: 'app_contact')]
-    public function index(): Response
-    {
-        $contact = new Contact();
-        $form = $this->createForm(ContactType::class, $contact);
-
-        return $this->render('contact/index.html.twig', [
-            'form' => $form->createview(),
-        ]);
-    }
+#carousel div {
+    position: absolute;
+    transition: transform 1s, left 1s, opacity 1s, z-index 0s;
+    opacity: 1;
 }
 
-entity Contact
-
-<?php
-
-namespace App\Entity;
-
-use App\Repository\ContactRepository;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-
-#[ORM\Entity(repositoryClass: ContactRepository::class)]
-class Contact
-{
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column(length: 75, nullable: true)]
-    #[Assert\NotNull()]
-    private ?string $firstName = null;
-
-    #[ORM\Column(length: 75, nullable: true)]
-    #[Assert\NotNull()]
-    private ?string $lastName = null;
-
-    #[ORM\Column(length: 180)]
-    #[Assert\NotNull()]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 150, nullable: true)]
-    #[Assert\NotNull()]
-    private ?string $subject = null;
-
-    #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotNull()]
-    private ?string $message = null;
-
-    #[ORM\Column]
-    #[Assert\NotNull()]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    public function __construct()
-    {
-       $this->createdAt = new \DateTimeImmutable() ;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(?string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(?string $lastName): self
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getSubject(): ?string
-    {
-        return $this->subject;
-    }
-
-    public function setSubject(?string $subject): self
-    {
-        $this->subject = $subject;
-
-        return $this;
-    }
-
-    public function getMessage(): ?string
-    {
-        return $this->message;
-    }
-
-    public function setMessage(string $message): self
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
+#carousel div img {
+    width: 400px;
+    transition: width 1s;
 }
 
-Form Contact
-
-<?php
-
-namespace App\Form;
-
-use App\Entity\Contact;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-
-
-class ContactType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('firstName', TextType::class,[
-                'attr'=>[
-                    'class'=>'form-control',
-                    'minlenght'=>'2',
-                    'maxlenght'=>'75',
-                ],
-                'label' => 'Prénom',
-                'label_attr' =>[
-                    'class'=>'form-label mt-4'
-                ],
-            ])
-            ->add('lastName', TextType::class,[
-                'attr'=>[
-                    'class'=>'form-control',
-                    'minlenght'=>'2',
-                    'maxlenght'=>'75',
-                ],
-                'label' => 'Nom',
-                'label_attr' =>[
-                    'class'=>'form-label mt-4'
-                ],
-            ])
-            ->add('email', EmailType::class,[
-                'attr'=>[
-                    'class'=>'form-control',
-                    'minlenght'=>'2',
-                    'maxlenght'=>'180',
-                ],
-                'label' => 'Email',
-                'label_attr' =>[
-                    'class'=>'form-label mt-4'
-                ],
-            ])
-            ->add('subject', TextType::class, [
-                'attr'=>[
-                    'class'=>'form-control',
-                    'minlenght'=>'2',
-                    'maxlenght'=>'150',
-                ],
-                'label' => 'Sujet',
-                'label_attr' =>[
-                    'class'=>'form-label mt-4'
-                ],
-            ])
-            ->add('message', TextareaType::class,[
-                'attr'=>[
-                    'class'=>'form-control',
-                ],
-                'label' => 'Votre message',
-                'label_attr' =>[
-                    'class'=>'form-label mt-4'
-                ], 
-            ])
-            ->add('submit', SubmitType::class,[
-                'attr'=>[
-                    'class'=>'btn btn-primary mt-4'
-                ],
-                'label' =>'Envoyer'
-            ])
-        ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Contact::class,
-        ]);
-    }
+#carousel div.hideLeft {
+    left: 0%;
+    opacity: 0;
+    transform: translateY(50%) translateX(-50%);
 }
 
+#carousel div.hideLeft img {
+    width: 200px;
+}
 
-template/contact/index.html.twig
+#carousel div.hideRight {
+    left: 100%;
+    opacity: 0;
+    transform: translateY(50%) translateX(-50%);
+}
 
-{% extends 'base.html.twig' %}
+#carousel div.hideRight img {
+    width: 200px;
+}
 
-{% block title %}Contactez nous{% endblock %}
+#carousel div.prev {
+    z-index: 5;
+    left: 30%;
+    transform: translateY(50px) translateX(-50%);
+}
 
-{% block body %}
-<div class="container">
-    {{ form(form) }}
-</div>
-{% endblock %}
+#carousel div.prev img {
+    width: 300px;
+}
+
+#carousel div.prevLeftSecond {
+    z-index: 4;
+    left: 15%;
+    transform: translateY(50%) translateX(-50%);
+    opacity: .7;
+}
+
+#carousel div.prevLeftSecond img {
+    width: 200px;
+}
+
+#carousel div.selected {
+    z-index: 10;
+    left: 50%;
+    transform: translateY(0px) translateX(-50%);
+}
+
+#carousel div.next {
+    z-index: 5;
+    left: 70%;
+    transform: translateY(50px) translateX(-50%);
+}
+
+#carousel div.next img {
+    width: 300px;
+}
+
+#carousel div.nextRightSecond {
+    z-index: 4;
+    left: 85%;
+    transform: translateY(50%) translateX(-50%);
+    opacity: .7;
+}
+
+#carousel div.nextRightSecond img {
+    width: 200px;
+}
+
+/* .buttons {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+} */
+
+@media only screen and (max-width: 600px) {
+
+    #carousel div img {
+        width: 200px;
+        transition: width 1s;
+    }
+    
+    #carousel div.hideLeft img {
+        width: 100px;
+    }
+    
+    #carousel div.hideRight img {
+        width: 100px;
+    }
+    
+    #carousel div.prev img {
+        width: 150px;
+    }
+    
+    #carousel div.prevLeftSecond img {
+        width: 100px;
+    }
+    
+    #carousel div.next img {
+        width: 150px;
+    }
+    
+    #carousel div.nextRightSecond img {
+        width: 100px;
+    } 
+}
+/* fin du carousel */
+
+app.js
+
+function moveToSelected(element) {
+
+    if (element == "next") {
+        var selected = $(".selected").next();
+    } else if (element == "prev") {
+        var selected = $(".selected").prev();
+    } else {
+        var selected = element;
+    }
+
+    var next = $(selected).next();
+    var prev = $(selected).prev();
+    var prevSecond = $(prev).prev();
+    var nextSecond = $(next).next();
+
+    $(selected).removeClass().addClass("selected");
+
+    $(prev).removeClass().addClass("prev");
+    $(next).removeClass().addClass("next");
+
+    $(nextSecond).removeClass().addClass("nextRightSecond");
+    $(prevSecond).removeClass().addClass("prevLeftSecond");
+
+    $(nextSecond).nextAll().removeClass().addClass('hideRight');
+    $(prevSecond).prevAll().removeClass().addClass('hideLeft');
+
+}
+
+// Eventos teclado
+$(document).keydown(function (e) {
+    switch (e.which) {
+        case 37: // left
+            moveToSelected('prev');
+            break;
+
+        case 39: // right
+            moveToSelected('next');
+            break;
+
+        default: return;
+    }
+    e.preventDefault();
+});
