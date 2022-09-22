@@ -3,8 +3,7 @@
 {% block title %}Soustraites Moi !{% endblock %}
 
 {% block body %}
-<main>
-  <section id="finder">
+  <aside id="finder">
     <div id="carousel">
       <div class="hideLeft">
         <img src="https://i1.sndcdn.com/artworks-000165384395-rhrjdn-t500x500.jpg">
@@ -32,7 +31,8 @@
         <button id="prev">Prev</button>
         <button id="next">Next</button>
     </div> -->
-  </section>
+  </aside>
+<main>
   {# <aside id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -71,38 +71,43 @@
       <span class="visually-hidden">Next</span>
     </button>
   </aside> #}
-  <section class="section_projet home_container">
-  <div class="background"></div>
-    <article class="article_projet">
-      <h2>Déposez-nous <br>
-      votre projet</h2>
-      <p>
-        Obtenez un ou plusieurs devis, <br>
-        choisissez celui qui vous convient, sous-traitez auprès de nos experts !
-      </p>
-      <div class="projet_info">
-        <div class="row_info">
-          <div>
-            <img src="{{asset('assets/img/icone1.svg')}}" alt="">    
+  <div class="flex_projet">
+    <section class="section_projet home_container">
+      <div class="background"></div>
+      <article class="article_projet">
+        <h2>Déposez-nous <br>
+        votre projet</h2>
+        <p>
+          Obtenez un ou plusieurs devis, <br>
+          choisissez celui qui vous convient, sous-traitez auprès de nos experts !
+        </p>
+        <a type="button" class="button">Commencer</a>
+        <div class="projet_info">
+          <div class="row_info">
+            <div>
+              <img src="{{asset('assets/img/icone1.svg')}}" alt="">    
+            </div>
+            <p>Rapide & Sécurisé</p>
           </div>
-          <p>Rapide & Sécurisé</p>
-        </div>
-        <div class="row_info">
-          <div>
-            <img src="{{asset('assets/img/icone2.svg')}}" alt="">    
+          <div class="row_info">
+            <div>
+              <img src="{{asset('assets/img/icone2.svg')}}" alt="">    
+            </div>
+            <p>Flexibilité & Évolutivité</p>
           </div>
-          <p>Flexibilité & Évolutivité</p>
-        </div>
-        <div class="row_info">
-          <div>
-            <img src="{{asset('assets/img/icone3.svg')}}" alt="">    
+          <div class="row_info">
+            <div>
+              <img src="{{asset('assets/img/icone3.svg')}}" alt="">    
+            </div>
+            <p>Meilleur Collaboration</p>
           </div>
-          <p>Meilleur Collaboration</p>
         </div>
-      </div>
-      <a type="button" class="button">Commencer</a>
-    </article>
-  </section>
+      </article>
+    </section>
+    <div class="projet_background_img">
+      <img src="{{asset('assets/img/Art1.svg')}}" alt="">
+    </div>
+  </div>
   <section class="section_info home_container">
     <h2>
       Le bon expert <br>
@@ -201,7 +206,7 @@
           <div>
             <img src="{{asset('assets/img/icone6.svg')}}" alt="">    
           </div>        
-          <p>Un design totalement libre</p>
+          <p>Un design libre</p>
         </div>
       </div>
     </article>
