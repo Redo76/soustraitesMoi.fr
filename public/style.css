@@ -246,13 +246,118 @@ hr{
     width: 200px;
 }
 
-/* .buttons {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 10px;
-} */
+@media only screen and (max-width: 768px) {
 
+    #finder {
+        width:85%;
+    }
+
+    #carousel div img {
+        width: 200px;
+        transition: width 1s;
+    }
+    
+    #carousel div.hideLeft img {
+        width: 100px;
+    }
+    
+    #carousel div.hideRight img {
+        width: 100px;
+    }
+    
+    #carousel div.prev img {
+        width: 137px;
+    }
+    
+    #carousel div.prevLeftSecond img {
+        width: 110px;
+    }
+    
+    #carousel div.next img {
+        width: 137px;
+    }
+    
+    #carousel div.nextRightSecond img {
+        width: 110px;
+    } 
+}
+@media only screen and (max-width: 768px) {
+
+    #finder {
+        width:85%;
+    }
+
+    #carousel div img {
+        width: 200px;
+        transition: width 1s;
+    }
+    
+    #carousel div.hideLeft img {
+        width: 100px;
+    }
+    
+    #carousel div.hideRight img {
+        width: 100px;
+    }
+    
+    #carousel div.prev img {
+        width: 137px;
+    }
+    
+    #carousel div.prevLeftSecond img {
+        width: 110px;
+    }
+    
+    #carousel div.next img {
+        width: 137px;
+    }
+    
+    #carousel div.nextRightSecond img {
+        width: 110px;
+    } 
+}
+@media only screen and (max-width: 768px) {
+
+    #finder {
+        width:85%;
+    }
+
+    #carousel div img {
+        width: 200px;
+        transition: width 1s;
+    }
+    
+    #carousel div.hideLeft img {
+        width: 100px;
+    }
+    
+    #carousel div.hideRight img {
+        width: 100px;
+    }
+    
+    #carousel div.prev img {
+        width: 137px;
+    }
+    
+    #carousel div.prevLeftSecond img {
+        width: 110px;
+    }
+    
+    #carousel div.next img {
+        width: 137px;
+    }
+    
+    #carousel div.nextRightSecond img {
+        width: 110px;
+    } 
+}
+
+@media only screen and (max-width: 1200px) {
+
+    #finder {
+        width:75%;
+    }
+}
 /* fin du carousel */
 
 /* Accueil */
@@ -585,37 +690,7 @@ hr{
 @media only screen and (min-width: 768px){
     /* Main */
 
-    /* Carousel Finder */
-    #carousel div img {
-        width: 200px;
-        transition: width 1s;
-    }
-    
-    #carousel div.hideLeft img {
-        width: 100px;
-    }
-    
-    #carousel div.hideRight img {
-        width: 100px;
-    }
-    
-    #carousel div.prev img {
-        width: 150px;
-    }
-    
-    #carousel div.prevLeftSecond img {
-        width: 100px;
-    }
-    
-    #carousel div.next img {
-        width: 150px;
-    }
-    
-    #carousel div.nextRightSecond img {
-        width: 100px;
-    } 
-    /* carousel Finder */
-    /* Accueil */
+       /* Accueil */
     .home_container{
         padding: 3%;
     }
