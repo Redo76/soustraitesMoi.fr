@@ -28,7 +28,12 @@ a:hover{
 }
 
     /* Footer */
-footer{
+.bande2{
+    background-color: var(--primary);
+    width: 100%;
+    height: 4px;
+}
+.div_footer{
     margin-top:auto; 
     padding: 10% 5%;
     border: 0px;
@@ -103,6 +108,7 @@ footer{
     flex-direction: column;
     align-items: center;
     padding-bottom: 5%;
+    width: 100%;
 }
 .column ul{
     align-items: center;
@@ -113,7 +119,7 @@ footer{
     padding-bottom: 10px;
 }
 .column li{
-    font-size: 22px;
+    font-size: 20px;
 }
 .column p{
     font-size: 15px;
@@ -136,14 +142,20 @@ hr{
     .bande{
         background-color: black;
         width: 100%;
-        height: 8%;
+        height: 7%;
     }
-    .bande div{
-        display: none;
-        background-color: var(--primary);
-        width: 100%;
-        height: 2px;
+    .div_header{
+        position: relative;
+        padding: 5%;
     }
+    .fa-bars{
+        position: absolute;
+        font-size: 25px;
+        left: 0;
+        top: 0;
+        color: var(--primary);
+    }
+    
 
     /* Header */
 
@@ -578,6 +590,10 @@ hr{
     /* Main */
 
     /* Carousel Finder */
+    #finder {
+        width:85%;
+    }
+
     #carousel div img {
         width: 200px;
         transition: width 1s;
@@ -592,20 +608,20 @@ hr{
     }
     
     #carousel div.prev img {
-        width: 150px;
+        width: 137px;
     }
     
     #carousel div.prevLeftSecond img {
-        width: 100px;
+        width: 110px;
     }
     
     #carousel div.next img {
-        width: 150px;
+        width: 137px;
     }
     
     #carousel div.nextRightSecond img {
-        width: 100px;
-    } 
+        width: 110px;
+    }  
     /* carousel Finder */
     /* Accueil */
     .home_container{
@@ -767,10 +783,8 @@ hr{
     /* Profil expert */
     /* Main */
     /* Footer */
-    footer{
-        padding:0 5%;
-        padding-top: 5%;
-        padding-bottom: 2%;
+    .div_footer{
+        padding:5% 5% 2% 5%;
     }
     .misc_row{
         flex-direction: row;
