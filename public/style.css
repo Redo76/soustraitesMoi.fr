@@ -162,9 +162,8 @@ hr{
     /* Main */
 
 /* carousel Finder */
-
 #finder {
-    width: 65%;
+    width: 95%;
     height: 100%;
     margin: auto;
     padding: 0;
@@ -185,7 +184,7 @@ hr{
 }
 
 #carousel div img {
-    width: 400px;
+    width: 200px;
     transition: width 1s;
 }
 
@@ -196,7 +195,7 @@ hr{
 }
 
 #carousel div.hideLeft img {
-    width: 200px;
+    width: 100px;
 }
 
 #carousel div.hideRight {
@@ -206,7 +205,7 @@ hr{
 }
 
 #carousel div.hideRight img {
-    width: 200px;
+    width: 100px;
 }
 
 #carousel div.prev {
@@ -216,7 +215,7 @@ hr{
 }
 
 #carousel div.prev img {
-    width: 300px;
+    width: 125px;
 }
 
 #carousel div.prevLeftSecond {
@@ -227,7 +226,7 @@ hr{
 }
 
 #carousel div.prevLeftSecond img {
-    width: 200px;
+    width: 110px;
 }
 
 #carousel div.selected {
@@ -243,7 +242,7 @@ hr{
 }
 
 #carousel div.next img {
-    width: 300px;
+    width: 125px;
 }
 
 #carousel div.nextRightSecond {
@@ -254,8 +253,76 @@ hr{
 }
 
 #carousel div.nextRightSecond img {
-    width: 200px;
+    width: 110px;
 }
+
+@media only screen and (min-width: 768px) {
+    #finder {
+        width: 85%;
+    }
+    #carousel {
+        height:400px;
+    }
+
+    #carousel div img {
+        width: 400px;
+    }
+    
+    #carousel div.hideLeft img {
+        width: 200px;
+    }
+    
+    #carousel div.prev img {
+        width: 300px;
+    }
+    
+    #carousel div.prevLeftSecond img {
+        width: 200px;
+    }
+    
+    #carousel div.next img {
+        width: 300px;
+    }
+    
+    #carousel div.nextRightSecond img {
+        width: 200px;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    #finder {
+        width: 65%;
+        height:400px;
+    }
+
+    #carousel {
+        height:400px;
+    }
+
+    #carousel div img {
+        width: 400px;
+    }
+    
+    #carousel div.hideLeft img {
+        width: 200px;
+    }
+    
+    #carousel div.prev img {
+        width: 300px;
+    }
+    
+    #carousel div.prevLeftSecond img {
+        width: 200px;
+    }
+    
+    #carousel div.next img {
+        width: 300px;
+    }
+    
+    #carousel div.nextRightSecond img {
+        width: 200px;
+    }
+}
+
 
 /* fin du carousel */
 
