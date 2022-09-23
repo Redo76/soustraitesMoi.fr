@@ -574,14 +574,6 @@ hr{
     /* Main */
 
 
-
-/* media queries pour responsive */
-@media only screen and (min-width: 400px){
-    .sectionheader {
-        height: 25vh;
-    }
-}
-
 @media only screen and (min-width: 768px){
     /* Main */
 
