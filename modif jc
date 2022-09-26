@@ -108,7 +108,7 @@ A RAJOUTER DANS LE STYLE.CSS
 /* début offres */
 #offres {
     width: 100%;
-    height: 250vh;
+    height: 280vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -131,7 +131,7 @@ margin-top: 2%;
 
 #cards {
     width: 75%;
-    height: 220vh;
+    height: 260vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -157,7 +157,7 @@ margin-top: 2%;
 
 .card_bottom {
     background-color: #f6f6f6;
-    height: 30vh;
+    height: 35vh;
     border-bottom-left-radius: 10px 10px;
     border-bottom-right-radius: 10px 10px;
     padding: 10px;
@@ -259,7 +259,11 @@ li {
     right:-25px;
 }
 
-@media only screen and (min-width: 768px){
+@media only screen and (min-width: 767px){
+
+    #offres {
+        height: 185vh;
+    }
     
     .card_complete {
         width: 40%;
@@ -268,7 +272,7 @@ li {
 
     #cards {
         width: 95%;
-        height: 145vh;
+        height: 175vh;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
@@ -288,8 +292,8 @@ li {
         right:-10px;
     }
     #img_card3 {
-        width: 150px;
-        height: 150px;
+        width: 140px;
+        height: 140px;
         bottom:-25px;
         right:80px;
     }
@@ -300,17 +304,32 @@ li {
 }
 
 @media only screen and (min-width: 1200px) {
+    #offres {
+        height:120vh;
+    }
+    
     #cards {
         width: 75%;
-        height: 80vh;
+        height: 110vh;
         display: flex;
         justify-content: space-around;
         padding-top: 50px;
     }
 
     .card_complete {
-        width: 20%;
-        height: 70vh;
+        width: 400px;
+        height: 90vh;
+    }
+
+    .card_top {
+        height: 45vh;
+    }
+    .card_bottom {
+        height: 45vh;
+    }
+
+    #card_top_different{
+        height: 45vh; 
     }
 
     #img_card3 {
@@ -323,10 +342,11 @@ li {
         font-weight: 600;
         width: 150px;
         height: 60px;
-        left:110px;
         top:-40px;
+        left:32%;
         padding-top: 5px;
         box-shadow: 2px 2px white;
+       
 }
 
 #h1_p_offres h1 {
@@ -372,6 +392,7 @@ li {
     margin-top: 10%;
 }
 }
+
 /* fin offres */
 
 PAS MOYEN DE METTRE LE FICHIER IMAGE!! offres1.svg
