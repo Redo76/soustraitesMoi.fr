@@ -15,4 +15,11 @@ class DocumentationLegalesController extends AbstractController
             'controller_name' => 'DocumentationLegalesController',
         ]);
     }
+    #[Route('/confidentialite', name: 'confidentialite')]
+    public function confidentialite(): Response
+    {
+        return $this->render('documentation_legales/confidentialite.html.twig', [
+            'controller_name' => 'DocumentationLegalesController',
+        ]);
+    }
 }

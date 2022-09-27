@@ -1,3 +1,21 @@
+const burgerBtn = document.querySelector(".fa-bars");
+const closeBtn = document.querySelector(".fa-xmark");
+const sideBar = document.querySelector("header aside");
+const body = document.querySelector("body");
+const header = document.querySelector("header");
+
+
+burgerBtn.addEventListener("click", ()=>{
+    sideBar.classList.add("active");
+    body.classList.add("stop-scrolling");
+})
+
+closeBtn.addEventListener("click", ()=>{
+    sideBar.classList.remove("active");
+    body.classList.remove("stop-scrolling");
+})
+
+
 function moveToSelected(element) {
 
     if (element == "next") {
@@ -8,10 +26,10 @@ function moveToSelected(element) {
         var selected = element;
     }
 
-    var next = $(selected).next();
-    var prev = $(selected).prev();
-    var prevSecond = $(prev).prev();
-    var nextSecond = $(next).next();
+    let next = $(selected).next();
+    let prev = $(selected).prev();
+    let prevSecond = $(prev).prev();
+    let nextSecond = $(next).next();
 
     $(selected).removeClass().addClass("selected");
 
@@ -40,5 +58,17 @@ $(document).keydown(function (e) {
         default: return;
     }
     e.preventDefault();
+});
+
+$('#carousel div').click(function () {
+    moveToSelected($(this));
+});
+
+$('#prev').click(function () {
+    moveToSelected('prev');
+});
+
+$('#next').click(function () {
+    moveToSelected('next');
 });
 

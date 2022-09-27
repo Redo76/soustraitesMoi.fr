@@ -35,10 +35,10 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
 
         - { path: ^/mon-compte-client, roles: ROLE_CLIENT}
-        - { path: ^/mon-compte-client, roles: ROLE_ADMIN}
+        # - { path: ^/mon-compte-client, roles: ROLE_ADMIN}
 
         - { path: ^/mon-compte-expert, roles: ROLE_EXPERT}
-        - { path: ^/mon-compte-expert, roles: ROLE_ADMIN}
+        # - { path: ^/mon-compte-expert, roles: ROLE_ADMIN}
 
 when@test:
     security:
