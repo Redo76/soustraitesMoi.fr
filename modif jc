@@ -458,5 +458,17 @@ DONC JE TE METS LE CONTENU SVG, SI TU VEUX COPIER UNE AUTRE ET METTRE CA DEDANS 
 <path d="M86.137 139.42c-.16.28-.335.452-.307.578.028.126.249.244.407.29.057.017.267-.204.25-.284-.033-.164-.172-.305-.35-.584z" data-color="1"/>
 </svg>
 
+app.js carousel
 
+$('#carousel div').click(function () {
+    moveToSelected($(this));
+});
+
+$('#prev').click(function () {
+    moveToSelected('prev');
+});
+
+$('#next').click(function () {
+    moveToSelected('next');
+});
 
