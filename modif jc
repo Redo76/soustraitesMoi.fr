@@ -472,3 +472,39 @@ $('#next').click(function () {
     moveToSelected('next');
 });
 
+BTN SOUS CAROUSEL
+
+<aside id="carousel_btn">
+  <button><a href="{{ path('app_register') }}">Déposer un projet</a></button>
+  <button><a href="{{ path('app_expert_register') }}">Devenir expert référencé</a></button>
+  </aside>
+  
+  CSS BTN SOUS CAROUSEL
+  
+  /* aside btn sous carousel */
+
+#carousel_btn {
+    text-align: center;
+    padding-top: 20px;
+ 
+}
+#carousel_btn button {
+   height: 60px;
+   width: 120px;
+   margin-right: 2%;
+   border-radius: 5px;
+   background-color: black;
+   box-shadow: 2px 2px gray;
+}
+#carousel_btn button:hover {
+   background-color: #d2b511;
+   box-shadow: 2px 2px gray;
+}
+
+#carousel_btn a {
+    text-decoration: none;
+    color: #d2b511;
+}
+#carousel_btn a:hover {
+    color: black;
+}
