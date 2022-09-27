@@ -282,7 +282,6 @@ hr{
     /* Main */
 
 /* carousel Finder */
-
 #finder {
     width: 95%;
     height: 100%;
@@ -377,6 +376,7 @@ hr{
     width: 110px;
 }
 
+<<<<<<< HEAD
 #carousel_btn {
     text-align: center;
     padding-top: 20px;
@@ -398,6 +398,73 @@ hr{
 #carousel_btn a {
     text-decoration: none;
     color: black;
+=======
+@media only screen and (min-width: 768px) {
+    #finder {
+        width: 85%;
+    }
+    #carousel {
+        height:400px;
+    }
+
+    #carousel div img {
+        width: 400px;
+    }
+    
+    #carousel div.hideLeft img {
+        width: 200px;
+    }
+    
+    #carousel div.prev img {
+        width: 300px;
+    }
+    
+    #carousel div.prevLeftSecond img {
+        width: 200px;
+    }
+    
+    #carousel div.next img {
+        width: 300px;
+    }
+    
+    #carousel div.nextRightSecond img {
+        width: 200px;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    #finder {
+        width: 65%;
+        height:400px;
+    }
+
+    #carousel {
+        height:400px;
+    }
+
+    #carousel div img {
+        width: 400px;
+    }
+    
+    #carousel div.hideLeft img {
+        width: 200px;
+    }
+    
+    #carousel div.prev img {
+        width: 300px;
+    }
+    
+    #carousel div.prevLeftSecond img {
+        width: 200px;
+    }
+    
+    #carousel div.next img {
+        width: 300px;
+    }
+    
+    #carousel div.nextRightSecond img {
+        width: 200px;
+    }
+>>>>>>> 5a320df569c309b30d933849b410240a0aae18d6
 }
 
 
