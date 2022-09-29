@@ -2,7 +2,8 @@ const burgerBtn = document.querySelector(".fa-bars");
 const closeBtn = document.querySelector(".fa-xmark");
 const sideBar = document.querySelector("header aside");
 const body = document.querySelector("body");
-const header = document.querySelector("header");
+const dropDownBtn = document.querySelector(".fa-sort-down");
+const dropDownMenu = document.querySelector(".dropdown-menu");
 
 
 burgerBtn.addEventListener("click", ()=>{
@@ -15,6 +16,9 @@ closeBtn.addEventListener("click", ()=>{
     body.classList.remove("stop-scrolling");
 })
 
+dropDownBtn.addEventListener("click", ()=>{
+    dropDownMenu.classList.toggle("menu_active");
+})
 
 function moveToSelected(element) {
 

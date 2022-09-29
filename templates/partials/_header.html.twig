@@ -24,11 +24,14 @@
                         Expert
                         {% elseif is_granted('ROLE_CLIENT')  %}
                         Client
-                        {% else %}
+                        {% elseif is_granted('ROLE_ADMIN') %}
                         Administrateur
                         {% endif %}
                     </p>            
                 </div>
+                <a href="{{path('app_logout')}}">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
             </div>
         {% else %}
             <div class="login_side">
@@ -39,41 +42,112 @@
                 </div>
             </div>
         {% endif %}
-        <ul class="nav d-flex flex-column align-center mb-2 mb-md-0">
+        <ul class="d-flex flex-column mb-2">
+            {% if is_granted('ROLE_EXPERT')  %}
             <li>
-                <a href="#" class="nav-link px-2 text-white">
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-sheet-plastic"></i>
+                    Consulter des projets
+                </a>
+            </li>
+            {% elseif is_granted('ROLE_CLIENT')  %}
+            <li>
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-file-signature"></i>
+                    Vos projets
+                </a>
+            </li>
+            {% elseif is_granted('ROLE_ADMIN') %}
+            <li>
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-user-tie"></i>
+                    Administration
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_EXPERT')  %}
+            <li>
+                <a href="{{path('app_expert')}}" class="nav-link">
                     <i class="fa-regular fa-user"></i>
                     Utilisateur
                 </a>
             </li>
+            {% elseif is_granted('ROLE_CLIENT')  %}
             <li>
-                <a href="#" class="nav-link px-2 text-white">
+                <a href="{{path('app_client')}}" class="nav-link">
+                    <i class="fa-regular fa-user"></i>
+                    Utilisateur
+                </a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="#" class="nav-link">
                     <i class="fa-regular fa-handshake"></i>
                     Nos Services
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link px-2 text-white">
-                    <i class="fa-solid fa-euro-sign"></i>
+                <a href="{{path('app_offres')}}" class="nav-link">
+                    <i class="fa-solid fa-tags"></i>
                     Nos offres
                 </a>
             </li>
         </ul>
     </aside>
     <div class="div_header">
-        <div class="d-flex flex-wrap align-items-center justify-content-around justify-content-lg-start">
+        <div class="flex_header">
             <i class="fa-solid fa-bars"></i>
             <a href="{{path('app_home')}}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
                 <img src="{{asset('assets/img/Soustraitesmoi_fr.webp')}}" alt="Logo SoustraitesMoi">
             </a>
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">Inventory</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">Customers</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">Products</a></li>
+            <ul class="nav mb-2 mb-md-0">
+                {% if is_granted('ROLE_EXPERT')  %}
+                <li><a href="#" class="nav-link ">Consulter des projets</a></li>
+                {% elseif is_granted('ROLE_CLIENT')  %}
+                <li><a href="#" class="nav-link ">Vos projets</a></li>
+                {% elseif is_granted('ROLE_ADMIN') %}
+                <li><a href="#" class="nav-link ">Administration</a></li>
+                {% endif %}
+                <li><a href="{{path('app_home')}}#nosServices" class="nav-link ">Nos services</a></li>
+                <li><a href="{{path('app_offres')}}" class="nav-link ">Nos offres</a></li>
+                <li><a href="#email" class="nav-link ">Contact</a></li>
             </ul>
-
+            {% if app.user %}
+            <div class="top_profil">
+                <div class="pp me-1">
+                    {% if app.user.avatar %}
+                        <img src="{{app.user.avatar}}" alt="Photo de profil">
+                    {% else %}
+                        <img src="{{asset("assets/uploads/avatar/default.png")}}" alt="Photo de profil par défaut">
+                    {% endif %}
+                </div>
+                <i class="fa-solid fa-sort-down"></i>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
+                    {% if is_granted('ROLE_EXPERT')  %}
+                    <li><a class="dropdown-item" href="#">Mes Projets</a></li>
+                    <li><a class="dropdown-item" href="{{path('app_expert')}}">Profil</a></li>
+                    {% elseif is_granted('ROLE_CLIENT')  %}
+                    <li><a class="dropdown-item" href="#">Mes Projets</a></li>
+                    <li><a class="dropdown-item" href="{{path('app_client')}}">Profil</a></li>
+                    {% elseif is_granted('ROLE_ADMIN') %}
+                    <li><a href="#" class="dropdown-item">Administration</a></li>
+                    {% endif %}
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a></li>
+                </ul>
+            </div>
+            {% else %}
+            <div class="div_button">
+                <a href="{{path('app_login')}}" class="button">Connexion</a>
+                <a href="" class="button">S'inscrire</a>
+            </div>
+            {% endif %}
+            {# <div class="profil_top dropdown text-end">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+            </div> #}
             {# <div class="dropdown text-end">
             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
@@ -86,6 +160,6 @@
                 <li><a class="dropdown-item" href="#">Sign out</a></li>
             </ul>
             </div> #}
-      </div>
+        </div>
     </div>
 </header>

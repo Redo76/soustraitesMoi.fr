@@ -19,58 +19,50 @@
 						{{ message }}
 					</div>
 				{% endfor %} #}
+            {{ form_start(EditClient) }}
 				<h4>Informations personnelles</h4>
 				<table class="table">
 					<tbody>
 						<tr>
-							<th>Prénom</th>
-							<td>{{app.user.firstname}}</td>
+                            <th>Prénom</th>
+                            <td>{{ form_row(EditClient.firstname) }}</td>
 						</tr>
 						<tr>
 							<th>Nom</th>
-							<td>{{app.user.lastname}}</td>
+							<td>{{ form_row(EditClient.lastname) }}</td>
 						</tr>
 						<tr>
 							<th>Email</th>
-							<td>{{app.user.email}}</td>
+							<td>{{ form_row(EditClient.email) }}</td>
 						</tr>
 						<tr>
 							<th>Téléphone</th>
-							<td>{{app.user.phone}}</td>
+							<td>{{ form_row(EditClient.phone) }}</td>
 						</tr>
 					</tbody>
 
 				</table>
-				<h4>Adresse</h4>
+				<h4>Informations Société</h4>
 				<table class="table">
 					<tbody>
 						<tr>
-							<th>Adresse</th>
-							<td>{{app.user.address ? app.user.address.address : 'Non défini'}}</td>
+							<th>Nom</th>
+							<td>{{ form_row(EditClient.companyName) }}</td>
 						</tr>
 						<tr>
-							<th>Adresse ligne 2</th>
-							<td>{{app.user.address ? app.user.address.address2 : 'Non défini'}}</td>
+							<th>Nom commercial</th>
+							<td>{{ form_row(EditClient.companyCommercialName) }}</td>
 						</tr>
 						<tr>
-							<th>Ville</th>
-							<td>{{app.user.address ? app.user.address.city : 'Non défini'}}</td>
-						</tr>
-						<tr>
-							<th>Code postal</th>
-							<td>{{app.user.address ? app.user.address.codePostal : 'Non défini'}}</td>
-						</tr>
-						<tr>
-							<th>Pays</th>
-							<td>{{app.user.address ? app.user.address.country : 'Non défini'}}</td>
+							<th>N° de siret</th>
+							<td>{{ form_row(EditClient.siret) }}</td>
 						</tr>
 					</tbody>
 				</table>
-
 			</div>
             <div class="d-flex align-items-center justify-between">
-                <a class="button" href="{{path('app_edit_expert')}}">Modifier informations personnelles</a>
-                <a class="button" href="#">Modifier mot de passe</a>
+                <button type="submit">Modifier informations personnelles</button>
+                {{ form_end(EditClient) }}
             </div>
 		</div>
 	</main>

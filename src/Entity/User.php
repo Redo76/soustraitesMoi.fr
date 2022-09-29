@@ -46,8 +46,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Address $address = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $phone = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $siret = null;
+
+    #[ORM\Column(length: 75, nullable: true)]
+    private ?string $companyName = null;
+
+    #[ORM\Column(length: 180, nullable: true)]
+    private ?string $companyCommercialName = null;
 
 
     public function getId(): ?int
@@ -180,17 +189,52 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getPhone(): ?string
     {
-        return $this->description;
+        return $this->phone;
     }
 
-    public function setDescription(?string $description): self
+    public function setPhone(?string $phone): self
     {
-        $this->description = $description;
+        $this->phone = $phone;
 
         return $this;
     }
 
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?string $siret): self
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getCompanyName(): ?string
+    {
+        return $this->companyName;
+    }
+
+    public function setCompanyName(?string $companyName): self
+    {
+        $this->companyName = $companyName;
+
+        return $this;
+    }
+
+    public function getCompanyCommercialName(): ?string
+    {
+        return $this->companyCommercialName;
+    }
+
+    public function setCompanyCommercialName(?string $companyCommercialName): self
+    {
+        $this->companyCommercialName = $companyCommercialName;
+
+        return $this;
+    }
 
 }

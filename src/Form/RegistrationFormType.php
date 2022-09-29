@@ -22,19 +22,22 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom',
-                'attr' => ['class' => 'firstName'],
+                'label' => false,
+                'attr' => ['class' => 'firstName','placeholder' => 'Prénom'],
                 'required' => true,
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Nom',
-                'attr' => ['class' => 'Nom'],
+                'label' => false,
+                'attr' => ['class' => 'Nom','placeholder' => 'Nom'],
                 'required' => true,
             ])
             ->add('email', EmailType::class, [
+                'label' => false,
+                'attr' => ['placeholder' => 'Email'],
                 'required' => true,
             ])
             ->add('password', RepeatedType::class, [
+                'label' => false,
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',
                 'options' => ['attr' => ['class' => 'password-field']],
@@ -46,6 +49,26 @@ class RegistrationFormType extends AbstractType
                         'pattern'=> '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',
                         'match'=> true,
                         'message'=> 'Veuillez entrer un mot de passe contenant 6 caractères dont 1 majusucle, 1 minuscule et 1 chiffre',
+                    ]),
+                ]
+            ])
+            ->add('companyName', TextType::class, [
+                'label' => false,
+                'attr' => ['placeholder' => 'Nom'],
+            ])
+            ->add('companyCommercialName', TextType::class, [
+                'label' => false,
+                'attr' => ['placeholder' => 'Nom comercial'],
+            ])
+            
+            ->add('siret', TextType::class, [
+                'label' => false,
+                'attr' => ['placeholder' => 'N° de siret'],
+                'constraints' => [
+                    new Regex([
+                        'pattern'=> '/^[0-9]{14}$/',
+                        'match'=> true,
+                        'message'=> 'Veuillez entrer un numéro valide',
                     ]),
                 ]
             ])

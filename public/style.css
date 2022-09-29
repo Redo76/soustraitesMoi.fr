@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap');
 
 *{
     box-sizing: border-box;
@@ -38,8 +40,7 @@ header{
 } */
 .active{
     visibility:visible;
-    width: 60%;
-    height: 100vh;
+    width: 65%;
 }
 .stop-scrolling {
     overflow: hidden;
@@ -53,6 +54,17 @@ header{
     padding: 5%;
 }
 .div_header .nav{
+    display: none;
+}
+.flex_header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.top_profil{
+    display: none;
+}
+.flex_header .button{
     display: none;
 }
 .div_header img{
@@ -73,11 +85,12 @@ header aside{
     visibility: hidden;
     position: absolute;
     width: 0%;
+    height: 100vh;
     left: 0;
     top: 0;
     z-index: 5;
     /* transform: translateX(-100%); */
-    transition: all 0.2s ease;
+    transition: all 0.1s ease-in-out;
     background-color: #1d1a10;
     overflow: hidden;
 }
@@ -89,37 +102,44 @@ header aside .top{
     border-bottom: 1px solid rgba(255, 255, 255, 0.185);
 }
 header aside .top p{
+    font-family: 'Calligraffitti', cursive;
+    padding-top: 3%;
     color: white;
     font-size: 22px;
 }
 .fa-xmark{
-    /* position: absolute; */
-    font-size: 30px;
-    /* left: 5%;
-    top: 3%; */
+    padding: 7% 0 0 7% ;
+    font-size: 23px;
     color: var(--primary);
 }
 .fa-xmark:hover{
-    transform: scale(1.1);
-    transition: ease-in-out;
+    color: white;
 }
 header aside ul{
-    font-size: 18px;
+    font-size: 16px;
     padding: 5%;
 }
 header aside ul li{
     display: flex;
     justify-content: center;
+    border-radius: 12px;
 }
-header aside ul li:hover{
-    background-color: white;
-}
-header aside ul li a{
+header aside .nav-link{
     width: 100%;
+    height: 66px;
     line-height: 50px;
+    transition: all 0.4s ease;
+    color: white;
+    border-radius: 12px;
+    padding: 0.5rem 0.9rem 0.5rem 0;
+}
+header aside .nav-link:hover{
+    background-color: white;
+    color: #1d1a10;
 }
 header aside i{
-    width: 15%;
+    height: 50px;
+    min-width: 50px;
     text-align: center;
 }
 header .login_side{
@@ -137,19 +157,29 @@ header .profil_side{
     display: flex;
     align-items: center;
     padding: 5%;
-    background-color: #1d1b31;
+    background-color: var(--primary);
     color: white;
 }
 header .info{
-    max-width: 85%;
+    width: 45%;
 }
 header .profil_side p:first-child{
-    font-size: 13px;
+    font-size: 14px;
 }
 header .profil_side p{
     font-size: 13px;
     max-width: 100%;
 }
+header .profil_side a{
+    color: white;
+    font-size: 20px;
+    padding: 6% 0 0 6%;
+}
+header .profil_side a i{
+    padding-top: 15%;
+}
+/* header .profil_side i{
+} */
 header aside .profil_pic{
     width: 60px;
     height: 60px;
@@ -385,8 +415,9 @@ hr{
    height: 60px;
    width: 120px;
    margin: 0 1%;
+   border: 1px;
    border-radius: 5px;
-   background-color: #d2b511;
+   background-color: #FFBF23;
    box-shadow: 2px 2px gray;
 }
 #carousel_btn button:hover {
@@ -658,13 +689,13 @@ margin-top: 2%;
 
 }
 
-ul {
+.card_bottom ul {
     margin: 5%;
     padding: 0;
     list-style-type: none;
 }
 
-li {
+.card_bottom li {
     padding-top: 10px;
 }
 
@@ -897,18 +928,104 @@ li {
     font-weight: 600;
 }
 /* fin documentation legale */
+/* Profil expert */
+.hide{
+    display: none;
+}
+.profil_card{
+    padding: 5%;
+    border: 1px black solid;
+    border-radius: 20px;
+}
+.profil_card button{
+    background-color: black;
+    color: white;
+    margin: auto;
+    padding: 4%;
+    border-radius: 8px;
+}
+.profil_card .button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1% 2%;
+    text-align: center;
+    font-size: 15px;
+    margin: 2%;
+    height: 80px;
+}
+/* Profil expert */
 
     /* Main */
 
 
 @media only screen and (min-width: 768px){
     /* Header */
-    .fa-bars{
+    .sticky{
+        position: unset;
+    }
+    .div_header{
+        display: flex;
+        align-items: flex-start;
+        padding: 3% 3px;
+    }
+    .flex_header > .fa-solid{
         display: none;
     }
-    /* .div_header .nav{
+    .flex_header{
+        width: 100%;
+        justify-content: space-around;
+    }
+    .div_header .nav{
         display: block;
-    } */
+        display: flex;
+        font-size: 15px;
+        padding-top: 2%;
+    }
+    .div_header .nav a{
+        color: black;
+    }
+    .div_header .nav a:hover{
+        color: var(--primary);
+    }
+    .flex_header .div_button{
+        display: flex;
+        width: 30%;
+        padding-top: 1%;
+        justify-content: space-between;
+    }
+    .flex_header .button{
+        display: block;
+        padding: 5%;
+        margin: 0 2%;
+        width: 120px;
+        background-color: #FFBF23;
+    }
+    .top_profil{
+        display: block;
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 2% 10px 0 10px;
+    }
+    .top_profil .pp{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .fa-sort-down{
+        cursor: pointer;
+    }
+    .dropdown-menu{
+        top: 75px;
+        right: 0px;
+    }
+    .menu_active{
+        display: block;
+    }
     /* Header */
     /* Main */
 
@@ -1227,13 +1344,24 @@ li {
 }
 
 @media only screen and (min-width: 992px){
+    /* Header */
+    .div_header{
+        padding: 20px 3px;
+    }
+    .flex_header .button {
+        width: 160px;
+    }
+    /* Header */
     /* Main */
     /* Carousel */
     #carousel{
-        transform: translateY(-15%);
+        transform: translateY(-10px);
     }
     #carousel_btn button {
         width: 23%;
+    }
+    #carousel_btn a {
+        font-size: 20px;
     }
     /* Carousel */
 
@@ -1360,6 +1488,21 @@ li {
     /* Offres */
 }
 @media only screen and (min-width: 1200px){
+    /* Header */
+    .div_header img {
+        height: 70px;
+    }
+    .div_header .nav {
+        font-size: 18px;
+    }
+    .flex_header a img{
+        height: 90px;
+    }
+    .flex_header .button {
+        width: 200px;
+        padding: 3%
+    }
+    /* Header */
     /* Main */
     /* carousel finder */
     #finder {
