@@ -1,1 +1,711 @@
+CREER UN CONTROLLER ProjectController
 
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Project;
+use App\Form\ProjectType;
+use App\Repository\ProjectRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+
+#[Route('/project')]
+class ProjectController extends AbstractController
+{
+    #[Route('/', name: 'app_project_index', methods: ['GET'])]
+    public function index(ProjectRepository $projectRepository): Response
+    {
+        // LIER USER/PROJECT:
+        // déclarer $user= info class user avec le get
+        // déclarer $projects comme objet du tableau project
+        // puis rappeler la fonction findAllByUserId en mettant en paramètre user
+        $user=$this->getUser();
+        $projects=$projectRepository->findAll();
+        return $this->render('project/index.html.twig', [
+            'projects' => $projectRepository->findAllByUserId($user),
+        ]);
+    }
+
+    #[Route('/new', name: 'app_project_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, ProjectRepository $projectRepository): Response
+    {
+        $project = new Project($this->getUser());
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $projectRepository->save($project, true);
+
+            return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('project/new.html.twig', [
+            'project' => $project,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_project_show', methods: ['GET'])]
+    public function show(Project $project): Response
+    {
+        return $this->render('project/show.html.twig', [
+            'project' => $project,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_project_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Project $project, ProjectRepository $projectRepository): Response
+    {
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $projectRepository->save($project, true);
+
+            return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('project/edit.html.twig', [
+            'project' => $project,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_project_delete', methods: ['POST'])]
+    public function delete(Request $request, Project $project, ProjectRepository $projectRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
+            $projectRepository->remove($project, true);
+        }
+
+        return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+    }
+}
+
+
+CREER ENTITY Project
+
+<?php
+
+namespace App\Entity;
+
+use App\Repository\ProjectRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
+
+
+#[ORM\Entity(repositoryClass: ProjectRepository::class)]
+class Project
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 75)]
+    private ?string $Nom_du_projet = null;
+
+    #[ORM\Column(length: 75)]
+    private ?string $Categorie = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $Description = null;
+
+    #[ORM\Column(length: 75, nullable: true)]
+    private ?string $Statut = null;
+
+    #[ORM\ManyToOne(inversedBy: 'projects')]
+    // LIER USER/PROJECT
+    // pour que la colonne user_id dans la table project ne puisse pas être nulle
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $User = null;
+
+    // LIER USER/PROJECT
+    // à mettre pour que chaque nouveau projet soit rattaché au user connecté
+    public function __construct($user)
+    {
+        $this->User = $user;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNomDuProjet(): ?string
+    {
+        return $this->Nom_du_projet;
+    }
+
+    public function setNomDuProjet(string $Nom_du_projet): self
+    {
+        $this->Nom_du_projet = $Nom_du_projet;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->Categorie;
+    }
+
+    public function setCategorie(string $Categorie): self
+    {
+        $this->Categorie = $Categorie;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(string $Description): self
+    {
+        $this->Description = $Description;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->Statut;
+    }
+
+    public function setStatut(?string $Statut): self
+    {
+        $this->Statut = $Statut;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
+
+        return $this;
+    }
+}
+
+
+CRRER FORM Form/ProjectType
+
+<?php
+
+namespace App\Form;
+
+use App\Entity\Project;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ProjectType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('Nom_du_projet')
+            ->add('Categorie')
+            ->add('Description')
+            // ->add('Statut')
+            // ->add('User')
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Project::class,
+        ]);
+    }
+}
+
+CRRER REPOSITORY ProjectRepository
+
+<?php
+
+namespace App\Repository;
+
+use App\Entity\Project;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
+/**
+ * @extends ServiceEntityRepository<Project>
+ *
+ * @method Project|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Project|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Project[]    findAll()
+ * @method Project[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class ProjectRepository extends ServiceEntityRepository
+{
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Project::class);
+    }
+
+    public function save(Project $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Project $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    // LIER USER/PROJECT:
+    // utiliser la fonction findBy
+    // quand je rappellerai la fonction dans le Projectcontroller, le paramètre $value deviendra $user
+    public function findAllByUserId($value): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.User = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    //    /**
+    //     * @return Project[] Returns an array of Project objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('p.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Project
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
+}
+
+
+CRRER DANS TEMPLATE DOSSIER Project
+
+CRRER FICHIER _delete_form.html.twig
+
+<form method="post" action="{{ path('app_project_delete', {'id': project.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+    <button class="btn">Delete</button>
+</form>
+
+
+CRRER _form.html.twig
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Valider') }}</button>
+{{ form_end(form) }}
+
+
+CREER edit.html.twig
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un projet{% endblock %}
+
+{% block body %}
+    <h1>Modifier un projet</h1>
+
+    {{ include('project/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_project_index') }}">reour à la liste des projets</a>
+
+    {{ include('project/_delete_form.html.twig') }}
+{% endblock %}
+
+
+CRRER index.html.twig
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes projets
+{% endblock %}
+
+{% block body %}
+	<h1 class="h1_projets">Mes projets<img id="img_mes_projets" src="{{asset('assets/img/offre1.svg')}}"></h1>
+	<section class="section_projets">
+		{% for project in projects %}
+			{% if app.user.id == project.user.id %}
+				<div class="section_projets_div">
+					<h4>
+						Nom du projet</h4>
+					<p class="section_projets_p">{{ project.NomDuProjet }}</p>
+					<h4>
+						Catégorie
+					</h4>
+					<p class="section_projets_p">{{ project.Categorie }}</p>
+					<h4>
+						Sujet</h4>
+					<p id="p_sujet">{{ project.Description }}</p>
+					<h4>
+
+						Statut du projet</h4>
+					<p class="section_projets_p">{{ project.Statut }}</p>
+
+					<img id="img_mes_projets" src="{{asset('assets/img/offre1.svg')}}">
+					<a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
+					<a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
+				</div>
+
+
+			{% endif %}
+		{% else %}
+			<p colspan="6">aucun projet déposé</p>
+		{% endfor %}
+
+	</section>
+	<a href="{{ path('app_project_new') }}">Create new</a>
+
+
+{% endblock %}
+
+
+CREER new.html.twig
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau projet{% endblock %}
+
+{% block body %}
+    <h1 id="h1_nouveau_projet">Créer mon projet</h1>
+
+
+<section class="nouveau_projet">
+<div id="div_nouveau_projet">
+<p id="p_nouveau_projet"><span class="span_nouveau_projet">{{app.user.firstname}}</span>,<br>vous avez décidé de soumettre votre projet à l'un de nos experts. Remplissez ce formulaire et <span class="span_nouveau_projet">soyez le plus précis possible dans la description</span>, afin que nos experts puissent vous proposer
+<span class="span_nouveau_projet">un devis adapté à vos attentes.</span>
+</p>
+</div> 
+<div class="brand-logo"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"></div>
+    {{ include('project/_form.html.twig') }}
+</section>
+    <a href="{{ path('app_project_index') }}">back to list</a>
+{% endblock %}
+
+
+CREER show.html.twig
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Project{% endblock %}
+
+{% block body %}
+    <h1>Project</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ project.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_du_projet</th>
+                <td>{{ project.NomDuProjet }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ project.Categorie }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ project.Description }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ project.Statut }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_project_index') }}">back to list</a>
+
+    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
+
+    {{ include('project/_delete_form.html.twig') }}
+{% endblock %}
+
+
+CREER project.css ET AJOUTER DANS PUBLIC
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+/* liste-projets */
+
+.h1_projets {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 2%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.section_projets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+}
+
+.section_projets_div {
+    text-align: center;
+    background-color: whitesmoke;
+    width: 75%;
+    padding: 20px 10px 20px 10px;
+    margin-top: 2%;
+    border-radius: 10px;
+    margin-bottom: 2%;
+    box-shadow: 7px 7px 10px #cbced1;
+}
+
+.section_projets h4 {
+    color: #d2b511;
+    font-weight: 800;
+}
+
+.section_projets_p {
+    font-size: 18px;
+    font-weight: 400;
+    height: 62px;
+    overflow: auto;
+}
+
+#p_sujet {
+    min-height: 62px;
+    max-height: 200px;
+    overflow: auto;
+    padding: 10px;
+    /* font-size: 18px;
+    font-weight: 400; */
+}
+
+#img_mes_projets {
+    width: 75px;
+    height: 75px;
+}
+
+@media only screen and (min-width: 768px) {
+    .h1_projets {
+        font-size: 48px;
+    }
+
+    .section_projets_div {
+        border: 2px solid black;
+        padding: 30px 10px 30px 10px;
+    }
+
+    .section_projets h4 {
+        font-size: 36px;
+        padding: 10px;
+    }
+
+    .section_projets_p {
+        font-size: 28px;
+        padding: 10px;
+        font-weight: 400;
+    }
+
+    #p_sujet {
+        font-size: 28px;
+        font-weight: 400;
+    }
+
+    #img_mes_projets {
+        width: 100px;
+        height: 100px;
+    }
+
+    @media only screen and (min-width: 1200px) {
+
+        .section_projets {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .section_projets_div {
+            height: 1000px;
+            width: 30%;
+        }
+
+        #p_sujet {
+            height: 200px;
+            overflow: auto;
+        }
+
+        #img_mes_projets {
+            width: 120px;
+            height: 120px;
+        }
+    }
+}
+
+/* nouveau projet */
+
+#h1_nouveau_projet {
+    margin: 30px auto 30px;
+    text-align: center;
+    font-family: 'Rubik Dirt', cursive;
+    font-size: 36px;
+
+}
+
+#p_nouveau_projet {
+    color: black;
+    padding-top: 10px;
+    margin-bottom: 30px;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+.span_nouveau_projet {
+    color: goldenrod;
+    font-weight: 600;
+}
+
+.nouveau_projet {
+    width: 80%;
+    margin: auto;
+    border-radius: 20px;
+    padding: 40px;
+    box-sizing: border-box;
+    background: #ecf0f3;
+    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    margin-bottom: 50px;
+}
+
+.brand-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.brand-logo img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 6px black;
+
+}
+
+#project_Nom_du_projet {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 50px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+#project_Categorie {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 50px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+#project_Description {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 80px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+.btn {
+    color: white;
+    margin-top: 20px;
+    background: #d2b511;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 900;
+    box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    box-shadow: none;
+}
+
+@media only screen and (min-width: 768px) {
+    #h1_nouveau_projet {
+        font-size: 50px;
+        margin: 30px auto 50px;
+
+    }
+
+    #p_nouveau_projet {
+        font-size: 20px;
+        padding-top: 50px;
+        margin-bottom: 60px;
+        line-height: 40px;
+    }
+
+    .brand-logo img {
+        height: 60px;
+        width: 60px;
+        margin-bottom: 50px;
+    }
+
+    .mb-3 label {
+        font-size: 20px;
+    }
+
+    .btn {
+        width: 120px;
+        height: 50px;
+        font-size: 16px;
+    }
+}
