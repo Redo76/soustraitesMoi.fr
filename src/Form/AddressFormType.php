@@ -23,17 +23,6 @@ class AddressFormType extends AbstractType
                 'label' => false,
                 'attr' => ['placeholder' => 'Adresse ligne 2'],
             ])
-            ->add('phone', TelType::class,[
-                'label' => false,
-                'attr' => ['placeholder' => 'N° Téléphone'],
-                'constraints' => [
-                    new Regex([
-                        'pattern'=> '/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/',
-                        'match'=> true,
-                        'message'=> 'Entrez un numéro valide',
-                    ]),
-                ]
-            ])
             ->add('codePostal',TextType::class, [
                 'label' => false,
                 'attr' => ['placeholder' => 'Code Postal'],

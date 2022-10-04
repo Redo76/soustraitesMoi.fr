@@ -103,6 +103,12 @@ a:hover{
     margin: 2%;
     height: 80px;
 }
+.profil_card .img-fluid{
+    max-height: 300px;
+}
+.profil_card .edit .img-fluid{
+    width: 140px;
+}
 /* Profil expert */
 
     /* Main */
@@ -114,8 +120,11 @@ a:hover{
     .profil{
         display: flex;
     }
-    .profil_picture{
-        width: 75%;
+    .edit{
+        width: 100%;
+    }
+    .profil_card .edit .img-fluid {
+        width: 260px;
     }
     /* Profil expert */
     /* Main */
@@ -123,7 +132,9 @@ a:hover{
 }
 
 @media only screen and (min-width: 992px){
-
+    .profil_card .edit .img-fluid {
+        width: 350px;
+    }
 }
 @media only screen and (min-width: 1200px){
 

@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
-use App\Form\EditProfileExpertType;
+use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Form\EditProfileExpertType;
+use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ExpertController extends AbstractController
 {
@@ -22,15 +26,27 @@ class ExpertController extends AbstractController
         ]);
     }
     #[Route('/mon-compte-expert/modifier', name: 'app_edit_expert', methods : ['GET', 'POST'])]
-    public function editInfos(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    public function editInfos(SluggerInterface $slugger, UploaderHelper $uploaderHelper, Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
         // dd($user);
         $form = $this->createForm(EditProfileExpertType::class, $user);
-
+        
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
+            /** @var UploadedFile $uploadedFile */
+            $user = new User();
+            $uploadedFile = $form['avatar']->getData();
+
+            if ($uploadedFile) {
+                // dd($user);
+                $newFilename = $uploaderHelper->uploadAvatar($uploadedFile, $slugger);
+                $user = $form->getData();
+                $user->setAvatar($newFilename);
+            }
+            else {
+                $user = $form->getData();
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();

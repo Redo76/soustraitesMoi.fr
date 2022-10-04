@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
@@ -17,6 +18,11 @@ class EditProfileExpertType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add('avatar', FileType::class, [
+            "label" => false,
+            'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
+            'mapped' => false
+        ])
         ->add('firstname', TextType::class, [
             'label' => false,
             'attr' => ['class' => 'firstName','placeholder' => 'Prénom'],

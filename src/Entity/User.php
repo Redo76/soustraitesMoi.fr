@@ -39,15 +39,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $avatar = null;
+    
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $phone = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $googleId = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Address $address = null;
-
-    #[ORM\Column(length: 20, nullable: true)]
-    private ?string $phone = null;
 
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $siret = null;

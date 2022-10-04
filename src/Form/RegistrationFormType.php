@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -48,6 +49,17 @@ class RegistrationFormType extends AbstractType
                         'pattern'=> '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',
                         'match'=> true,
                         'message'=> 'Veuillez entrer un mot de passe contenant 6 caractères dont 1 majusucle, 1 minuscule et 1 chiffre',
+                    ]),
+                ]
+            ])
+            ->add('phone', TelType::class,[
+                'label' => false,
+                'attr' => ['placeholder' => 'N° Téléphone'],
+                'constraints' => [
+                    new Regex([
+                        'pattern'=> '/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/',
+                        'match'=> true,
+                        'message'=> 'Entrez un numéro valide',
                     ]),
                 ]
             ])

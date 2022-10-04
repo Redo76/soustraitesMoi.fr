@@ -117,7 +117,7 @@
             <div class="top_profil">
                 <div class="pp me-1">
                     {% if app.user.avatar %}
-                        <img src="{{app.user.avatar}}" alt="Photo de profil">
+                        <img src="{{asset("assets/uploads/avatar/" ~  app.user.avatar)}}"  alt="Photo de profil">
                     {% else %}
                         <img src="{{asset("assets/uploads/avatar/default.png")}}" alt="Photo de profil par défaut">
                     {% endif %}

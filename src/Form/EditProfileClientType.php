@@ -17,6 +17,11 @@ class EditProfileClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add('avatar', FileType::class, [
+            "label" => false,
+            'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
+            'mapped' => false
+        ])
         ->add('firstname', TextType::class, [
             'label' => false,
             'attr' => ['class' => 'firstName','placeholder' => 'Prénom'],
