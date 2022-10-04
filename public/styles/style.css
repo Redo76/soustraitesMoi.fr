@@ -1,0 +1,130 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --primary: #d2b511;
+    --secondary : #f6f6f6;
+    --first-color: #3E3F3A;
+    --button-active-blue: #1669F2;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: black;
+}
+
+a{
+    color:#d2b511c6;
+}
+a:hover{
+    color: antiquewhite;
+}
+
+/* Main */
+/* début documentation legale */
+
+#mentions_legales {
+    padding: 10px 10px 10px 10px;
+}
+
+#mentions_legales h2 {
+    text-align: center;
+}
+
+.mentions_num {
+    font-size: 1.2em;
+    font-weight: 800;
+    padding-bottom: 5px;
+    padding-top: 50px;
+}
+
+.italique {
+    font-style:italic;
+    font-weight: 600;
+}
+
+.couleur {
+    color: red;
+    font-weight: 400;
+}
+
+#polconf_main {
+    width: 90%;
+    padding-left: 10px;
+}
+
+#polconf_h1 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 3em;
+    margin-bottom: 5%;
+}
+
+#polconf_main p {
+    padding-left: 20px;
+}
+
+.polconf_chapitres{
+    font-weight: 800;
+    font-size: 18px;
+}
+
+#important {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+/* fin documentation legale */
+/* Profil expert */
+.profil_card{
+    padding: 5%;
+    background-color: var(--secondary);
+    border: 1px black solid;
+    border-radius: 20px;
+}
+.profil_card button{
+    background-color: black;
+    color: white;
+    margin: auto;
+    padding: 4%;
+    border-radius: 8px;
+}
+.profil_card .button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1% 2%;
+    text-align: center;
+    font-size: 15px;
+    margin: 2%;
+    height: 80px;
+}
+/* Profil expert */
+
+    /* Main */
+
+
+@media only screen and (min-width: 768px){
+    /* Main */
+    /* Profil expert */
+    .profil{
+        display: flex;
+    }
+    .profil_picture{
+        width: 75%;
+    }
+    /* Profil expert */
+    /* Main */
+
+}
+
+@media only screen and (min-width: 992px){
+
+}
+@media only screen and (min-width: 1200px){
+
+}

@@ -1,0 +1,286 @@
+#offres {
+    width: 100%;
+    height: 280vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+#h1_p_offres {
+    margin-top: 2%;
+    text-align: center;
+}
+
+#h1_p_offres h1 {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+#h1_p_offres p {
+    font-size: 16px;
+}
+
+#cards {
+    width: 75%;
+    height: 260vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: white;
+    padding-top: 40px;
+}
+
+.card_complete {
+    width: 90%;
+    height: 70vh;
+    margin-top: 2%;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.card_top {
+    background-color: #d2b511;
+    height: 270px;
+    border-top-left-radius: 10px 10px;
+    border-top-right-radius: 10px 10px;
+    padding: 30px 0px 10px 20px;
+}
+
+.card_bottom {
+    background-color: #f6f6f6;
+    height: 35vh;
+    border-bottom-left-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    padding: 10px;
+    position: relative;
+
+}
+
+.card_bottom ul {
+    margin: 5%;
+    padding: 0;
+    list-style-type: none;
+}
+
+.card_bottom li {
+    padding-top: 10px;
+}
+
+.btn_offres {
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    width: 120px;
+    margin-top: 2%;
+}
+
+#card_top_different {
+    background-color: black;
+    color: white;
+    height: 35vh;
+    border-top-left-radius: 10px 10px;
+    border-top-right-radius: 10px 10px;
+    padding: 30px 0px 10px 20px;
+    position: relative;
+}
+
+#btn_different {
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    width: 120px;
+    margin-top: 2%;
+    position: relative;
+}
+
+#card_populaire {
+    position: absolute;
+    top:-10px;
+    left:85px;
+    border:1px solid black;
+    background-color: #d2b511;
+    color: black;
+    border-radius: 5px;
+    width: 90px;
+    text-align: center;
+}
+
+.card_top h3 {
+    font-weight: 600;
+}
+
+.offre_grand {
+    font-size: 2.5em;
+    font-weight: 600;
+}
+
+.offre_moyen {
+    font-size: 0.9em;
+}
+
+.offre_petit {
+    font-size: 0.9em;
+}
+
+#offres_span {
+    font-size: 0.3em;
+}
+
+#img_card1 {
+    width: 100px;
+    height:100px;
+    position: absolute;
+    bottom:-20px;
+    right:-10px;
+}
+
+#img_card2 {
+    width: 100px;
+    height:100px;
+    position: absolute;
+    bottom:-25px;
+    right:-20px;
+}
+
+#img_card3 {
+    width: 100px;
+    height:100px;
+    position: absolute;
+    bottom:-25px;
+    right:-25px;
+}
+
+@media only screen and (min-width: 768px){
+    #offres {
+        height: 155vh;
+    }
+    
+    .card_complete {
+        width: 40%;
+        height: 70vh;
+    }
+
+    #cards {
+        width: 95%;
+        height: 100vh;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        padding-top: 50px;
+    }
+
+    #img_card1 {
+        width: 150px;
+        height: 150px;
+        left:-10px;
+    }
+    
+    #img_card2 {
+        width: 150px;
+        height: 150px;
+        bottom:-25px;
+        right:-10px;
+    }
+    #img_card3 {
+        width: 140px;
+        height: 140px;
+        bottom:-25px;
+        right:80px;
+    }
+
+    #card_populaire {
+        left:110px;
+    }
+}
+
+
+@media only screen and (min-width: 992px){
+    #offres {
+        height: 90%;
+        padding: 1% 10% 7% 10%;
+    }
+    
+    #cards {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        padding-top: 50px;
+    }
+    
+    .card_complete {
+        width: 33%;
+        height: 90vh;
+        padding: 0 1%;
+    }
+    
+    .card_top {
+        height: 45vh;
+    }
+    .card_bottom {
+        height: 55vh;
+    }
+    #card_top_different{
+        height: 45vh; 
+    }
+    
+    #img_card3 {
+        bottom:-25px;
+        right:-20px;
+    }
+    
+    #card_populaire {
+        font-size: 1.8em;
+        font-weight: 600;
+        width: 150px;
+        height: 60px;
+        top:-40px;
+        left:32%;
+        padding-top: 5px;
+        box-shadow: 2px 2px white;
+    }
+    
+    #h1_p_offres h1 {
+        font-size: 48px;
+    }
+    
+    #h1_p_offres p {
+        font-size: 28px;
+    }
+    
+    .offre_grand {
+        font-size: 3.5em;
+        font-weight: 600;
+    }
+    
+    .offre_moyen {
+        font-size: 1.2em;
+    }
+    
+    .offre_petit {
+        font-size: 1.2em;
+    }
+    
+    #offres_span {
+        font-size: 0.3em;
+    }
+    
+    .btn_offres {
+        border-radius: 5px;
+        width: 200px;
+        height: 60px;
+        margin-top: 10%;
+    }
+    
+    li {
+        font-size: 1.2em;
+    }
+    
+    #btn_different {
+        border-radius: 5px;
+        width: 200px;
+        height: 60px;
+        margin-top: 10%;
+    }
+}
