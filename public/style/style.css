@@ -784,6 +784,51 @@ margin-top: 2%;
 }
 /* fin Offres */
 /* Inscription */
+/* modal */
+#modalInscription{
+    position: absolute;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    z-index: 5;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#modalInscription a{
+    display: flex;
+    margin: auto;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 70%;
+    padding: 3%;
+    text-decoration: none;
+    border: 1px lightgray solid;
+    border-radius: 10px;
+    font-size: 25px;
+}
+#modalInscription h2{
+    margin-bottom: 10%;
+    font-size: 31px;
+
+}
+#modalInscription > img{
+    position: absolute;
+    top: 30px;
+}
+#modalInscription a img{
+    height: 100px;
+    width: 100px;
+}
+#modalInscription a div{
+    padding: 8% 2% 5% 2%;
+}
+#modalInscription a h3{
+    padding-left: 5%;
+}
+/* modal */
 .container h1{
     font-size: 40px;
     padding-bottom: 5%;
@@ -808,7 +853,7 @@ margin-top: 2%;
     justify-content: center;
 }
 .form_container article{
-    padding: 5% 0;
+    padding: 3% 0;
 }
 .form_container h1{
     padding-bottom: 2%;
@@ -929,11 +974,9 @@ margin-top: 2%;
 }
 /* fin documentation legale */
 /* Profil expert */
-.hide{
-    display: none;
-}
 .profil_card{
     padding: 5%;
+    background-color: var(--secondary);
     border: 1px black solid;
     border-radius: 20px;
 }
@@ -1246,6 +1289,33 @@ margin-top: 2%;
     }
     /* Offre */
     /* Inscription */
+    /* modal */
+    #modalInscription{
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    #modalInscription a {
+        width: 410px;
+    }
+    #modalInscription > img{
+        width: 40%;
+        top: 60px;
+        left: 30%;
+    }
+    .register_info{
+        width: 70%;
+        padding-bottom: 15%;
+    }
+    #modalInscription h2 {
+        padding-left: 9%;
+    }
+    #modalInscription a h3 {
+        padding-left: 20%;
+    }
+    .fa-chevron{
+        padding-right: 10%;
+    }
+    /* modal */
     .google-btn {
         width: 50%;
     }
@@ -1486,6 +1556,30 @@ margin-top: 2%;
         margin-top: 10%;
     }
     /* Offres */
+    /* Inscription */
+    /* modal */
+    #modalInscription{
+        justify-content: center;
+    }
+    .register_info{
+        padding-bottom: 0;
+        width: 40%;
+        padding-top: 60px;
+    }
+    #modalInscription h2 {
+        padding: 0;
+        text-align: center;
+    }
+    #modalInscription > img {
+        width: 25%;
+        top: 30px;
+        left: auto;
+    }
+    #modalInscription a {
+        width: 310px;
+    }
+    /* modal */
+    /* Inscription */
 }
 @media only screen and (min-width: 1200px){
     /* Header */
@@ -1605,6 +1699,13 @@ margin-top: 2%;
     .d-block{
         width: 100%;
         height: 100%;
+    }
+    #modalInscription{
+        height: 110vh;
+    }
+    .register_info{
+        width: 40%;
+        padding-top: 130px;
     }
     /* Main */
 }

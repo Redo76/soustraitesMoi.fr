@@ -40,8 +40,8 @@ class RegistrationExpertFormType extends AbstractType
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',
                 'required' => true,
                 'options' => ['attr' => ['class' => 'password-field']],
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmation de mot de passe'],
+                'first_options'  => ['label' => false, 'attr' => ['placeholder' => 'Mot de passe']],
+                'second_options' => ['label' => false, 'attr' => ['placeholder' => 'Confirmation mot de passe']],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Un mot de passe est requis.',
@@ -53,20 +53,9 @@ class RegistrationExpertFormType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('phone', TelType::class,[
-                'label' => false,
-                'attr' => ['placeholder' => 'N° Téléphone'],
-                'constraints' => [
-                    new Regex([
-                        'pattern'=> '/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/',
-                        'match'=> true,
-                        'message'=> 'Entrez un numéro valide',
-                    ]),
-                ]
-                
-
+            ->add('address', AddressFormType::class,[
+                "label" => false,
             ])
-            ->add('address', AddressFormType::class)
         ;
     }
 

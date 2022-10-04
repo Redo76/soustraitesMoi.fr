@@ -37,13 +37,12 @@ class RegistrationFormType extends AbstractType
                 'required' => true,
             ])
             ->add('password', RepeatedType::class, [
-                'label' => false,
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmation de mot de passe'],
+                'first_options'  => ['label' => false, 'attr' => ['placeholder' => 'Mot de passe']],
+                'second_options' => ['label' => false, 'attr' => ['placeholder' => 'Confirmation mot de passe']],
                 'constraints' => [
                     new Regex([
                         'pattern'=> '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',

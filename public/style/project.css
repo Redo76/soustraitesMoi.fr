@@ -1,0 +1,245 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+/* liste-projets */
+
+.h1_projets {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 2%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.section_projets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+}
+
+.section_projets_div {
+    text-align: center;
+    background-color: whitesmoke;
+    width: 75%;
+    padding: 20px 10px 20px 10px;
+    margin-top: 2%;
+    border-radius: 10px;
+    margin-bottom: 2%;
+    box-shadow: 7px 7px 10px #cbced1;
+}
+
+.section_projets h4 {
+    color: #d2b511;
+    font-weight: 800;
+}
+
+.section_projets_p {
+    font-size: 18px;
+    font-weight: 400;
+    height: 62px;
+    overflow: auto;
+}
+
+#p_sujet {
+    min-height: 62px;
+    max-height: 200px;
+    overflow: auto;
+    padding: 10px;
+    /* font-size: 18px;
+    font-weight: 400; */
+}
+
+#img_mes_projets {
+    width: 75px;
+    height: 75px;
+}
+
+@media only screen and (min-width: 768px) {
+    .h1_projets {
+        font-size: 48px;
+    }
+
+    .section_projets_div {
+        border: 2px solid black;
+        padding: 30px 10px 30px 10px;
+    }
+
+    .section_projets h4 {
+        font-size: 36px;
+        padding: 10px;
+    }
+
+    .section_projets_p {
+        font-size: 28px;
+        padding: 10px;
+        font-weight: 400;
+    }
+
+    #p_sujet {
+        font-size: 28px;
+        font-weight: 400;
+    }
+
+    #img_mes_projets {
+        width: 100px;
+        height: 100px;
+    }
+
+    @media only screen and (min-width: 1200px) {
+
+        .section_projets {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .section_projets_div {
+            height: 1000px;
+            width: 30%;
+        }
+
+        #p_sujet {
+            height: 200px;
+            overflow: auto;
+        }
+
+        #img_mes_projets {
+            width: 120px;
+            height: 120px;
+        }
+    }
+}
+
+/* nouveau projet */
+
+#h1_nouveau_projet {
+    margin: 30px auto 30px;
+    text-align: center;
+    font-family: 'Rubik Dirt', cursive;
+    font-size: 36px;
+
+}
+
+#p_nouveau_projet {
+    color: black;
+    padding-top: 10px;
+    margin-bottom: 30px;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+.span_nouveau_projet {
+    color: goldenrod;
+    font-weight: 600;
+}
+
+.nouveau_projet {
+    width: 80%;
+    margin: auto;
+    border-radius: 20px;
+    padding: 40px;
+    box-sizing: border-box;
+    background: #ecf0f3;
+    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    margin-bottom: 50px;
+}
+
+.brand-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.brand-logo img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 6px black;
+
+}
+
+#project_Nom_du_projet {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 50px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+#project_Categorie {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 50px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+#project_Description {
+    background: #ecf0f3;
+    padding: 10px;
+    padding-left: 20px;
+    height: 80px;
+    font-size: 14px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+
+.btn {
+    color: white;
+    margin-top: 20px;
+    background: #d2b511;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 900;
+    box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    box-shadow: none;
+}
+
+@media only screen and (min-width: 768px) {
+    #h1_nouveau_projet {
+        font-size: 50px;
+        margin: 30px auto 50px;
+
+    }
+
+    #p_nouveau_projet {
+        font-size: 20px;
+        padding-top: 50px;
+        margin-bottom: 60px;
+        line-height: 40px;
+    }
+
+    .brand-logo img {
+        height: 60px;
+        width: 60px;
+        margin-bottom: 50px;
+    }
+
+    .mb-3 label {
+        font-size: 20px;
+    }
+
+    .btn {
+        width: 120px;
+        height: 50px;
+        font-size: 16px;
+    }
+}

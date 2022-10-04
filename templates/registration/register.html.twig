@@ -1,45 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription Client
+{% block title %}Inscription
 {% endblock %}
 
-{% block body %}
-	<main class="row justify-content-md-center">
-		<section class="form_container col col-md-8 col-xl-6">
-            <article >
-                <h1>Renseignez vos informations</h1>
 
-                <a href="#">
-                    <div class="google-btn">
-                        <div class="google-icon-wrapper">
-                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-                        </div>
-                        <p class="btn-text"><b>Inscription avec Google</b></p>
+{% block body %}
+    <main id="modalInscription">
+        <img src="{{asset('assets/img/Soustraitesmoi_fr.webp')}}" alt="Logo SoustraitesMoi">
+        <article class="register_info">
+            <h2>Quelle est votre situation ?</h2>
+            <div class="d-flex flex-column gap-3">
+                <a href="{{path('app_register_client')}}">
+                    <img src="{{asset('assets/img/client.jpg')}}" alt="">
+                    <div class="d-flex align-center justify-content-between gap-3 w-75">
+                        <h3>Client</h3>
+                        <i class="fa-solid fa-chevron-right"></i>                    
                     </div>
                 </a>
-
-                <div class="barre_ou">
-                    <div class="barre"></div>
-                    <span>ou</span> 
-                    <div class="barre"></div>
-                </div>
-
-                {{ form_start(registrationForm) }}
-                <div class="row">
-                    <div class="col">
-                        {{ form_row(registrationForm.firstname) }}
+                <a href="{{path('app_register_expert')}}">
+                    <img src="{{asset('assets/img/expert.jpg')}}" alt="">
+                    <div class="d-flex align-center justify-content-between gap-3 w-75">
+                        <h3>Expert</h3>
+                        <i class="fa-solid fa-chevron-right"></i>                   
                     </div>
-                    <div class="col">
-                        {{ form_row(registrationForm.lastname) }}
-                    </div>
-                </div>
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.password, {
-                        label: 'Mot de passe',
-                    }) }}
-                <button type="submit" class="btn">S'inscrire</button>
-                {{ form_end(registrationForm) }}
-            </article>
-		</section>
-	</main>
+                </a>
+            </div>
+        </article>
+    </main>
 {% endblock %}

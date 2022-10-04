@@ -1,24 +1,9 @@
 const burgerBtn = document.querySelector(".fa-bars");
-const closeBtn = document.querySelector(".fa-xmark");
+const closeBtn = document.querySelector("#closeSide");
 const sideBar = document.querySelector("header aside");
 const body = document.querySelector("body");
 const dropDownBtn = document.querySelector(".fa-sort-down");
 const dropDownMenu = document.querySelector(".dropdown-menu");
-
-
-burgerBtn.addEventListener("click", ()=>{
-    sideBar.classList.add("active");
-    body.classList.add("stop-scrolling");
-})
-
-closeBtn.addEventListener("click", ()=>{
-    sideBar.classList.remove("active");
-    body.classList.remove("stop-scrolling");
-})
-
-dropDownBtn.addEventListener("click", ()=>{
-    dropDownMenu.classList.toggle("menu_active");
-})
 
 function moveToSelected(element) {
 
@@ -75,4 +60,18 @@ $('#prev').click(function () {
 $('#next').click(function () {
     moveToSelected('next');
 });
+
+burgerBtn.addEventListener("click", ()=>{
+    sideBar.classList.add("active");
+    body.classList.add("stop-scrolling");
+})
+
+closeBtn.addEventListener("click", ()=>{
+    sideBar.classList.remove("active");
+    body.classList.remove("stop-scrolling");
+})
+
+dropDownBtn.addEventListener("click", ()=>{
+    dropDownMenu.classList.toggle("menu_active");
+})
 

@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Address;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AddressFormType extends AbstractType
@@ -20,6 +22,17 @@ class AddressFormType extends AbstractType
             ->add('address2',TextType::class, [
                 'label' => false,
                 'attr' => ['placeholder' => 'Adresse ligne 2'],
+            ])
+            ->add('phone', TelType::class,[
+                'label' => false,
+                'attr' => ['placeholder' => 'N° Téléphone'],
+                'constraints' => [
+                    new Regex([
+                        'pattern'=> '/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/',
+                        'match'=> true,
+                        'message'=> 'Entrez un numéro valide',
+                    ]),
+                ]
             ])
             ->add('codePostal',TextType::class, [
                 'label' => false,

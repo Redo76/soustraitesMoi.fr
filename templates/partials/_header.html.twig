@@ -3,7 +3,7 @@
     <aside>
         <div class="top">
             <p class="mb-0">SousTraitesMoi</p>
-            <i class="fa-solid fa-xmark"></i>
+            <i id="closeSide" class="fa-solid fa-xmark"></i>
         </div>
         {% if app.user %}
             <div class="profil_side">
@@ -35,7 +35,7 @@
             </div>
         {% else %}
             <div class="login_side">
-                <a href="#" class="button">Inscription</a>
+                <a href="{{path('app_register')}}" class="button">Inscription</a>
                 <div class="text-center">
                     <p class="mb-0 text-white">Déja Membres ?</p>
                     <a href="{{path('app_login')}}">Connectez-vous !</a>
@@ -140,26 +140,10 @@
             {% else %}
             <div class="div_button">
                 <a href="{{path('app_login')}}" class="button">Connexion</a>
-                <a href="" class="button">S'inscrire</a>
+                <a href="{{path('app_register')}}" class="button">S'inscrire</a>
             </div>
             {% endif %}
-            {# <div class="profil_top dropdown text-end">
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                </a>
-            </div> #}
-            {# <div class="dropdown text-end">
-            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-            </a>
-            <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
-            </div> #}
         </div>
     </div>
+    
 </header>

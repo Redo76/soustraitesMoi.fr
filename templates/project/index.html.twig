@@ -1,0 +1,43 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes projets
+{% endblock %}
+
+{% block body %}
+	<h1 class="h1_projets">Mes projets<img id="img_mes_projets" src="{{asset('assets/img/offre1.svg')}}"></h1>
+	<section class="section_projets">
+		{% for project in projects %}
+			{% if app.user.id == project.user.id %}
+				<div class="section_projets_div">
+					<h4>
+						Nom du projet</h4>
+					<p class="section_projets_p">{{ project.NomDuProjet }}</p>
+					<h4>
+						Catégorie
+					</h4>
+					<p class="section_projets_p">{{ project.Categorie }}</p>
+					<h4>
+						Sujet</h4>
+					<p id="p_sujet">{{ project.Description }}</p>
+					<h4>
+
+						Statut du projet</h4>
+					<p class="section_projets_p">{{ project.Statut }}</p>
+
+					<img id="img_mes_projets" src="{{asset('assets/img/offre1.svg')}}">
+					<a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
+					<a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
+				</div>
+
+
+			{% endif %}
+		{% else %}
+			<p colspan="6">aucun projet déposé</p>
+		{% endfor %}
+
+	</section>
+	<a href="{{ path('app_project_new') }}">Create new</a>
+
+
+{% endblock %}

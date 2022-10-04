@@ -17,6 +17,13 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
+    #[Route('/inscription', name: 'app_register')]
+    public function index(): Response
+    {
+        return $this->render('registration/register.html.twig', [
+            'controller_name' => 'RegistrationController',
+        ]);
+    }
     #[Route('/inscription-client', name: 'app_register_client')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
@@ -46,7 +53,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('registration/client_register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
