@@ -1,4 +1,4 @@
-LANCER LA CMD Composer require Mailer
+LANCER LA CMD composer require symfony/mailer
 UTILISER Mailtrap POUR VERIFIER ENVOI DES MAILS
 
 PUIS =>
