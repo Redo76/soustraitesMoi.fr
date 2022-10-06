@@ -56,9 +56,23 @@ A METTRE DANS TEMPLATE/HOME/INDEX
   </div>
 </aside>
 
-TEMPLATE/HOME/INDEX
+TEMPLATE/HOME/INDEX A METTRE (juste images renomées et converties en webp)
 
-METTRE EN COMM DE LIGNE 206 A 220 (pour retirer la partie 'ils nous font confiance)
+<section class="section_partenaire home_container">
+    <h2>Ils nous font confiance</h2>
+    <div class="grid">
+      <img class="logo_partenaire" src="{{asset('assets/img/carousel15.webp')}}" alt="Logo">
+      <img class="logo_partenaire" src="{{asset('assets/img/carousel8.jpg')}}" alt="Logo">
+      <img class="logo_partenaire" src="{{asset('assets/img/carousel3.webp')}}" alt="Logo">
+      <img class="logo_partenaire" src="{{asset('assets/img/carousel12.webp')}}" alt="Logo">
+      <img class="logo_partenaire" src="{{asset('assets/img/carousel14.webp')}}" alt="Logo">
+      <img class="logo_partenaire" src="{{asset('assets/img/carousel10.webp')}}" alt="Logo">
+      <img class="logo_partenaire" src="{{asset('assets/img/carousel11.webp')}}" alt="Logo">
+      <div class="bg-white">
+        <img src="{{asset('assets/img/pochon vert.webp')}}" alt="Logo">
+      </div>
+    </div>
+  </section>
 
 
 
