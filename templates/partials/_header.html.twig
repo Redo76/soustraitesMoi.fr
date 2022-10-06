@@ -105,7 +105,7 @@
                 {% if is_granted('ROLE_EXPERT')  %}
                 <li><a href="#" class="nav-link ">Consulter des projets</a></li>
                 {% elseif is_granted('ROLE_CLIENT')  %}
-                <li><a href="#" class="nav-link ">Vos projets</a></li>
+                <li><a href="{{path('app_project_index')}}" class="nav-link ">Vos projets</a></li>
                 {% elseif is_granted('ROLE_ADMIN') %}
                 <li><a href="#" class="nav-link ">Administration</a></li>
                 {% endif %}
@@ -128,7 +128,7 @@
                     <li><a class="dropdown-item" href="#">Mes Projets</a></li>
                     <li><a class="dropdown-item" href="{{path('app_expert')}}">Profil</a></li>
                     {% elseif is_granted('ROLE_CLIENT')  %}
-                    <li><a class="dropdown-item" href="#">Mes Projets</a></li>
+                    <li><a class="dropdown-item" href="{{path('app_project_index')}}">Mes Projets</a></li>
                     <li><a class="dropdown-item" href="{{path('app_client')}}">Profil</a></li>
                     {% elseif is_granted('ROLE_ADMIN') %}
                     <li><a href="#" class="dropdown-item">Administration</a></li>

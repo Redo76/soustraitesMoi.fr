@@ -4,6 +4,8 @@ const sideBar = document.querySelector("header aside");
 const body = document.querySelector("body");
 const dropDownBtn = document.querySelector(".fa-sort-down");
 const dropDownMenu = document.querySelector(".dropdown-menu");
+const avatarInput = document.querySelector(".avatar");
+const avatarImg = document.querySelector("#avatar_img");
 
 function moveToSelected(element) {
 
@@ -60,6 +62,16 @@ $('#prev').click(function () {
 $('#next').click(function () {
     moveToSelected('next');
 });
+
+if (avatarInput) {
+    avatarInput.addEventListener("change", ()=>{
+        const file = avatarInput.childNodes[0].files[0];
+        console.log(file);
+        if (file) {
+            avatarImg.src = URL.createObjectURL(file);
+        }
+    })
+}
 
 burgerBtn.addEventListener("click", ()=>{
     sideBar.classList.add("active");

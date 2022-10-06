@@ -3,6 +3,11 @@
 {% block title %}Contactez nous{% endblock %}
 
 {% block body %}
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success" style="background-color:gray; color: white">
+        {{ message }}
+    </div>
+{% endfor %}
     <main class="row justify-content-md-center">
         <section class="form_container col col-md-8 col-xl-6">
             <article >

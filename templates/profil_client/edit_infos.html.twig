@@ -10,10 +10,12 @@
             <aside class="profil_picture edit p-2">
 				<h3>Avatar</h3>
                 <div class="d-flex align-items-center">
-					<img class="img-fluid" ({% if app.user.avatar %} 
-											src="{{asset("assets/uploads/avatar/" ~  app.user.avatar)}}" 
-											{% else %} src="{{asset("assets/uploads/avatar/default.png")}}") 
-											{% endif %}  alt="Photo de profil">	
+					<div class="div_img">
+						<img id="avatar_img" class="img-fluid" ({% if app.user.avatar %} 
+												src="{{asset("assets/uploads/avatar/" ~  app.user.avatar)}}" 
+												{% else %} src="{{asset("assets/uploads/avatar/default.png")}}") 
+												{% endif %}  alt="Photo de profil">	
+					</div>
 					{{ form_row(EditClient.avatar) }}
 				</div>
             </aside>

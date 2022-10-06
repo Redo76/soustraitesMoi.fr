@@ -195,7 +195,7 @@
 }
 
 
-@media only screen and (min-width: 992px){
+@media only screen and (min-width: 1024px){
     #offres {
         height: 90%;
         padding: 1% 10% 7% 10%;
@@ -203,7 +203,7 @@
     
     #cards {
         width: 100%;
-        height: 100%;
+        height: 80%;
         display: flex;
         justify-content: space-around;
         padding-top: 50px;
@@ -211,18 +211,21 @@
     
     .card_complete {
         width: 33%;
-        height: 90vh;
+        height: 100%;
         padding: 0 1%;
     }
     
     .card_top {
-        height: 45vh;
+        height: 55%;
     }
     .card_bottom {
-        height: 55vh;
+        height: 53vh;
     }
     #card_top_different{
-        height: 45vh; 
+        height: 55%; 
+    }
+    #card_bottom_different{
+        height: 53vh; 
     }
     
     #img_card3 {

@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -20,7 +22,12 @@ class EditProfileClientType extends AbstractType
         ->add('avatar', FileType::class, [
             "label" => false,
             'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
-            'mapped' => false
+            'mapped' => false,
+            'constraints' => [
+                new Image([
+                    'maxSize' => '5M'
+                ])
+            ]
         ])
         ->add('firstname', TextType::class, [
             'label' => false,
@@ -40,6 +47,7 @@ class EditProfileClientType extends AbstractType
         ->add('phone', TelType::class,[
             'label' => false,
             'attr' => ['placeholder' => 'N° Téléphone'],
+            "required" => false,
             'constraints' => [
                 new Regex([
                     'pattern'=> '/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/',
@@ -51,15 +59,18 @@ class EditProfileClientType extends AbstractType
         ->add('companyName', TextType::class, [
             'label' => false,
             'attr' => ['placeholder' => 'Nom'],
+            "required" => false,
         ])
         ->add('companyCommercialName', TextType::class, [
             'label' => false,
             'attr' => ['placeholder' => 'Nom comercial'],
+            "required" => false,
         ])
         
         ->add('siret', TextType::class, [
             'label' => false,
             'attr' => ['placeholder' => 'N° de siret'],
+            "required" => false,
             'constraints' => [
                 new Regex([
                     'pattern'=> '/^[0-9]{14}$/',

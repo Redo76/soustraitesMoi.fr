@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\AddressFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -21,7 +22,12 @@ class EditProfileExpertType extends AbstractType
         ->add('avatar', FileType::class, [
             "label" => false,
             'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
-            'mapped' => false
+            'mapped' => false,
+            'constraints' => [
+                new Image([
+                    'maxSize' => '5M'
+                ])
+            ]
         ])
         ->add('firstname', TextType::class, [
             'label' => false,

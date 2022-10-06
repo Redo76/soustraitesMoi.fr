@@ -80,11 +80,14 @@ a:hover{
 }
 /* fin documentation legale */
 /* Profil expert */
+.invalid-feedback{
+    height: auto;
+}
 .profil_card{
     padding: 5%;
     background-color: var(--secondary);
-    border: 1px black solid;
-    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    border-radius: 8px;
 }
 .profil_card button{
     background-color: black;
@@ -103,11 +106,22 @@ a:hover{
     margin: 2%;
     height: 80px;
 }
-.profil_card .img-fluid{
+.profil_card .img_fluid{
     max-height: 300px;
 }
+.profil_card .edit .div_img{
+    width: 320px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 2%;;
+}
 .profil_card .edit .img-fluid{
-    width: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 /* Profil expert */
 
@@ -123,8 +137,9 @@ a:hover{
     .edit{
         width: 100%;
     }
-    .profil_card .edit .img-fluid {
+    .profil_card .edit .div_img {
         width: 260px;
+        height: 230px;
     }
     /* Profil expert */
     /* Main */
@@ -132,8 +147,10 @@ a:hover{
 }
 
 @media only screen and (min-width: 992px){
-    .profil_card .edit .img-fluid {
-        width: 350px;
+    .profil_card .edit .div_img {
+        width: 310px;
+        height: 285px;
+        margin: 3%;
     }
 }
 @media only screen and (min-width: 1200px){
