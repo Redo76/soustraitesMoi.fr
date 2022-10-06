@@ -19,6 +19,12 @@ class Image
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Project $project = null;
 
+    #[ORM\ManyToOne(inversedBy: 'good_logo_example')]
+    private ?ProjectLogo $goodprojectLogo = null;
+
+    #[ORM\ManyToOne(inversedBy: 'bad_logo_example')]
+    private ?ProjectLogo $badProjectLogo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +50,30 @@ class Image
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getGoodProjectLogo(): ?ProjectLogo
+    {
+        return $this->goodProjectLogo;
+    }
+
+    public function setGoodProjectLogo(?ProjectLogo $goodProjectLogo): self
+    {
+        $this->goodProjectLogo = $goodProjectLogo;
+
+        return $this;
+    }
+
+    public function getBadProjectLogo(): ?ProjectLogo
+    {
+        return $this->badProjectLogo;
+    }
+
+    public function setBadProjectLogo(?ProjectLogo $badProjectLogo): self
+    {
+        $this->badProjectLogo = $badProjectLogo;
 
         return $this;
     }

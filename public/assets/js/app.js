@@ -7,49 +7,25 @@ const dropDownMenu = document.querySelector(".dropdown-menu");
 const avatarInput = document.querySelector(".avatar");
 const avatarImg = document.querySelector("#avatar_img");
 const projectInput = document.querySelector(".project_imgs");
-const isCompanyInput = document.querySelector("#registration_form_isCompany");
 const companyInfo = document.querySelector("#company_info");
-const companyInput = document.querySelectorAll("#company_info input");
+const companyInfoInputs = document.querySelectorAll("#company_info input");
 const ParticulierInput = document.querySelector("#registration_form_isCompany #registration_form_isCompany_0");
 const CompanyInput = document.querySelector("#registration_form_isCompany #registration_form_isCompany_1");
 
-// console.log(isCompanyInput);
-// console.log(ParticulierInput);
-// console.log(CompanyInput);
-
-ParticulierInput.addEventListener("click",()=>{
-    companyInfo.style.display = "none";
-    for (const input of companyInput) {
-        input.value = "";
-    }
-})
-
-CompanyInput.addEventListener("click",()=>{
-    companyInfo.style.display = "block";
-})
-
-if (isCompanyInput.checked) {
-    console.log(isCompanyInput.value);
+if (ParticulierInput) {
+    ParticulierInput.addEventListener("click",()=>{
+        companyInfo.style.display = "none";
+        for (const input of companyInfoInputs) {
+            input.value = "";
+        }
+    })
 }
-// isCompanyInput.addEventListener("click", ()=>{
-//     console.log(isCompanyInput.value);
-// })
 
-// isCompanyInput.addEventListener("change", ()=>{
-//     console.log(ParticulierInput);
-
-
-//     let isParticulier = ParticulierInput.attributes.checked;
-//     console.log(isParticulier);
-
-//     if (isParticulier) {
-//         console.log(123);
-//     }
-//     else{
-//         console.log(456);
-//     }
-// })
-
+if (CompanyInput) {
+    CompanyInput.addEventListener("click",()=>{
+        companyInfo.style.display = "block";
+    })
+}
 
 function moveToSelected(element) {
 
