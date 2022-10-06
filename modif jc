@@ -1,98 +1,77 @@
-LANCER LA CMD composer require symfony/mailer
-UTILISER Mailtrap POUR VERIFIER ENVOI DES MAILS
+A METTRE DANS TEMPLATE/HOME/INDEX
 
-PUIS =>
+<aside id="finder">
+  <div id="carousel">
+    <div class="hideLeft">
+      <img src="assets/img/carousel1.webp">
+    </div>
+    <div class="hideLeft">
+      <img src="assets/img/carousel2.webp">
+    </div>
+    <div class="hideLeft">
+      <img src="assets/img/carousel3.webp">
+    </div>
+    <div class="hideLeft">
+      <img src="assets/img/carousel4.webp">
+    </div>
+    <div class="hideLeft">
+      <img src="assets/img/POCHON VERT COMBI.png">
+    </div>
+    <div class="hideLeft">
+      <img src="assets/img/carousel5.webp">
+    </div>
+    <div class="prevLeftSecond">
+      <img src="assets/img/carousel6.webp">
+    </div>
+    <div class="prev">
+      <img src="assets/img/carousel7.webp">
+    </div>
+    <div class="selected">
+      <img src="assets/img/carousel8.jpg">
+    </div>
+    <div class="next">
+      <img src="assets/img/carousel9.webp">
+    </div>
+    <div class="nextRightSecond">
+      <img src="assets/img/carousel10.webp">
+    </div>
+    <div class="hideRight">
+      <img src="assets/img/carousel11.webp">
+    </div>
+    <div class="hideRight">
+      <img src="assets/img/carousel12.webp">
+    </div>
+    <div class="hideRight">
+      <img src="assets/img/carousel13.webp">
+    </div>
+    <div class="hideRight">
+      <img src="assets/img/carousel14.webp">
+    </div>
+    <div class="hideRight">
+      <img src="assets/img/carousel15.webp">
+    </div>
+    <div class="hideRight">
+      <img src="assets/img/carousel16.webp">
+    </div>
+  </div>
+</aside>
 
-A METTRE DANS LE FICHIER .env
+TEMPLATE/HOME/INDEX
 
-###> symfony/mailer ###
-MAILER_DSN=smtp://23f70d2ce513a5:ce193162e1ce0f@smtp.mailtrap.io:2525?encryption=tls&auth_mode=login
-###< symfony/mailer ###
+METTRE EN COMM DE LIGNE 206 A 220 (pour retirer la partie 'ils nous font confiance)
 
-A COLLER DANS ContactController
 
-<?php
 
-namespace App\Controller;
+DANS header.css ligne 211 COLLER
 
-use App\Entity\Contact;
-use App\Form\ContactType;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
-
-class ContactController extends AbstractController
-{
-    #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, EntityManagerInterface $manager, MailerInterface $mailer): Response
-    {
-        $contact = new Contact();
-
-        // préremplir les champs nom, prenom, email si il y a un user connecté
-        if ($this->getUser()) {
-            $contact->setFirstName($this->getUser()->getFirstName())
-                ->setLastName($this->getUser()->getLastName())
-                ->setEmail($this->getUser()->getEmail());
-        }
-
-        $form = $this->createForm(ContactType::class, $contact);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $contact = $form->getData();
-
-            $manager->persist($contact);
-            $manager->flush();
-
-            // envoi email
-            $email = (new TemplatedEmail())
-                ->from($contact->getEmail())
-                ->to('soustraitesmoi@gmail.com')
-                ->subject($contact->getSubject())
-                ->htmlTemplate('contact/contact.html.twig')
-
-                // pass variables (name => value) to the template
-                ->context([
-                    'contact' => $contact
-                ]);
-
-            $mailer->send($email);
-
-            // message confirmation envoi
-            $this->addFlash(
-                'success',
-                'votre demande a bien été envoyée'
-            );
-            return $this->redirectToRoute('app_contact');
-        }
-        return $this->render('contact/index.html.twig', [
-            'form' => $form->createview(),
-        ]);
-    }
+ background-color: #d2b511;
+ 
+ DANS carousel.css ligne 107 COLLER
+ 
+  background-color: #d2b511;
+  
+  DANS carousel.css ligne 120 AJOUTER
+  
+  #carousel_btn a:hover {
+    color: #d2b511;
 }
-
-DANS TEMPLATE/CONTACT CREER NOUVEAU FICHIER contact.html.twig ET COLLER
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-	</head>
-	<body>
-		<h3>Vous avez reçu une demande de: </h3>
-        <p>{{ contact.firstName }} {{ contact.lastName }}</p>
-        <h3>Son adresse mail: </h3>
-        <p>{{ contact.email }}</p>
-        <h3>Sujet de la demande: </h3>
-        <p>{{ contact.subject }}</p>
-        <h3>Message:</h3>
-        <div>
-        {{ contact.message|raw }}
-        </div>
-	</body>
-</html>
-
