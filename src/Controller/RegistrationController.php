@@ -30,20 +30,23 @@ class RegistrationController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('password')->getData()
-                )
-            );
-
-            $user->setRoles(["ROLE_CLIENT"]);
-
-            $entityManager->persist($user);
-            $entityManager->flush();
+                    )
+                );
+                
+                // $isComp = $form["isCompany"]->getData();
+                
+                $user->setRoles(["ROLE_CLIENT"]);
+                $user->setIsCompany($form->get('isCompany')->getData());
+                
+                $entityManager->persist($user);
+                $entityManager->flush();
             // do anything else you need here, like send an email
 
             return $userAuthenticator->authenticateUser(
@@ -75,6 +78,7 @@ class RegistrationController extends AbstractController
             );
 
             $user->setRoles(["ROLE_EXPERT"]);
+            $user->setIsCompany(true);
 
             $entityManager->persist($user);
             $entityManager->flush();

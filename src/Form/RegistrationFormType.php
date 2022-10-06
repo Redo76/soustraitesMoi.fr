@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
@@ -63,17 +64,34 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ]
             ])
+            ->add('address', AddressFormType::class,[
+                "label" => false,
+            ])
+            ->add('isCompany', ChoiceType::class, [
+                "label" => false,
+                'required' => true,
+                "expanded" => true,
+                "multiple" => false,
+                'choices' => [
+                    'Vous êtes particulier' => false,
+                    "Vous êtes professionnel" => true,
+                ],
+                'data' => false
+            ])
             ->add('companyName', TextType::class, [
                 'label' => false,
+                'required' => false,
                 'attr' => ['placeholder' => 'Nom'],
             ])
             ->add('companyCommercialName', TextType::class, [
                 'label' => false,
+                'required' => false,
                 'attr' => ['placeholder' => 'Nom comercial'],
             ])
             
             ->add('siret', TextType::class, [
                 'label' => false,
+                'required' => false,
                 'attr' => ['placeholder' => 'N° de siret'],
                 'constraints' => [
                     new Regex([

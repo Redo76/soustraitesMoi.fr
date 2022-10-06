@@ -35,9 +35,22 @@
                 </div>
                 {{ form_row(registrationForm.email) }}
                 {{ form_row(registrationForm.password) }}
+                {{ form_row(registrationForm.phone) }}
+                <h3 class="pb-3">Adresse :</h3>
+                {{ form_row(registrationForm.address) }}
+                {{ form_row(registrationForm.isCompany) }}
+                {# <div id="registration_form_isCompany">
+                    <div class="form-check">
+                        <input type="radio" id="registration_form_isCompany_0" name="registration_form[isCompany]" required="required" class="form-check-input" value="false" checked="checked">
+                        <label class="form-check-label required" for="registration_form_isCompany_0">Vous êtes particulier</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="registration_form_isCompany_1" name="registration_form[isCompany]" required="required" class="form-check-input" value="true">
+                        <label class="form-check-label required" for="registration_form_isCompany_1">Vous êtes professionnel</label>
+                    </div>
+                </div> #}
             </article>
-            <article>
-                <h3 class="pb-3">Vous faites partie d'une société ?</h3>
+            <article id="company_info" style="display:none;">
                 {{ form_row(registrationForm.companyName) }}
                 {{ form_row(registrationForm.companyCommercialName) }}
                 {{ form_row(registrationForm.siret) }}

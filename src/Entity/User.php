@@ -58,6 +58,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, nullable: true)]
     private ?string $companyCommercialName = null;
 
+    #[ORM\Column]
+    private ?bool $isCompany = null;
+
+    
 
     public function getId(): ?int
     {
@@ -233,6 +237,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCompanyCommercialName(?string $companyCommercialName): self
     {
         $this->companyCommercialName = $companyCommercialName;
+
+        return $this;
+    }
+
+    public function isIsCompany(): ?bool
+    {
+        return $this->isCompany;
+    }
+
+    public function setIsCompany(bool $isCompany): self
+    {
+        $this->isCompany = $isCompany;
 
         return $this;
     }

@@ -133,6 +133,10 @@
     height: 18px;
 }
 
+#registration_form_isCompany{
+    display: flex;
+    justify-content: space-around;
+}
 
 @media only screen and (min-width: 768px){
     #modalInscription{

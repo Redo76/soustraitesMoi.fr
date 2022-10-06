@@ -67,6 +67,26 @@ class RegistrationExpertFormType extends AbstractType
                     ]),
                 ]
             ])
+            ->add('companyName', TextType::class, [
+                'label' => false,
+                'attr' => ['placeholder' => 'Nom'],
+            ])
+            ->add('companyCommercialName', TextType::class, [
+                'label' => false,
+                'attr' => ['placeholder' => 'Nom comercial'],
+            ])
+            
+            ->add('siret', TextType::class, [
+                'label' => false,
+                'attr' => ['placeholder' => 'N° de siret'],
+                'constraints' => [
+                    new Regex([
+                        'pattern'=> '/^[0-9]{14}$/',
+                        'match'=> true,
+                        'message'=> 'Veuillez entrer un numéro valide',
+                    ]),
+                ]
+            ])
         ;
     }
 
