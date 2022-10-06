@@ -6,6 +6,8 @@ const dropDownBtn = document.querySelector(".fa-sort-down");
 const dropDownMenu = document.querySelector(".dropdown-menu");
 const avatarInput = document.querySelector(".avatar");
 const avatarImg = document.querySelector("#avatar_img");
+const projectInput = document.querySelector(".project_imgs");
+
 
 function moveToSelected(element) {
 
@@ -72,6 +74,38 @@ if (avatarInput) {
         }
     })
 }
+
+if (projectInput) {
+    // files = [];
+    
+    projectInput.addEventListener("change", ()=>{
+        const template = document.querySelector("#template_project");
+        const imgList = document.querySelector('.img-list');
+        
+        const files = projectInput.childNodes[1].files;
+        // console.log(files);
+
+        // for (const key in files) {
+        //     delete files[key];
+        // }
+        // console.log(files);
+
+        while (imgList.lastElementChild) {
+            imgList.removeChild(imgList.lastElementChild);
+        }
+
+        for (const file of files) {
+            const clone = document.importNode(template.content, true);
+            
+            //Image
+            const imgProject = clone.querySelector(".project-img");
+            imgProject.src = URL.createObjectURL(file);
+    
+            imgList.appendChild(clone);
+        }
+    })
+}
+
 
 burgerBtn.addEventListener("click", ()=>{
     sideBar.classList.add("active");

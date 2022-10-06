@@ -1,4 +1,12 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
+    <template id="template_project">
+        <div class="card mt-1 w-25">
+            <img src="#" class="project-img w-100 h-100" alt="Image projet">
+        </div>
+    </template>
+    <div class="img-list d-flex flex-wrap">
+
+    </div>
     <button class="btn">{{ button_label|default('Valider') }}</button>
 {{ form_end(form) }}
