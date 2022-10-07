@@ -37,10 +37,10 @@ class ProjectLogo
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $unwanted_colors = null;
 
-    #[ORM\OneToMany(mappedBy: 'projectLogo', targetEntity: Image::class)]
+    #[ORM\OneToMany(mappedBy: 'projectLogo', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     private Collection $good_logo_example;
 
-    #[ORM\OneToMany(mappedBy: 'badProjectLogo', targetEntity: Image::class)]
+    #[ORM\OneToMany(mappedBy: 'badProjectLogo', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     private Collection $bad_logo_example;
 
     #[ORM\Column(length: 75, nullable: true)]
@@ -50,13 +50,13 @@ class ProjectLogo
     private ?string $support = null;
 
     #[ORM\Column(length: 25, nullable: true)]
-    private ?string $creation = null;
+    private ?bool $creation = null;
 
     #[ORM\Column(length: 75, nullable: true)]
     private ?string $img_format = null;
 
     #[ORM\Column(length: 15, nullable: true)]
-    private ?string $background = null;
+    private ?bool $background = null;
 
     public function __construct()
     {
@@ -165,7 +165,7 @@ class ProjectLogo
     {
         if (!$this->good_logo_example->contains($goodLogoExample)) {
             $this->good_logo_example->add($goodLogoExample);
-            $goodLogoExample->setProjectLogo($this);
+            $goodLogoExample->setGoodProjectLogo($this);
         }
 
         return $this;
@@ -175,8 +175,8 @@ class ProjectLogo
     {
         if ($this->good_logo_example->removeElement($goodLogoExample)) {
             // set the owning side to null (unless already changed)
-            if ($goodLogoExample->getProjectLogo() === $this) {
-                $goodLogoExample->setProjectLogo(null);
+            if ($goodLogoExample->getGoodProjectLogo() === $this) {
+                $goodLogoExample->setGoodProjectLogo(null);
             }
         }
 

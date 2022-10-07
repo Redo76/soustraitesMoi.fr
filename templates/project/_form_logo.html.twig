@@ -1,0 +1,43 @@
+{{ form_start(form) }}
+    {{ form_row(form.brand_name) }}
+    {{ form_row(form.activity) }}
+    {{ form_row(form.budget) }}
+    {{ form_row(form.start_date) }}
+    <h3>Explication de la marque</h3>
+    {{ form_row(form.explanation) }}
+    {{ form_row(form.desired_colors) }}
+    {{ form_row(form.unwanted_colors) }}
+    <h3>Exemples de Logos appréciés</h3>
+    {{ form_row(form.good_logo_example) }}
+    <template id="template_project">
+        <div class="card mt-1 w-25">
+            <img src="#" class="project-img w-100 h-100" alt="Image projet">
+        </div>
+    </template>
+    <div class="img-list d-flex flex-wrap">
+
+    </div>
+    {{ form_row(form.bad_logo_example) }}
+    <template id="template_project2">
+        <div class="card mt-1 w-25">
+            <img src="#" class="project-img2 w-100 h-100" alt="Image projet">
+        </div>
+    </template>
+    <div class="img-list2 d-flex flex-wrap">
+
+    </div>
+    <h3>Autres marques concurrentes à la votre</h3>
+    {{ form_row(form.other_brands) }}
+    <h3>Utilisation du logo</h3>
+    {{ form_row(form.support) }}
+    {{ form_row(form.creation) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.img_format) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.background) }}
+        </div>
+    </div>
+    <button class="btn">{{ button_label|default('Valider') }}</button>
+{{ form_end(form) }}

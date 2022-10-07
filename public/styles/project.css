@@ -2,6 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
 /* liste-projets */
 
+
+
 .h1_projets {
     text-align: center;
     font-size: 36px;
@@ -56,67 +58,6 @@
     width: 75px;
     height: 75px;
 }
-
-@media only screen and (min-width: 768px) {
-    .h1_projets {
-        font-size: 48px;
-    }
-
-    .section_projets_div {
-        border: 2px solid black;
-        padding: 30px 10px 30px 10px;
-    }
-
-    .section_projets h4 {
-        font-size: 36px;
-        padding: 10px;
-    }
-
-    .section_projets_p {
-        font-size: 28px;
-        padding: 10px;
-        font-weight: 400;
-    }
-
-    #p_sujet {
-        font-size: 28px;
-        font-weight: 400;
-    }
-
-    #img_mes_projets {
-        width: 100px;
-        height: 100px;
-    }
-
-    @media only screen and (min-width: 1200px) {
-
-        .section_projets {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            justify-content: start;
-            align-items: center;
-            justify-content: space-around;
-            width: 100%;
-        }
-
-        .section_projets_div {
-            height: 1000px;
-            width: 30%;
-        }
-
-        #p_sujet {
-            height: 200px;
-            overflow: auto;
-        }
-
-        #img_mes_projets {
-            width: 120px;
-            height: 120px;
-        }
-    }
-}
-
 /* nouveau projet */
 
 #h1_nouveau_projet {
@@ -155,7 +96,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 
 .brand-logo img {
@@ -213,7 +154,14 @@
     box-shadow: none;
 }
 
+
+
 @media only screen and (min-width: 768px) {
+    .nouveau_projet h3{
+        font-size: 20px;
+        padding-top: 3px;
+        margin: 0;
+    }
     #h1_nouveau_projet {
         font-size: 50px;
         margin: 30px auto 50px;
@@ -232,8 +180,8 @@
         width: 60px;
         margin-bottom: 50px;
     }
-
-    .mb-3 label {
+    
+    .form-label {
         font-size: 20px;
     }
 
@@ -241,5 +189,61 @@
         width: 120px;
         height: 50px;
         font-size: 16px;
+    }
+    .form-label-misc{
+        font-size: 15px;
+    }
+    .h1_projets {
+        font-size: 48px;
+    }
+
+    .section_projets_div {
+        border: 2px solid black;
+        padding: 30px 10px 30px 10px;
+    }
+
+    .section_projets h4 {
+        font-size: 36px;
+        padding: 10px;
+    }
+
+    .section_projets_p {
+        font-size: 28px;
+        padding: 10px;
+        font-weight: 400;
+    }
+    
+    #p_sujet {
+        font-size: 28px;
+        font-weight: 400;
+    }
+    
+    #img_mes_projets {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .section_projets {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+    }
+    .section_projets_div {
+        height: 1000px;
+        width: 30%;
+    }
+    #p_sujet {
+        height: 200px;
+        overflow: auto;
+    }
+    #img_mes_projets {
+        width: 120px;
+        height: 120px;
     }
 }

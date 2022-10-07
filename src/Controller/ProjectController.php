@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Entity\ProjectLogo;
+use App\Form\ProjectLogoType;
 use App\Service\UploaderHelper;
 use App\Repository\ProjectRepository;
+use App\Repository\ProjectLogoRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,8 +34,16 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_project_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectRepository $projectRepository): Response
+    #[Route('/nouveau', name: 'app_project_new', methods: ['GET'])]
+    public function new(): Response
+    {
+        return $this->render('project/new.html.twig', [
+            'controller_name' => 'ProjectController',
+        ]);
+    }
+
+    #[Route('/libre', name: 'app_project_free', methods: ['GET', 'POST'])]
+    public function freeProject(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectRepository $projectRepository): Response
     {
         $project = new Project($this->getUser());
         $form = $this->createForm(ProjectType::class, $project);
@@ -56,7 +67,49 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('project/new.html.twig', [
+        return $this->renderForm('project/project_libre.html.twig', [
+            'project' => $project,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/logo', name: 'app_project_logo', methods: ['GET', 'POST'])]
+    public function logoProject(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectLogoRepository $projectLogoRepository): Response
+    {
+        $project = new ProjectLogo($this->getUser());
+        $form = $this->createForm(ProjectLogoType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFiles1 = $form['good_logo_example']->getData();
+            $uploadedFiles2 = $form['bad_logo_example']->getData();
+
+            if ($uploadedFiles1) {
+                foreach ($uploadedFiles1 as $key => $uploadedFile) {
+                    $newFilename = $uploaderHelper->uploadProjectImages($uploadedFile, $slugger);
+                    $img = new Image();
+                    $img->setName($newFilename);
+
+                    $project->addGoodLogoExample($img);
+                }
+            }
+
+            if ($uploadedFiles2) {
+                foreach ($uploadedFiles2 as $key => $uploadedFile) {
+                    $newFilename = $uploaderHelper->uploadProjectImages($uploadedFile, $slugger);
+                    $img = new Image();
+                    $img->setName($newFilename);
+
+                    $project->addBadLogoExample($img);
+                }
+            }
+
+            $projectLogoRepository->add($project, true);
+
+            return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('project/project_logo.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);
