@@ -21,16 +21,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProjectController extends AbstractController
 {
     #[Route('/', name: 'app_project_index', methods: ['GET'])]
-    public function index(ProjectRepository $projectRepository): Response
+    public function index(ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository): Response
     {
         // LIER USER/PROJECT:
         // déclarer $user= info class user avec le get
         // déclarer $projects comme objet du tableau project
         // puis rappeler la fonction findAllByUserId en mettant en paramètre user
         $user=$this->getUser();
-        $projects=$projectRepository->findAll();
+        // $projects=$projectRepository->findAll();
         return $this->render('project/index.html.twig', [
             'projects' => $projectRepository->findAllByUserId($user),
+            'projectsLogo' => $projectLogoRepository->findAllByUserId($user),
         ]);
     }
 

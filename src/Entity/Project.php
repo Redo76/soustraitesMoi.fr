@@ -34,7 +34,7 @@ class Project
     #[ORM\ManyToOne(inversedBy: 'projects')]
     // LIER USER/PROJECT
     // pour que la colonne user_id dans la table project ne puisse pas être nulle
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $User = null;
 
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Image::class, cascade: ['persist', 'remove'])]

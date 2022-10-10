@@ -25,7 +25,7 @@ class ProjectLogo
     #[ORM\Column(length: 50)]
     private ?string $budget = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable:true)]
     private ?\DateTimeInterface $start_date = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -58,8 +58,13 @@ class ProjectLogo
     #[ORM\Column(length: 15, nullable: true)]
     private ?bool $background = null;
 
-    public function __construct()
+    #[ORM\ManyToOne(inversedBy: 'projectLogos')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?User $user = null;
+
+    public function __construct($user)
     {
+        $this->user = $user;
         $this->good_logo_example = new ArrayCollection();
         $this->bad_logo_example = new ArrayCollection();
     }
@@ -269,6 +274,18 @@ class ProjectLogo
     public function setBackground(?string $background): self
     {
         $this->background = $background;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

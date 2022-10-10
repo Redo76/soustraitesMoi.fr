@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\ProjectLogo;
+use App\Entity\ProjectReseaux;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ProjectLogo>
+ * @extends ServiceEntityRepository<ProjectReseaux>
  *
- * @method ProjectLogo|null find($id, $lockMode = null, $lockVersion = null)
- * @method ProjectLogo|null findOneBy(array $criteria, array $orderBy = null)
- * @method ProjectLogo[]    findAll()
- * @method ProjectLogo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ProjectReseaux|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ProjectReseaux|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ProjectReseaux[]    findAll()
+ * @method ProjectReseaux[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProjectLogoRepository extends ServiceEntityRepository
+class ProjectReseauxRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ProjectLogo::class);
+        parent::__construct($registry, ProjectReseaux::class);
     }
 
-    public function add(ProjectLogo $entity, bool $flush = false): void
+    public function add(ProjectReseaux $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ProjectLogoRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(ProjectLogo $entity, bool $flush = false): void
+    public function remove(ProjectReseaux $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -39,19 +39,8 @@ class ProjectLogoRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllByUserId($value): array
-    {
-        return $this->createQueryBuilder('pl')
-            ->andWhere('pl.user = :val')
-            ->setParameter('val', $value)
-            ->orderBy('pl.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
-    }
-
 //    /**
-//     * @return ProjectLogo[] Returns an array of ProjectLogo objects
+//     * @return ProjectReseaux[] Returns an array of ProjectReseaux objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -65,7 +54,7 @@ class ProjectLogoRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ProjectLogo
+//    public function findOneBySomeField($value): ?ProjectReseaux
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')
