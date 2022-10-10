@@ -1,0 +1,50 @@
+{{ form_start(form) }}
+    {{ form_row(form.brand_name) }}
+    {{ form_row(form.activity) }}
+    {{ form_row(form.budget) }}
+    {{ form_row(form.start_date) }}
+        <div class="row">
+        <div class="col">
+            {{ form_row(form.mission_duration) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.publication) }}
+        </div>
+    </div>
+    {{ form_row(form.website) }}
+    {{ form_row(form.location) }}
+    {{ form_row(form.logo) }}
+    <template id="template_project">
+        <div class="card mt-1 w-25">
+            <img src="#" class="project-img w-100 h-100" alt="Image projet">
+        </div>
+    </template>
+    <div class="img-list d-flex flex-wrap">
+
+    </div>
+    <h3>Liens vers vos réseaux actuels</h3>
+    {{ form_row(form.snapchat) }}
+    {{ form_row(form.tiktok) }}
+    {{ form_row(form.instagram) }}
+    {{ form_row(form.facebook) }}
+    {{ form_row(form.linkedin) }}
+    {{ form_row(form.twitter) }}
+    {{ form_row(form.pinterest) }}
+    {{ form_row(form.other_media) }}
+    {{ form_row(form.community_manager) }}
+    <h3>Impact de votre communication :</h3>
+    {{ form_row(form.impact) }}
+    {{ form_row(form.desired_colors) }}
+    <h3>Exemples de pages appréciés</h3>
+    {{ form_row(form.liked_example) }}
+    {{ form_row(form.example) }}
+    <template id="template_project2">
+        <div class="card mt-1 w-25">
+            <img src="#" class="project-img2 w-100 h-100" alt="Image projet">
+        </div>
+    </template>
+    <div class="img-list2 d-flex flex-wrap">
+
+    </div>
+    <button class="btn">{{ button_label|default('Valider') }}</button>
+{{ form_end(form) }}

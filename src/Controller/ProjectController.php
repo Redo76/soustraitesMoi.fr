@@ -7,9 +7,12 @@ use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Entity\ProjectLogo;
 use App\Form\ProjectLogoType;
+use App\Entity\ProjectReseaux;
 use App\Service\UploaderHelper;
+use App\Form\ProjectReseauxType;
 use App\Repository\ProjectRepository;
 use App\Repository\ProjectLogoRepository;
+use App\Repository\ProjectReseauxRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -111,6 +114,48 @@ class ProjectController extends AbstractController
         }
 
         return $this->renderForm('project/project_logo.html.twig', [
+            'project' => $project,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/réseaux-sociaux', name: 'app_project_reseaux', methods: ['GET', 'POST'])]
+    public function reseauxProject(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectReseauxRepository $projectReseauxRepository): Response
+    {
+        $project = new ProjectReseaux($this->getUser());
+        $form = $this->createForm(ProjectReseauxType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFiles1 = $form['logo']->getData();
+            $uploadedFiles2 = $form['example']->getData();
+
+            if ($uploadedFiles1) {
+                foreach ($uploadedFiles1 as $key => $uploadedFile) {
+                    $newFilename = $uploaderHelper->uploadProjectImages($uploadedFile, $slugger);
+                    $img = new Image();
+                    $img->setName($newFilename);
+
+                    $project->addLogo($img);
+                }
+            }
+
+            if ($uploadedFiles2) {
+                foreach ($uploadedFiles2 as $key => $uploadedFile) {
+                    $newFilename = $uploaderHelper->uploadProjectImages($uploadedFile, $slugger);
+                    $img = new Image();
+                    $img->setName($newFilename);
+
+                    $project->addExample($img);
+                }
+            }
+
+            $projectReseauxRepository->add($project, true);
+
+            return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('project/project_reseaux.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);

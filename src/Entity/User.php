@@ -66,7 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-
+        
     }
 
     
@@ -257,6 +257,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsCompany(bool $isCompany): self
     {
         $this->isCompany = $isCompany;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProjectReseaux>
+     */
+    public function getProjectReseauxes(): Collection
+    {
+        return $this->projectReseauxes;
+    }
+
+    public function addProjectReseaux(ProjectReseaux $projectReseaux): self
+    {
+        if (!$this->projectReseauxes->contains($projectReseaux)) {
+            $this->projectReseauxes->add($projectReseaux);
+            $projectReseaux->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectReseaux(ProjectReseaux $projectReseaux): self
+    {
+        if ($this->projectReseauxes->removeElement($projectReseaux)) {
+            // set the owning side to null (unless already changed)
+            if ($projectReseaux->getUser() === $this) {
+                $projectReseaux->setUser(null);
+            }
+        }
 
         return $this;
     }

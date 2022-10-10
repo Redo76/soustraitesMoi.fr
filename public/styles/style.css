@@ -24,6 +24,9 @@ a{
 a:hover{
     color: antiquewhite;
 }
+.hide{
+    display: none;
+}
 
 /* Main */
 /* début documentation legale */

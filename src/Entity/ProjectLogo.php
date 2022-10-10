@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ProjectLogoRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProjectLogoRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: ProjectLogoRepository::class)]
 class ProjectLogo
@@ -58,7 +59,7 @@ class ProjectLogo
     #[ORM\Column(length: 15, nullable: true)]
     private ?bool $background = null;
 
-    #[ORM\ManyToOne(inversedBy: 'projectLogos')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
