@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ProjectReseauxRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use App\Repository\ProjectReseauxRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: ProjectReseauxRepository::class)]
 class ProjectReseaux
@@ -15,10 +16,11 @@ class ProjectReseaux
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\ManyToOne(cascade: ['remove'])]
+    
+    #[ORM\ManyToOne(inversedBy: 'projectReseaux')]
     private ?User $user = null;
     
+
     #[ORM\Column(length: 75, nullable: true)]
     private ?string $brand_name = null;
 
@@ -85,6 +87,7 @@ class ProjectReseaux
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $liked_example = null;
 
+
     public function __construct($user)
     {
         $this->user = $user;
@@ -99,17 +102,6 @@ class ProjectReseaux
         return $this->id;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
     public function getBrandName(): ?string
     {
@@ -407,6 +399,18 @@ class ProjectReseaux
     public function setWebsite(?string $website): self
     {
         $this->website = $website;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

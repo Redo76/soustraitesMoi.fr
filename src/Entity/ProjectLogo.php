@@ -59,9 +59,9 @@ class ProjectLogo
     #[ORM\Column(length: 15, nullable: true)]
     private ?bool $background = null;
 
-    #[ORM\ManyToOne(cascade: ['remove'])]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\ManyToOne(inversedBy: 'projectLogos')]
     private ?User $user = null;
+
 
     public function __construct($user)
     {
@@ -290,4 +290,5 @@ class ProjectLogo
 
         return $this;
     }
+
 }

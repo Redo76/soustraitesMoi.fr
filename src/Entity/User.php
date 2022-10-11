@@ -21,7 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Project::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Project::class, orphanRemoval: true)]
     private Collection $projects;
 
     #[ORM\Column(length: 75)]
@@ -69,10 +69,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isCompany = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ProjectLogo::class, orphanRemoval: true)]
+    private Collection $projectLogos;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ProjectReseaux::class, orphanRemoval: true)]
+    private Collection $projectReseaux;
+
 
     public function __construct()
     {
         $this->projects = new ArrayCollection();
+        $this->projectLogos = new ArrayCollection();
+        $this->projectReseaux = new ArrayCollection();
     }
 
     
@@ -300,15 +308,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, ProjectReseaux>
      */
-    public function getProjectReseauxes(): Collection
+    public function getprojectReseaux(): Collection
     {
-        return $this->projectReseauxes;
+        return $this->projectReseaux;
     }
 
     public function addProjectReseaux(ProjectReseaux $projectReseaux): self
     {
-        if (!$this->projectReseauxes->contains($projectReseaux)) {
-            $this->projectReseauxes->add($projectReseaux);
+        if (!$this->projectReseaux->contains($projectReseaux)) {
+            $this->projectReseaux->add($projectReseaux);
             $projectReseaux->setUser($this);
         }
 
@@ -317,7 +325,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeProjectReseaux(ProjectReseaux $projectReseaux): self
     {
-        if ($this->projectReseauxes->removeElement($projectReseaux)) {
+        if ($this->projectReseaux->removeElement($projectReseaux)) {
             // set the owning side to null (unless already changed)
             if ($projectReseaux->getUser() === $this) {
                 $projectReseaux->setUser(null);
@@ -335,6 +343,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setJobInCompany(?string $jobInCompany): self
     {
         $this->jobInCompany = $jobInCompany;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProjectLogo>
+     */
+    public function getProjectLogos(): Collection
+    {
+        return $this->projectLogos;
+    }
+
+    public function addProjectLogo(ProjectLogo $projectLogo): self
+    {
+        if (!$this->projectLogos->contains($projectLogo)) {
+            $this->projectLogos->add($projectLogo);
+            $projectLogo->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectLogo(ProjectLogo $projectLogo): self
+    {
+        if ($this->projectLogos->removeElement($projectLogo)) {
+            // set the owning side to null (unless already changed)
+            if ($projectLogo->getUser() === $this) {
+                $projectLogo->setUser(null);
+            }
+        }
 
         return $this;
     }
