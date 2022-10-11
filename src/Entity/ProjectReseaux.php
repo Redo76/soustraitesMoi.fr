@@ -16,7 +16,7 @@ class ProjectReseaux
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(cascade: ['remove'])]
     private ?User $user = null;
     
     #[ORM\Column(length: 75, nullable: true)]

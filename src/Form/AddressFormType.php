@@ -21,6 +21,7 @@ class AddressFormType extends AbstractType
             ])
             ->add('address2',TextType::class, [
                 'label' => false,
+                'required' => false,
                 'attr' => ['placeholder' => 'Adresse ligne 2'],
             ])
             ->add('codePostal',TextType::class, [

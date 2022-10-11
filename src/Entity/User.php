@@ -21,6 +21,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Project::class, orphanRemoval: true)]
+    private Collection $projects;
+
     #[ORM\Column(length: 75)]
     private ?string $firstName = null;
 
@@ -59,6 +62,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, nullable: true)]
     private ?string $companyCommercialName = null;
+    
+    #[ORM\Column(length: 75, nullable: true)]
+    private ?string $jobInCompany = null;
 
     #[ORM\Column]
     private ?bool $isCompany = null;
@@ -66,7 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        
+        $this->projects = new ArrayCollection();
     }
 
     
@@ -74,6 +80,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Collection<int, Project>
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects->add($project);
+            $project->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->removeElement($project)) {
+            // set the owning side to null (unless already changed)
+            if ($project->getUser() === $this) {
+                $project->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
     public function getFirstName(): ?string
@@ -287,6 +323,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $projectReseaux->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getJobInCompany(): ?string
+    {
+        return $this->jobInCompany;
+    }
+
+    public function setJobInCompany(?string $jobInCompany): self
+    {
+        $this->jobInCompany = $jobInCompany;
 
         return $this;
     }

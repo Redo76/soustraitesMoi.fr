@@ -59,7 +59,7 @@ class ProjectLogo
     #[ORM\Column(length: 15, nullable: true)]
     private ?bool $background = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(cascade: ['remove'])]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 

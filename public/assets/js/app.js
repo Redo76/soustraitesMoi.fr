@@ -15,6 +15,7 @@ const CompanyInput = document.querySelector("#registration_form_isCompany #regis
 
 if (ParticulierInput) {
     ParticulierInput.addEventListener("click",()=>{
+        console.log(741);
         companyInfo.style.display = "none";
         for (const input of companyInfoInputs) {
             input.value = "";
@@ -24,6 +25,7 @@ if (ParticulierInput) {
 
 if (CompanyInput) {
     CompanyInput.addEventListener("click",()=>{
+        console.log(852);
         companyInfo.style.display = "block";
     })
 }

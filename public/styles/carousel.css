@@ -103,7 +103,7 @@
    margin: 0 1%;
    border: 1px;
    border-radius: 5px;
-   background-color: #FFBF23;
+   background-color: #d2b511;
    box-shadow: 2px 2px gray;
 }
 #carousel_btn button:hover {
@@ -116,6 +116,9 @@
     color: black;
 }
 
+#carousel_btn a:hover {
+    color: #d2b511;
+}
 
 @media only screen and (min-width: 768px){
     #finder {
@@ -131,7 +134,7 @@
     }
     
     #carousel div.hideLeft img {
-        width: 200px;
+        width: 100px;
     }
     
     #carousel div.prev img {
@@ -183,7 +186,7 @@
     }
     
     #carousel div.hideLeft img {
-        width: 200px;
+        width: 100px;
     }
     
     #carousel div.prev img {

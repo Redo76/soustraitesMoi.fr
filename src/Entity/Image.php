@@ -16,16 +16,16 @@ class Image
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'images')]
+    #[ORM\ManyToOne(inversedBy: 'images', cascade: ['remove'])]
     private ?Project $project = null;
 
-    #[ORM\ManyToOne(inversedBy: 'good_logo_example')]
+    #[ORM\ManyToOne(inversedBy: 'good_logo_example', cascade: ['remove'])]
     private ?ProjectLogo $goodprojectLogo = null;
 
-    #[ORM\ManyToOne(inversedBy: 'bad_logo_example')]
+    #[ORM\ManyToOne(inversedBy: 'bad_logo_example', cascade: ['remove'])]
     private ?ProjectLogo $badProjectLogo = null;
 
-    #[ORM\ManyToOne(inversedBy: 'logo')]
+    #[ORM\ManyToOne(inversedBy: 'logo', cascade: ['remove'])]
     private ?ProjectReseaux $projectReseaux = null;
 
     public function getId(): ?int

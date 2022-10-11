@@ -29,7 +29,7 @@ class Project
     private ?string $Description = null;
 
     #[ORM\Column(length: 75, nullable: true)]
-    private ?string $Statut = null;
+    private ?bool $Statut = null;
 
     #[ORM\ManyToOne(inversedBy: 'projects')]
     // LIER USER/PROJECT
