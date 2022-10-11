@@ -12,6 +12,8 @@ const companyInfo = document.querySelector("#company_info");
 const companyInfoInputs = document.querySelectorAll("#company_info input");
 const ParticulierInput = document.querySelector("#registration_form_isCompany #registration_form_isCompany_0");
 const CompanyInput = document.querySelector("#registration_form_isCompany #registration_form_isCompany_1");
+const ParticulierInput2 = document.querySelector("#registration_info_form_isCompany #registration_info_form_isCompany_0");
+const CompanyInput2 = document.querySelector("#registration_info_form_isCompany #registration_info_form_isCompany_1");
 
 if (ParticulierInput) {
     ParticulierInput.addEventListener("click",()=>{
@@ -22,9 +24,24 @@ if (ParticulierInput) {
         }
     })
 }
+else if (ParticulierInput2) {
+    ParticulierInput2.addEventListener("click",()=>{
+        console.log(741);
+        companyInfo.style.display = "none";
+        for (const input of companyInfoInputs) {
+            input.value = "";
+        }
+    })
+}
 
 if (CompanyInput) {
     CompanyInput.addEventListener("click",()=>{
+        console.log(852);
+        companyInfo.style.display = "block";
+    })
+}
+else if (CompanyInput2) {
+    CompanyInput2.addEventListener("click",()=>{
         console.log(852);
         companyInfo.style.display = "block";
     })

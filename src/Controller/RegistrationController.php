@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
+use App\Form\RegistrationInfoFormType;
 use App\Form\RegistrationExpertFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,11 +66,42 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+    #[Route('/inscription-client/info', name: 'app_register_clientInfo')]
+    public function registerPLus(Request $request, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(RegistrationInfoFormType::class, $user);
+        $form->handleRequest($request);
+
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = new User();
+            $user->setIsCompany($form->get('isCompany')->getData());
+            
+            $request->getSession()->remove('register');
+            $user = $form->getData();
+            
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request
+            );
+        }
+
+        return $this->render('registration/client_register_info.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
+
     #[Route('/inscription-expert', name: 'app_register_expert')]
     public function registerExpert(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $request->getSession()->set('register', "expert");
-
+        
         $user = new User();
         $form = $this->createForm(RegistrationExpertFormType::class, $user);
         $form->handleRequest($request);

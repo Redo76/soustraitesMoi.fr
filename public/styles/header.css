@@ -222,6 +222,7 @@ header aside .profil_pic{
         height: 60px;
         border-radius: 50%;
         display: flex;
+        align-items: center;
         justify-content: center;
         overflow: hidden;
     }

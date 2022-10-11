@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag;
 
 class GoogleAuthenticator extends OAuth2Authenticator
 {
@@ -47,30 +48,28 @@ class GoogleAuthenticator extends OAuth2Authenticator
                 /** @var GoogleUser $googleUser */
                 $googleUser = $client->fetchUserFromToken($accessToken);
 
-                // dd($googleUser->getLastName());
-
                 $email = $googleUser->getEmail();
                 // have they logged in with Google before? Easy!
                 $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['googleId' => $googleUser->getId()]);
 
-                //User doesnt exist, we create it !
-                if (!$existingUser) {
-                    $existingUser = new User();
-                    $existingUser->setEmail($email);
-                    $existingUser->setFirstName($googleUser->getFirstName());
-                    $existingUser->setLastName($googleUser->getLastName());
-                    $existingUser->setGoogleId($googleUser->getId());
-                    if ($session->get('register') == "client") {
-                        $existingUser->setRoles(["ROLE_CLIENT"]);
-                        $session->remove('register');
-                    } else {
-                        $existingUser->setRoles(["ROLE_EXPERT"]);
-                        $session->remove('register');
+                if ($session->get('register')) {
+                    //User doesnt exist, we create it !
+                    if (!$existingUser) {
+                        $existingUser = new User();
+                        $existingUser->setEmail($email);
+                        $existingUser->setFirstName($googleUser->getFirstName());
+                        $existingUser->setLastName($googleUser->getLastName());
+                        $existingUser->setGoogleId($googleUser->getId());
+                        if ($session->get('register') == "client") {
+                            $existingUser->setRoles(["ROLE_CLIENT"]);
+                        } else {
+                            $existingUser->setRoles(["ROLE_EXPERT"]);
+                        }
+                        $existingUser->setAvatar($googleUser->getAvatar());
+                        $this->entityManager->persist($existingUser);
+                        $this->entityManager->flush();
                     }
-                    $this->entityManager->persist($existingUser);
                 }
-                $existingUser->setAvatar($googleUser->getAvatar());
-                $this->entityManager->flush();
 
                 return $existingUser;
             })
@@ -80,9 +79,11 @@ class GoogleAuthenticator extends OAuth2Authenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         // change "app_dashboard" to some route in your app
-        return new RedirectResponse(
-            $this->router->generate('app_home')
-        );
+        if ($request->getSession()->get('register') == "client") {
+            return new RedirectResponse(
+                $this->router->generate('app_register_clientInfo')
+            );
+        }
 
         // or, on success, let the request continue to be handled by the controller
         // return null;
@@ -90,9 +91,13 @@ class GoogleAuthenticator extends OAuth2Authenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        $message = strtr($exception->getMessageKey(), $exception->getMessageData());
+        // $message = strtr($exception->getMessageKey(), $exception->getMessageData());
+        // $mess = "pas de compte google";
+        // $request->getSession()->getFlashBag()->add('error', "");
 
-        return new Response($message, Response::HTTP_FORBIDDEN);
+        return new RedirectResponse(
+            $this->router->generate('app_register')
+        );
     }
 
 //    public function start(Request $request, AuthenticationException $authException = null): Response
