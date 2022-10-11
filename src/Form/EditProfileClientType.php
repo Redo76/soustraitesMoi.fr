@@ -66,7 +66,11 @@ class EditProfileClientType extends AbstractType
             'attr' => ['placeholder' => 'Nom comercial'],
             "required" => false,
         ])
-        
+        ->add('jobInCompany', TextType::class, [
+            'label' => false,
+            'required' => false,
+            'attr' => ['placeholder' => "Fonction dans l'entreprise"],
+        ])
         ->add('siret', TextType::class, [
             'label' => false,
             'attr' => ['placeholder' => 'N° de siret'],

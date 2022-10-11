@@ -31,10 +31,10 @@ class ProjectController extends AbstractController
         // déclarer $projects comme objet du tableau project
         // puis rappeler la fonction findAllByUserId en mettant en paramètre user
         $user=$this->getUser();
-        // $projects=$projectRepository->findAll();
+        $projects=$projectRepository->findAllProjectsByUserId($user);
+        dd($projects);
         return $this->render('project/index.html.twig', [
             'projects' => $projectRepository->findAllByUserId($user),
-            'projectsLogo' => $projectLogoRepository->findAllByUserId($user),
         ]);
     }
 

@@ -91,7 +91,11 @@
 						</tr>
 						<tr>
 							<th>Nom commercial</th>
-							<td>{{app.user.address ? app.user.companyCommercialName : 'Non défini'}}</td>
+							<td>{{app.user.companyCommercialName ? app.user.companyCommercialName : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Fonction dans l'entreprise</th>
+							<td>{{ app.user.jobInCompany ? app.user.jobInCompany : 'Non défini'}}</td>
 						</tr>
 						<tr>
 							<th>N° de siret</th>

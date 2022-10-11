@@ -40,9 +40,10 @@ class GoogleAuthenticator extends OAuth2Authenticator
     {
         $client = $this->clientRegistry->getClient('google');
         $accessToken = $this->fetchAccessToken($client);
+        $session = $request->getSession();
 
         return new SelfValidatingPassport(
-            new UserBadge($accessToken->getToken(), function () use ($accessToken, $client) {
+            new UserBadge($accessToken->getToken(), function () use ($accessToken, $client, $session) {
                 /** @var GoogleUser $googleUser */
                 $googleUser = $client->fetchUserFromToken($accessToken);
 
@@ -59,6 +60,13 @@ class GoogleAuthenticator extends OAuth2Authenticator
                     $existingUser->setFirstName($googleUser->getFirstName());
                     $existingUser->setLastName($googleUser->getLastName());
                     $existingUser->setGoogleId($googleUser->getId());
+                    if ($session->get('register') == "client") {
+                        $existingUser->setRoles(["ROLE_CLIENT"]);
+                        $session->remove('register');
+                    } else {
+                        $existingUser->setRoles(["ROLE_EXPERT"]);
+                        $session->remove('register');
+                    }
                     $this->entityManager->persist($existingUser);
                 }
                 $existingUser->setAvatar($googleUser->getAvatar());
@@ -77,7 +85,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
         );
 
         // or, on success, let the request continue to be handled by the controller
-        //return null;
+        // return null;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response

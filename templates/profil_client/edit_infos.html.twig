@@ -6,6 +6,7 @@
 {% block body %}
 	<main class="mt-4 p-lg-5 w-100 container-md home_container">
 		<div class="d-flex flex-column gap-3 justify-content-around profil_card">
+            {{ form_start(EditClient) }}
             <h1>Mon profil</h1>
             <aside class="profil_picture edit p-2">
 				<h3>Avatar</h3>
@@ -26,7 +27,6 @@
 						{{ message }}
 					</div>
 				{% endfor %} #}
-            {{ form_start(EditClient) }}
 				<h4>Informations personnelles</h4>
 				<table class="table">
 					<tbody>
@@ -61,6 +61,10 @@
 							<td>{{ form_row(EditClient.companyCommercialName) }}</td>
 						</tr>
 						<tr>
+							<th>Fonction dans l'entreprise</th>
+							<td>{{ form_row(EditClient.jobInCompany) }}</td>
+						</tr>
+						<tr>
 							<th>N° de siret</th>
 							<td>{{ form_row(EditClient.siret) }}</td>
 						</tr>
@@ -69,8 +73,8 @@
 			</div>
             <div class="d-flex align-items-center justify-between">
                 <button type="submit">Valider</button>
-                {{ form_end(EditClient) }}
             </div>
+            {{ form_end(EditClient) }}
 		</div>
 	</main>
 {% endblock %}

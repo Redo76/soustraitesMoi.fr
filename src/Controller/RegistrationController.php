@@ -27,6 +27,8 @@ class RegistrationController extends AbstractController
     #[Route('/inscription-client', name: 'app_register_client')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
+        $request->getSession()->set('register', "client");
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -44,6 +46,8 @@ class RegistrationController extends AbstractController
                 
                 $user->setRoles(["ROLE_CLIENT"]);
                 $user->setIsCompany($form->get('isCompany')->getData());
+
+                $request->getSession()->remove('register');
                 
                 $entityManager->persist($user);
                 $entityManager->flush();
@@ -64,6 +68,8 @@ class RegistrationController extends AbstractController
     #[Route('/inscription-expert', name: 'app_register_expert')]
     public function registerExpert(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
+        $request->getSession()->set('register', "expert");
+
         $user = new User();
         $form = $this->createForm(RegistrationExpertFormType::class, $user);
         $form->handleRequest($request);
@@ -79,6 +85,8 @@ class RegistrationController extends AbstractController
 
             $user->setRoles(["ROLE_EXPERT"]);
             $user->setIsCompany(true);
+
+            $request->getSession()->remove('register');
 
             $entityManager->persist($user);
             $entityManager->flush();

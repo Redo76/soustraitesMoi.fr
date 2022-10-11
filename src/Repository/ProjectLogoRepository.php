@@ -39,16 +39,16 @@ class ProjectLogoRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllByUserId($value): array
-    {
-        return $this->createQueryBuilder('pl')
-            ->andWhere('pl.user = :val')
-            ->setParameter('val', $value)
-            ->orderBy('pl.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
-    }
+    // public function findAllByUserId($value): array
+    // {
+    //     return $this->createQueryBuilder('pl')
+    //         ->andWhere('pl.user = :val')
+    //         ->setParameter('val', $value)
+    //         ->orderBy('pl.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
 //    /**
 //     * @return ProjectLogo[] Returns an array of ProjectLogo objects
