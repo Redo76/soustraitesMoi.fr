@@ -39,12 +39,10 @@ class ClientController extends AbstractController
             if ($uploadedFile) {
                 // dd($user);
                 $newFilename = $uploaderHelper->uploadAvatar($uploadedFile, $slugger);
-                $user = $form->getData();
                 $user->setAvatar($newFilename);
             }
-            else {
-                $user = $form->getData();
-            }
+            $user->setIsCompany($form->get('isCompany')->getData());
+            $user = $form->getData();
 
             $entityManager->persist($user);
             $entityManager->flush();

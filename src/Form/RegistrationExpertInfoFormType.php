@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
-class RegistrationInfoFormType extends AbstractType
+class RegistrationExpertInfoFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -37,21 +37,6 @@ class RegistrationInfoFormType extends AbstractType
             // ])
             ->add('address', AddressFormType::class,[
                 "label" => false,
-            ])
-            ->add('isCompany', ChoiceType::class, [
-                "label" => false,
-                'attr' => ['class' => 'isCompanyInput'],
-                'required' => true,
-                "expanded" => true,
-                "multiple" => false,
-                'choices' => [
-                    'Vous êtes particulier' => false,
-                    "Vous êtes professionnel" => true,
-                ],
-                'choice_attr' => [
-                    'Vous êtes particulier' => ['class' => 'InputParticulier'],
-                    'Vous êtes professionnel' => ['class' => 'InputCompany'],
-                ],
             ])
             ->add('companyName', TextType::class, [
                 'label' => false,

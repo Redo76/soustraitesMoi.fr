@@ -8,6 +8,7 @@ use App\Security\LoginAuthenticator;
 use App\Form\RegistrationInfoFormType;
 use App\Form\RegistrationExpertFormType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\RegistrationExpertInfoFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -135,4 +136,37 @@ class RegistrationController extends AbstractController
             'registrationExpertForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/inscription-expert/info', name: 'app_register_expertInfo')]
+    public function registerExpertPlus(Request $request, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    {   
+        $user = $this->getUser();
+        $form = $this->createForm(RegistrationExpertInfoFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = new User();
+
+            $user->setRoles(["ROLE_EXPERT"]);
+            $user->setIsCompany(true);
+
+            $request->getSession()->remove('register');
+            $user = $form->getData();
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request
+            );
+        }
+
+        return $this->render('registration/expert_register_info.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
+    
 }

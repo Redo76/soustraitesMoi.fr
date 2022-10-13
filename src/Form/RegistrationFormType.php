@@ -69,6 +69,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('isCompany', ChoiceType::class, [
                 "label" => false,
+                'attr' => ['class' => 'isCompanyInput'],
                 'required' => true,
                 "expanded" => true,
                 "multiple" => false,
@@ -76,7 +77,10 @@ class RegistrationFormType extends AbstractType
                     'Vous êtes particulier' => false,
                     "Vous êtes professionnel" => true,
                 ],
-                'data' => false
+                'choice_attr' => [
+                    'Vous êtes particulier' => ['class' => 'InputParticulier'],
+                    'Vous êtes professionnel' => ['class' => 'InputCompany'],
+                ],
             ])
             ->add('companyName', TextType::class, [
                 'label' => false,

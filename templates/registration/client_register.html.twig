@@ -37,7 +37,7 @@
                 {{ form_row(registrationForm.email) }}
                 {{ form_row(registrationForm.password) }}
                 {{ form_row(registrationForm.phone) }}
-                <h3 class="pb-3">Adresse :</h3>
+                <h3 class="pb-3">Adresse</h3>
                 {{ form_row(registrationForm.address) }}
                 {{ form_row(registrationForm.isCompany) }}
                 {# <div id="registration_form_isCompany">
@@ -51,7 +51,7 @@
                     </div>
                 </div> #}
             </article>
-            <article id="company_info" style="display:none;">
+            <article id="company_info" class="hide">
                 {{ form_row(registrationForm.companyName) }}
                 {{ form_row(registrationForm.companyCommercialName) }}
                 {{ form_row(registrationForm.jobInCompany) }}

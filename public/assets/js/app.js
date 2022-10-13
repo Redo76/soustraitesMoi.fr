@@ -10,43 +10,32 @@ const projectInput = document.querySelector(".project_imgs");
 const projectInput2 = document.querySelector(".project_imgs2");
 const companyInfo = document.querySelector("#company_info");
 const companyInfoInputs = document.querySelectorAll("#company_info input");
-const ParticulierInput = document.querySelector("#registration_form_isCompany #registration_form_isCompany_0");
-const CompanyInput = document.querySelector("#registration_form_isCompany #registration_form_isCompany_1");
-const ParticulierInput2 = document.querySelector("#registration_info_form_isCompany #registration_info_form_isCompany_0");
-const CompanyInput2 = document.querySelector("#registration_info_form_isCompany #registration_info_form_isCompany_1");
+const ParticulierInput = document.querySelector(".InputParticulier");
+const CompanyInput = document.querySelector(".InputCompany");
+
 
 if (ParticulierInput) {
-    ParticulierInput.addEventListener("click",()=>{
-        console.log(741);
-        companyInfo.style.display = "none";
+
+    if (ParticulierInput.checked) {
+        companyInfo.classList.add('hide');
+    }else if (CompanyInput.checked){
+        companyInfo.classList.remove('hide');
+    }
+
+    ParticulierInput.addEventListener("change",()=>{
+        companyInfo.classList.add('hide');
+        localStorage.removeItem('isCompany');
         for (const input of companyInfoInputs) {
             input.value = "";
         }
     })
-}
-else if (ParticulierInput2) {
-    ParticulierInput2.addEventListener("click",()=>{
-        console.log(741);
-        companyInfo.style.display = "none";
-        for (const input of companyInfoInputs) {
-            input.value = "";
-        }
-    })
-}
 
-if (CompanyInput) {
-    CompanyInput.addEventListener("click",()=>{
-        console.log(852);
-        companyInfo.style.display = "block";
+    CompanyInput.addEventListener("change",()=>{
+        companyInfo.classList.remove('hide');
+        localStorage.setItem('isCompany', true);
     })
+    
 }
-else if (CompanyInput2) {
-    CompanyInput2.addEventListener("click",()=>{
-        console.log(852);
-        companyInfo.style.display = "block";
-    })
-}
-
 
 if (avatarInput) {
     avatarInput.addEventListener("change", ()=>{

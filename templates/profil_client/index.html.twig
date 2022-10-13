@@ -47,7 +47,9 @@
             <h1>Mon profil</h1>
             <aside class="profil_picture">
                 <div class="d-flex justify-content-center">
-                    <img class="img-fluid" ({% if app.user.avatar %} 
+                    <img class="img-fluid" 	{% if app.user.googleId %}
+											src="{{app.user.avatar}}" referrerpolicy="no-referrer"
+											({% elseif app.user.avatar %} 
 											src="{{asset("assets/uploads/avatar/" ~  app.user.avatar)}}" 
 											{% else %} src="{{asset("assets/uploads/avatar/default.png")}}") 
 											{% endif %}  alt="Photo de profil">                
@@ -82,6 +84,33 @@
 					</tbody>
 
 				</table>
+				
+				<h4>Adresse</h4>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Adresse</th>
+							<td>{{app.user.address ? app.user.address.address : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Adresse ligne 2</th>
+							<td>{{app.user.address ? app.user.address.address2 : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Ville</th>
+							<td>{{app.user.address ? app.user.address.city : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Code postal</th>
+							<td>{{app.user.address ? app.user.address.codePostal : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Pays</th>
+							<td>{{app.user.address ? app.user.address.country : 'Non défini'}}</td>
+						</tr>
+					</tbody>
+				</table>
+
 				<h4>Informations Société</h4>
 				<table class="table">
 					<tbody>

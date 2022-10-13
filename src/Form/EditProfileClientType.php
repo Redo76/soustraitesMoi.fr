@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class EditProfileClientType extends AbstractType
@@ -21,6 +22,7 @@ class EditProfileClientType extends AbstractType
         $builder
         ->add('avatar', FileType::class, [
             "label" => false,
+            "required" => false,
             'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
             'mapped' => false,
             'constraints' => [
@@ -55,6 +57,22 @@ class EditProfileClientType extends AbstractType
                     'message'=> 'Entrez un numéro valide',
                 ]),
             ]
+        ])
+        ->add('address', AddressFormType::class)
+        ->add('isCompany', ChoiceType::class, [
+            "label" => false,
+            'attr' => ['class' => 'isCompanyInput'],
+            'required' => true,
+            "expanded" => true,
+            "multiple" => false,
+            'choices' => [
+                'Vous êtes particulier' => false,
+                "Vous êtes professionnel" => true,
+            ],
+            'choice_attr' => [
+                'Vous êtes particulier' => ['class' => 'InputParticulier'],
+                'Vous êtes professionnel' => ['class' => 'InputCompany'],
+            ],
         ])
         ->add('companyName', TextType::class, [
             'label' => false,

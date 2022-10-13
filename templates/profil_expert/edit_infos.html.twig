@@ -12,10 +12,12 @@
 				<h4>Avatar</h4>
                 <div class="d-flex align-items-center">
 					<div class="div_img">
-						<img id="avatar_img" class="img-fluid" ({% if app.user.avatar %} 
-												src="{{asset("assets/uploads/avatar/" ~  app.user.avatar)}}" 
-												{% else %} src="{{asset("assets/uploads/avatar/default.png")}}") 
-												{% endif %}  alt="Photo de profil">
+						<img id="avatar_img" class="img-fluid" {% if app.user.googleId %}
+																src="{{app.user.avatar}}" referrerpolicy="no-referrer"
+																({% elseif app.user.avatar %} 
+																src="{{asset("assets/uploads/avatar/" ~  app.user.avatar)}}" 
+																{% else %} src="{{asset("assets/uploads/avatar/default.png")}}") 
+																{% endif %}  alt="Photo de profil">
 					</div>
 					{{ form_row(EditExpert.avatar) }}
                 </div>
@@ -71,6 +73,27 @@
 						<tr>
 							<th>Pays</th>
 							<td>{{ form_row(EditExpert.address.country) }}</td>
+						</tr>
+					</tbody>
+				</table>
+				<h4>Informations Société</h4>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Nom</th>
+							<td>{{ form_row(EditExpert.companyName) }}</td>
+						</tr>
+						<tr>
+							<th>Nom commercial</th>
+							<td>{{ form_row(EditExpert.companyCommercialName) }}</td>
+						</tr>
+						<tr>
+							<th>Fonction dans l'entreprise</th>
+							<td>{{ form_row(EditExpert.jobInCompany) }}</td>
+						</tr>
+						<tr>
+							<th>N° de siret</th>
+							<td>{{ form_row(EditExpert.siret) }}</td>
 						</tr>
 					</tbody>
 				</table>

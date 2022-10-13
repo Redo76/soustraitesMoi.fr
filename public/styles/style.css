@@ -126,6 +126,9 @@ a:hover{
     width: 100%;
     height: 100%;
 }
+.profil_picture .img-fluid{
+    width: 30%;
+}
 /* Profil expert */
 
     /* Main */

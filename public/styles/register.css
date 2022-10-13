@@ -133,11 +133,7 @@
     height: 18px;
 }
 
-#registration_form_isCompany{
-    display: flex;
-    justify-content: space-around;
-}
-#registration_info_form_isCompany{
+.isCompanyInput{
     display: flex;
     justify-content: space-around;
 }

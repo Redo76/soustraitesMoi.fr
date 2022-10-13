@@ -83,6 +83,14 @@ class GoogleAuthenticator extends OAuth2Authenticator
             return new RedirectResponse(
                 $this->router->generate('app_register_clientInfo')
             );
+        } else if ($request->getSession()->get('register') == "expert") {
+            return new RedirectResponse(
+                $this->router->generate('app_register_expertInfo')
+            );
+        } else {
+            return new RedirectResponse(
+                $this->router->generate('app_home')
+            );
         }
 
         // or, on success, let the request continue to be handled by the controller

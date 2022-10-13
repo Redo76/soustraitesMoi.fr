@@ -9,7 +9,9 @@
             <h1>Mon profil</h1>
             <aside class="profil_picture">
                 <div class="d-flex justify-content-center">
-                    <img class="img-fluid" ({% if app.user.avatar %} 
+                    <img class="img-fluid" 	{% if app.user.googleId %}
+											src="{{app.user.avatar}}" referrerpolicy="no-referrer"
+											({% elseif app.user.avatar %} 
 											src="{{asset("assets/uploads/avatar/" ~  app.user.avatar)}}" 
 											{% else %} src="{{asset("assets/uploads/avatar/default.png")}}") 
 											{% endif %}  alt="Photo de profil">
@@ -66,6 +68,29 @@
 						<tr>
 							<th>Pays</th>
 							<td>{{app.user.address ? app.user.address.country : 'Non défini'}}</td>
+						</tr>
+					</tbody>
+				</table>
+
+				</table>
+				<h4>Informations Société</h4>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Nom</th>
+							<td>{{app.user.companyName ? app.user.companyName : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Nom commercial</th>
+							<td>{{app.user.companyCommercialName ? app.user.companyCommercialName : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Fonction dans l'entreprise</th>
+							<td>{{ app.user.jobInCompany ? app.user.jobInCompany : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>N° de siret</th>
+							<td>{{app.user.siret ? app.user.siret : 'Non défini'}}</td>
 						</tr>
 					</tbody>
 				</table>

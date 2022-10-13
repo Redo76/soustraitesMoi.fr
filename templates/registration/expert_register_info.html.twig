@@ -8,14 +8,13 @@
 	<main class="row justify-content-md-center">
 		<section class="form_container col col-md-8 col-xl-6">
             {{ form_start(registrationForm) }}
-            <article >
+            <article class="p-0 pt-2">
                 <h1>Renseignez vos informations</h1>
-
                 <h3 class="pb-3">Adresse</h3>
                 {{ form_row(registrationForm.address) }}
-                {{ form_row(registrationForm.isCompany) }}
             </article>
-            <article id="company_info" style="display:none;">
+            <article id="company_info">
+                <h3 class="mb-4">Informations Société</h3>
                 {{ form_row(registrationForm.companyName) }}
                 {{ form_row(registrationForm.companyCommercialName) }}
                 {{ form_row(registrationForm.jobInCompany) }}

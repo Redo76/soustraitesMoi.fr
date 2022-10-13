@@ -21,6 +21,7 @@ class EditProfileExpertType extends AbstractType
         $builder
         ->add('avatar', FileType::class, [
             "label" => false,
+            "required" => false,
             'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
             'mapped' => false,
             'constraints' => [
@@ -56,6 +57,33 @@ class EditProfileExpertType extends AbstractType
             ]
         ])
         ->add('address', AddressFormType::class)
+        ->add('companyName', TextType::class, [
+            'label' => false,
+            'required' => false,
+            'attr' => ['placeholder' => 'Nom'],
+        ])
+        ->add('companyCommercialName', TextType::class, [
+            'label' => false,
+            'required' => false,
+            'attr' => ['placeholder' => 'Nom comercial'],
+        ])
+        ->add('jobInCompany', TextType::class, [
+            'label' => false,
+            'required' => false,
+            'attr' => ['placeholder' => "Fonction dans l'entreprise"],
+        ])
+        ->add('siret', TextType::class, [
+            'label' => false,
+            'required' => false,
+            'attr' => ['placeholder' => 'N° de siret'],
+            'constraints' => [
+                new Regex([
+                    'pattern'=> '/^[0-9]{14}$/',
+                    'match'=> true,
+                    'message'=> 'Veuillez entrer un numéro valide',
+                ]),
+            ]
+        ])
         ;
     }
 
