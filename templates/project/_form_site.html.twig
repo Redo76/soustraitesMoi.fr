@@ -1,0 +1,57 @@
+{{ form_start(form) }}
+    {{ form_row(form.presentation) }}
+    {{ form_row(form.activity) }}
+    {{ form_row(form.offers) }}
+    {{ form_row(form.service) }}
+    {{ form_row(form.valeurs) }}
+    {{ form_row(form.profil_client) }}
+    <h3>Les objectifs du site</h3>
+    {{ form_row(form.main_objective) }}
+    {{ form_row(form.secondary_objective) }}
+    <h3>Listez les pages que vous souhaitez</h3>
+    {{ form_row(form.homepage) }}
+    {{ form_row(form.about) }}
+    {{ form_row(form.our_services) }}
+    {{ form_row(form.contact) }}
+    <h3>Fonctionnalités du site :</h3>
+    {{ form_row(form.contact_form) }}
+    {{ form_row(form.search_bar) }}
+    {{ form_row(form.catalogue) }}
+    {{ form_row(form.client) }}
+    {{ form_row(form.newsletter) }}
+    <h3>Brief créatif (À fournir) :</h3>
+    {{ form_row(form.logo) }}
+    {{ form_row(form.logo_files) }}
+    <template id="template_project">
+        <div class="card mt-1 w-25">
+            <img src="#" class="project-img w-100 h-100" alt="Image projet">
+        </div>
+    </template>
+    <div class="img-list d-flex flex-wrap">
+
+    </div>
+    {{ form_row(form.visuals) }}
+    {{ form_row(form.visuals_files) }}
+    <template id="template_project2">
+        <div class="card mt-1 w-25">
+            <img src="#" class="project-img2 w-100 h-100" alt="Image projet">
+        </div>
+    </template>
+    <div class="img-list2 d-flex flex-wrap">
+
+    </div>
+    {{ form_row(form.typography) }}
+    {{ form_row(form.colors) }}
+    <h3>Références</h3>
+    {{ form_row(form.loved_sites) }}
+    {{ form_row(form.other_site) }}
+    {# <div class="row">
+        <div class="col">
+            {{ form_row(form.img_format) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.background) }}
+        </div>
+    </div> #}
+    <button class="btn">{{ button_label|default('Valider') }}</button>
+{{ form_end(form) }}

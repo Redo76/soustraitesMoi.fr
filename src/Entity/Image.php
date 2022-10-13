@@ -28,6 +28,12 @@ class Image
     #[ORM\ManyToOne(inversedBy: 'logo')]
     private ?ProjectReseaux $projectReseaux = null;
 
+    #[ORM\ManyToOne(inversedBy: 'visuals_files')]
+    private ?ProjectSite $visuals = null;
+
+    #[ORM\ManyToOne(inversedBy: 'logo_files')]
+    private ?ProjectSite $logo_site = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +95,18 @@ class Image
     public function setProjectReseaux(?ProjectReseaux $projectReseaux): self
     {
         $this->projectReseaux = $projectReseaux;
+
+        return $this;
+    }
+
+    public function getProjectSite(): ?ProjectSite
+    {
+        return $this->projectSite;
+    }
+
+    public function setProjectSite(?ProjectSite $projectSite): self
+    {
+        $this->projectSite = $projectSite;
 
         return $this;
     }

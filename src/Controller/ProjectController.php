@@ -6,12 +6,15 @@ use App\Entity\Image;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Entity\ProjectLogo;
+use App\Entity\ProjectSite;
 use App\Form\ProjectLogoType;
+use App\Form\ProjectSiteType;
 use App\Entity\ProjectReseaux;
 use App\Service\UploaderHelper;
 use App\Form\ProjectReseauxType;
 use App\Repository\ProjectRepository;
 use App\Repository\ProjectLogoRepository;
+use App\Repository\ProjectSiteRepository;
 use App\Repository\ProjectReseauxRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,8 +34,8 @@ class ProjectController extends AbstractController
         // déclarer $projects comme objet du tableau project
         // puis rappeler la fonction findAllByUserId en mettant en paramètre user
         $user=$this->getUser();
-        $projects=$projectRepository->findAllProjectsByUserId($user);
-        dd($projects);
+        // $projects=$projectRepository->findAllProjectsByUserId($user);
+        // dd($projects);
         return $this->render('project/index.html.twig', [
             'projects' => $projectRepository->findAllByUserId($user),
         ]);
@@ -156,6 +159,48 @@ class ProjectController extends AbstractController
         }
 
         return $this->renderForm('project/project_reseaux.html.twig', [
+            'project' => $project,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/site-internet', name: 'app_project_site', methods: ['GET', 'POST'])]
+    public function siteProject(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectSiteRepository $projectSiteRepository): Response
+    {
+        $project = new ProjectSite($this->getUser());
+        $form = $this->createForm(ProjectSiteType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFiles1 = $form['logo_files']->getData();
+            $uploadedFiles2 = $form['visuals_files']->getData();
+
+            if ($uploadedFiles1) {
+                foreach ($uploadedFiles1 as $key => $uploadedFile) {
+                    $newFilename = $uploaderHelper->uploadProjectImages($uploadedFile, $slugger);
+                    $img = new Image();
+                    $img->setName($newFilename);
+
+                    $project->addLogoFile($img);
+                }
+            }
+
+            if ($uploadedFiles2) {
+                foreach ($uploadedFiles2 as $key => $uploadedFile) {
+                    $newFilename = $uploaderHelper->uploadProjectImages($uploadedFile, $slugger);
+                    $img = new Image();
+                    $img->setName($newFilename);
+
+                    $project->addVisualsFile($img);
+                }
+            }
+
+            $projectSiteRepository->add($project, true);
+
+            return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('project/project_site.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);

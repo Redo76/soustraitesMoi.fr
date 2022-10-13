@@ -75,12 +75,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: ProjectReseaux::class, orphanRemoval: true)]
     private Collection $projectReseaux;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ProjectSite::class, orphanRemoval: true)]
+    private Collection $projectSites;
+
 
     public function __construct()
     {
         $this->projects = new ArrayCollection();
         $this->projectLogos = new ArrayCollection();
         $this->projectReseaux = new ArrayCollection();
+        $this->projectSites = new ArrayCollection();
     }
 
     
@@ -371,6 +375,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($projectLogo->getUser() === $this) {
                 $projectLogo->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProjectSite>
+     */
+    public function getProjectSites(): Collection
+    {
+        return $this->projectSites;
+    }
+
+    public function addProjectSite(ProjectSite $projectSite): self
+    {
+        if (!$this->projectSites->contains($projectSite)) {
+            $this->projectSites->add($projectSite);
+            $projectSite->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectSite(ProjectSite $projectSite): self
+    {
+        if ($this->projectSites->removeElement($projectSite)) {
+            // set the owning side to null (unless already changed)
+            if ($projectSite->getUser() === $this) {
+                $projectSite->setUser(null);
             }
         }
 
