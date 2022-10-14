@@ -279,3 +279,199 @@ DANS TEMPLATE/PARTIALS CREER UN FICHIER flash.html.twig
 DANS base.html.twig ENTRE <body> </body> METTRE,
 
 {% include "partials/flash.html.twig" %}
+
+
+____________________________________________PAGE CHOIX TYPE DE PROJETS____________________________________________________________________________________________
+
+DANS TEMPLATE/project/new.html.twig, COLLER:
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Projet
+{% endblock %}
+
+{% block body %}
+	{% if app.user %}
+		<main id="choixprojet">
+			<h2>Choisissez un type de projet</h2>
+			<article class="choix_article">
+				<div id="choix_div">
+					<a href="{{path('app_project_logo')}}">
+						<img src="{{asset('assets/img/choixlogo.webp')}}" alt="">
+						<div class="d-flex align-center justify-content-between gap-3 w-75">
+							<h3>Logo Design</h3>
+						</div>
+					</a>
+					<a href="#">
+						<img src="{{asset('assets/img/choixsite.webp ')}}" alt="">
+						<div class="d-flex align-center justify-content-between gap-3 w-75">
+							<h3>Site web</h3>
+						</div>
+					</a>
+
+					<a href="{{path('app_project_reseaux')}}">
+						<img src="{{asset('assets/img/choixreseaux.webp')}}" alt="">
+						<div class="d-flex align-center justify-content-between gap-3 w-75">
+							<h3>Reseaux Sociaux</h3>
+						</div>
+					</a>
+					<a href="{{path('app_project_free')}}">
+						<img src="{{asset('assets/img/choixlibre.webp')}}" alt="">
+						<div id="autretype" class="d-flex align-center justify-content-between gap-3 w-75">
+							<h3>Autre type</h3>
+						</div>
+					</a>
+				</div>
+			</article>
+		{% else %}
+			<div>
+				<h2>Vous devez d'abord vous connecter ou créer un compte</h2>
+				<a href="{{path('app_login')}}">Compris</a>
+			</div>
+		{% endif %}
+	</main>
+{% endblock %}
+{# {% block footer %}
+{% endblock %} #}
+
+PUIS DANS PROJECT.CSS COLLER :
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+
+/* choix type de projet */
+#choixprojet {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8%;
+}
+
+#choixprojet a {
+    display: flex;
+    margin: auto;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 80%;
+    padding: 3%;
+    text-decoration: none;
+    border: 1px lightgray solid;
+    border-radius: 10px;
+    font-size: 25px;
+    box-shadow: 1px 1px 1px 1px gray;
+    margin-bottom: 4%;
+}
+
+#choixprojet h2 {
+    margin-bottom: 10%;
+    margin-top: 5%;
+    font-size: 39px;
+    text-align: center;
+    padding: 0px 10px 0px 10px;
+    font-weight: 600;
+    font-family: 'Dancing Script', cursive;
+    font-style: italic;
+}
+
+
+#choixprojet a img {
+    height: 100px;
+    width: 100px;
+}
+
+#choixprojet a div {
+    padding: 8% 2% 5% 2%;
+}
+
+#choixprojet a h3 {
+    padding-left: 5%;
+}
+
+PUIS DANS PROJECT.CSS @media 768px COLLER :
+
+/* choix projets */
+
+    #choixprojet {
+        margin-bottom: 0%;
+        padding-bottom: 60px;
+    }
+
+    #choixprojet h2 {
+        font-size: 62px;
+        font-weight: 800;
+        margin-bottom: 4%;
+    }
+
+    .choix_article {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        height: 500px;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    #choix_div {
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    #choixprojet a {
+        width: 45%;
+    }
+
+    #choixprojet a h3 {
+        padding-left: 6%;
+        font-size: 36px;
+    }
+
+    #choixprojet a img {
+        height: 110px;
+        width: 110px;
+    }
+    
+PUIS DANS PROJECT.CSS @media 1200px COLLER: 
+
+/* choix projets */
+
+    #choixprojet {
+        padding-bottom: 60px;
+    }
+
+    #choixprojet h2 {
+        margin-bottom: 6%;
+        margin-top: 0%;
+    }
+
+    .choix_article {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        height: 500px;
+        justify-content: space-around;
+    }
+
+    #choix_div {
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    #choixprojet a {
+        width: 40%;
+    }
+
+    #choixprojet a h3 {
+        padding-left: 4%;
+        font-size: 28px;
+    }
+
+
