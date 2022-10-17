@@ -631,7 +631,7 @@ class Devis
         return $this->date_redaction;
     }
 
-    public function setDateRedaction(\DateTimeInterface $date_redaction): self
+    public function setDateRedaction($date_redaction): self
     {
         $this->date_redaction = $date_redaction;
 
@@ -643,7 +643,7 @@ class Devis
         return $this->duree_validite;
     }
 
-    public function setDureeValidite(\DateTimeInterface $duree_validite): self
+    public function setDureeValidite($duree_validite): self
     {
         $this->duree_validite = $duree_validite;
 
