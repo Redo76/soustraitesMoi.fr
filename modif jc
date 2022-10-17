@@ -568,7 +568,7 @@ class Devis
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+   #[ORM\Column(length: 255, nullable:true)]
     private ?string $reference = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable:true)]
@@ -577,19 +577,19 @@ class Devis
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable:true)]
     private ?DateTimeInterface $duree_validite = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable:true)]
     private ?string $detail = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $prix_ht = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $prix_ttc = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable:true)]
     private ?string $raison_social = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable:true)]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 30, nullable: true)]
@@ -803,35 +803,40 @@ class DevisFormType extends AbstractType
             'label' => 'Référence',
             'label_attr' => ['class' => "form-label"],
             'attr' => ['placeholder' => 'nom du projet lié au devis'],
-            'required' => true,
+            'required' => false,
         ])
         ->add('date_redaction', DateType::class, [
             'label' => 'Date de rédaction du devis :',
             'label_attr' => ['class' => "form-label"],
             'widget' => 'single_text',
             'format' => 'yyyy-MM-dd',
+            'required' => false,
         ])
         ->add('duree_validite', DateType::class, [
             'label' => 'Date de validité du devis :',
             'label_attr' => ['class' => "form-label"],
             'widget' => 'single_text',
             'format' => 'yyyy-MM-dd',
+            'required' => false,
         ])
             ->add('detail', TextareaType::class, [
                 'label' => 'Détail des prestations',
                 'label_attr' => ['class' => "form-label"],
-                'required' => true,
+                'required' => false,
             ])
             ->add('prix_ht')
             ->add('prix_ttc')
             ->add('raison_Social', TextType::class, [
                 'label' => 'raison sociale',
+                'required' => false,
             ])
             ->add('adresse',TextType::class,[
                 'label' => 'adresse',
+                'required' => false,
             ])
             ->add('siret', TextType::class, [
                 'label' => 'N° de siret',
+                'required' => false,
                 'constraints' => [
                     new Regex([
                         'pattern'=> '/^[0-9]{14}$/',
@@ -844,6 +849,7 @@ class DevisFormType extends AbstractType
             ])
         ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
