@@ -27,7 +27,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/project')]
 class ProjectController extends AbstractController
 {
-    #[Route('/', name: 'app_project_index', methods: ['GET'])]
+    #[Route('/mes-projets', name: 'app_project_index', methods: ['GET'])]
     public function index(ProjectRepository $projectRepository, UserRepository $userRepository, ProjectLogoRepository $projectLogoRepository): Response
     {
         // LIER USER/PROJECT:
@@ -45,8 +45,6 @@ class ProjectController extends AbstractController
     #[Route('/nouveau', name: 'app_project_new', methods: ['GET'])]
     public function new(): Response
     {
-
-        
         return $this->render('project/new.html.twig', [
             'controller_name' => 'ProjectController',
         ]);

@@ -17,6 +17,11 @@ class ProjectSiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('Nom_du_projet', TextType::class, [
+                'label' => 'Nom du projet :',
+                'label_attr' => ['class' => "form-label"],
+                'required' => true,
+            ])
             ->add('presentation', TextareaType::class, [
                 'label' => 'Présentation du projet en quelques lignes :',
                 'label_attr' => ['class' => "form-label"],

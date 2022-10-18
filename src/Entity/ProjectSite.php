@@ -19,6 +19,9 @@ class ProjectSite
     #[ORM\ManyToOne(inversedBy: 'projectSites')]
     private ?User $user = null;
 
+    #[ORM\Column(length: 75)]
+    private ?string $Nom_du_projet = null;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $presentation = null;
 
@@ -73,16 +76,14 @@ class ProjectSite
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $logo = null;
 
-    #[ORM\OneToMany(mappedBy: 'logo_site', targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'logo_site', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $logo_files;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $visuals = null;
 
-    #[ORM\OneToMany(mappedBy: 'visuals', targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'visuals', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $visuals_files;
-
-
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $typography = null;
@@ -96,11 +97,18 @@ class ProjectSite
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $other_site = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $statut = null;
+
     public function __construct($user)
     {
         $this->user = $user;
         $this->visuals_files = new ArrayCollection();
         $this->logo_files = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable('now');
     }
 
     public function getId(): ?int
@@ -116,6 +124,18 @@ class ProjectSite
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getNomDuProjet(): ?string
+    {
+        return $this->Nom_du_projet;
+    }
+
+    public function setNomDuProjet(string $Nom_du_projet): self
+    {
+        $this->Nom_du_projet = $Nom_du_projet;
 
         return $this;
     }
@@ -452,6 +472,30 @@ class ProjectSite
                 $logoFile->setProjectSite(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getStatut(): ?bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?bool $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

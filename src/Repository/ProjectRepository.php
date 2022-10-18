@@ -54,6 +54,18 @@ class ProjectRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllProjects(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT nom_du_projet , created_at FROM `project` UNION SELECT nom_du_projet , created_at FROM `project_logo` UNION SELECT nom_du_projet , created_at FROM `project_reseaux` UNION SELECT nom_du_projet , created_at FROM `project_site`;";
+    
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
 
 //    /**
 //     * @return Project[] Returns an array of Project objects

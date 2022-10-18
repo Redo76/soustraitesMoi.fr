@@ -61,7 +61,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT 
+            'SELECT u
             FROM App\Entity\User u
             INNER JOIN u.project p
             INNER JOIN u.projectLogos pl

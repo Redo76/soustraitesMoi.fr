@@ -35,6 +35,9 @@ class Devis
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $raison_social = null;
 
+    #[ORM\ManyToOne(inversedBy: 'devis')]
+    private ?Address $adresse = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,18 @@ class Devis
     public function setRaisonSocial(?string $raison_social): self
     {
         $this->raison_social = $raison_social;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?Address
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?Address $adresse): self
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }

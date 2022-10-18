@@ -19,8 +19,8 @@ class ProjectLogoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('brand_name', TextType::class, [
-                'label' => 'Nom de marque :',
+            ->add('Nom_du_projet', TextType::class, [
+                'label' => 'Nom du projet :',
                 'label_attr' => ['class' => "form-label"],
                 'required' => true,
             ])

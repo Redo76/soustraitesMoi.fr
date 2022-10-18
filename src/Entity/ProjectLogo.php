@@ -18,7 +18,7 @@ class ProjectLogo
     private ?int $id = null;
 
     #[ORM\Column(length: 75, nullable: true)]
-    private ?string $brand_name = null;
+    private ?string $Nom_du_projet = null;
 
     #[ORM\Column(length: 75, nullable: true)]
     private ?string $activity = null;
@@ -38,10 +38,10 @@ class ProjectLogo
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $unwanted_colors = null;
 
-    #[ORM\OneToMany(mappedBy: 'goodprojectLogo', targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'goodprojectLogo', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $good_logo_example;
 
-    #[ORM\OneToMany(mappedBy: 'badProjectLogo', targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'badProjectLogo', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $bad_logo_example;
 
     #[ORM\Column(length: 75, nullable: true)]
@@ -62,12 +62,18 @@ class ProjectLogo
     #[ORM\ManyToOne(inversedBy: 'projectLogos')]
     private ?User $user = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $statut = null;
 
     public function __construct($user)
     {
         $this->user = $user;
         $this->good_logo_example = new ArrayCollection();
         $this->bad_logo_example = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable('now');
     }
 
     public function getId(): ?int
@@ -75,14 +81,14 @@ class ProjectLogo
         return $this->id;
     }
 
-    public function getBrandName(): ?string
+    public function getNomDuProjet(): ?string
     {
-        return $this->brand_name;
+        return $this->Nom_du_projet;
     }
 
-    public function setBrandName(?string $brand_name): self
+    public function setNomDuProjet(string $Nom_du_projet): self
     {
-        $this->brand_name = $brand_name;
+        $this->Nom_du_projet = $Nom_du_projet;
 
         return $this;
     }
@@ -291,4 +297,27 @@ class ProjectLogo
         return $this;
     }
 
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getStatut(): ?bool
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?bool $statut): self
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
 }

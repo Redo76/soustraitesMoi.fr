@@ -29,8 +29,8 @@ class Project
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Description = null;
 
-    #[ORM\Column(length: 75, nullable: true)]
-    private ?bool $Statut = null;
+    #[ORM\Column(nullable: true)]
+    private ?bool $statut = null;
 
     #[ORM\ManyToOne(inversedBy: 'projects')]
     // LIER USER/PROJECT
@@ -41,12 +41,16 @@ class Project
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     private Collection $images;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created_at = null;
+
     // LIER USER/PROJECT
     // à mettre pour que chaque nouveau projet soit rattaché au user connecté
     public function __construct($user)
     {
         $this->User = $user;
         $this->images = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable('now');
     }
 
     public function getId(): ?int
@@ -90,14 +94,14 @@ class Project
         return $this;
     }
 
-    public function getStatut(): ?string
+    public function getStatut(): ?bool
     {
-        return $this->Statut;
+        return $this->statut;
     }
 
-    public function setStatut(?string $Statut): self
+    public function setStatut(?bool $statut): self
     {
-        $this->Statut = $Statut;
+        $this->statut = $statut;
 
         return $this;
     }
@@ -140,6 +144,18 @@ class Project
                 $image->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
