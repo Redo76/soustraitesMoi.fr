@@ -113,6 +113,7 @@ class ProjectSiteType extends AbstractType
                 "multiple" => true,
                 "required" => false,
                 "mapped" => false,
+                'attr' => ['class' => "fileInput"],
                 'row_attr' => ['class' => 'project_imgs mb-3'],
                 'constraints' => [
                     new All([
@@ -135,6 +136,7 @@ class ProjectSiteType extends AbstractType
                 "multiple" => true,
                 "required" => false,
                 "mapped" => false,
+                'attr' => ['class' => "fileInput"],
                 'row_attr' => ['class' => 'project_imgs2 mb-3'],
                 'constraints' => [
                     new All([

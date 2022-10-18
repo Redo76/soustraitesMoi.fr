@@ -38,7 +38,7 @@
                 <label for="inputPassword" class="mb-2">Mot de passe</label>
                 <input type="password" name="password" id="inputPassword" class="form-control mb-2" autocomplete="current-password" required>
 
-                <a href="#" class="mdp_link pt-1">Mot de passe oublié ?</a>
+                <a href="{{path('forgotten_password')}}" class="mdp_link pt-1">Mot de passe oublié ?</a>
                 <input type="hidden" name="_csrf_token"
                     value="{{ csrf_token('authenticate') }}"
                 >

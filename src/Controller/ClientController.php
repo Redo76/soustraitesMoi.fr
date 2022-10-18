@@ -39,6 +39,7 @@ class ClientController extends AbstractController
             if ($uploadedFile) {
                 // dd($user);
                 $newFilename = $uploaderHelper->uploadAvatar($uploadedFile, $slugger);
+                $user = $form->getData();
                 $user->setAvatar($newFilename);
             }
             $user->setIsCompany($form->get('isCompany')->getData());

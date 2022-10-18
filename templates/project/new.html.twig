@@ -1,11 +1,48 @@
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau Projet{% endblock %}
+{% block title %}Nouveau Projet
+{% endblock %}
 
 {% block body %}
-    <a href="{{path('app_project_free')}}">Projet Libre</a>
-    <a href="{{path('app_project_logo')}}">Projet Logo</a>
-    <a href="{{path('app_project_reseaux')}}">Projet Réseaux sociaux</a>
-    <a href="{{path('app_project_site')}}">Projet Site Internet</a>
+	{% if app.user %}
+		<main id="choixprojet">
+			<h2>Choisissez un type de projet</h2>
+			<article class="choix_article">
+				<div id="choix_div">
+					<a href="{{path('app_project_logo')}}">
+						<img src="{{asset('assets/img/choixlogo.jpg')}}" alt="">
+						<div class="d-flex align-center justify-content-between gap-3 w-75">
+							<h3>Logo Design</h3>
+						</div>
+					</a>
+					<a href="#">
+						<img src="{{asset('assets/img/choixsite.jpg ')}}" alt="">
+						<div class="d-flex align-center justify-content-between gap-3 w-75">
+							<h3>Site web</h3>
+						</div>
+					</a>
+
+					<a href="{{path('app_project_reseaux')}}">
+						<img src="{{asset('assets/img/choixreseaux.jpg')}}" alt="">
+						<div class="d-flex align-center justify-content-between gap-3 w-75">
+							<h3>Reseaux Sociaux</h3>
+						</div>
+					</a>
+					<a href="{{path('app_project_free')}}">
+						<img src="{{asset('assets/img/choixlibre.webp')}}" alt="">
+						<div id="autretype" class="d-flex align-center justify-content-between gap-3 w-75">
+							<h3>Autre type</h3>
+						</div>
+					</a>
+				</div>
+			</article>
+		{% else %}
+			<div>
+				<h2>Vous devez d'abord vous connecter ou créer un compte</h2>
+				<a href="{{path('app_login')}}">Compris</a>
+			</div>
+		{% endif %}
+	</main>
 {% endblock %}
+{# {% block footer %}
+{% endblock %} #}

@@ -16,6 +16,7 @@ use App\Repository\ProjectRepository;
 use App\Repository\ProjectLogoRepository;
 use App\Repository\ProjectSiteRepository;
 use App\Repository\ProjectReseauxRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,7 +28,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProjectController extends AbstractController
 {
     #[Route('/', name: 'app_project_index', methods: ['GET'])]
-    public function index(ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository): Response
+    public function index(ProjectRepository $projectRepository, UserRepository $userRepository, ProjectLogoRepository $projectLogoRepository): Response
     {
         // LIER USER/PROJECT:
         // déclarer $user= info class user avec le get
@@ -44,6 +45,8 @@ class ProjectController extends AbstractController
     #[Route('/nouveau', name: 'app_project_new', methods: ['GET'])]
     public function new(): Response
     {
+
+        
         return $this->render('project/new.html.twig', [
             'controller_name' => 'ProjectController',
         ]);
@@ -89,7 +92,10 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $uploadedFiles1 = $form['good_logo_example']->getData();
-            $uploadedFiles2 = $form['bad_logo_example']->getData();
+            // $uploadedFiles2 = $form['bad_logo_example']->getData();
+            $uploadedFiles2 = $request->files->get('bad_logo_example');
+
+            dd($uploadedFiles2);
 
             if ($uploadedFiles1) {
                 foreach ($uploadedFiles1 as $key => $uploadedFile) {
@@ -170,10 +176,11 @@ class ProjectController extends AbstractController
         $project = new ProjectSite($this->getUser());
         $form = $this->createForm(ProjectSiteType::class, $project);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $uploadedFiles1 = $form['logo_files']->getData();
             $uploadedFiles2 = $form['visuals_files']->getData();
+
 
             if ($uploadedFiles1) {
                 foreach ($uploadedFiles1 as $key => $uploadedFile) {

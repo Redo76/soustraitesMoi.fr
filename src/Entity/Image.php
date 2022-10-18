@@ -20,19 +20,23 @@ class Image
     private ?Project $project = null;
 
     #[ORM\ManyToOne(inversedBy: 'good_logo_example')]
-    private ?ProjectLogo $goodprojectLogo = null;
+    private ?ProjectLogo $goodProjectLogo = null;
 
     #[ORM\ManyToOne(inversedBy: 'bad_logo_example')]
     private ?ProjectLogo $badProjectLogo = null;
 
     #[ORM\ManyToOne(inversedBy: 'logo')]
-    private ?ProjectReseaux $projectReseaux = null;
+    private ?ProjectReseaux $projectReseauxLogo = null;
 
+    #[ORM\ManyToOne(inversedBy: 'example')]
+    private ?ProjectReseaux $example = null;
+    
     #[ORM\ManyToOne(inversedBy: 'visuals_files')]
     private ?ProjectSite $visuals = null;
 
     #[ORM\ManyToOne(inversedBy: 'logo_files')]
     private ?ProjectSite $logo_site = null;
+
 
     public function getId(): ?int
     {
@@ -87,14 +91,14 @@ class Image
         return $this;
     }
 
-    public function getProjectReseaux(): ?ProjectReseaux
+    public function getProjectReseauxLogo(): ?ProjectReseaux
     {
-        return $this->projectReseaux;
+        return $this->projectReseauxLogo;
     }
 
-    public function setProjectReseaux(?ProjectReseaux $projectReseaux): self
+    public function setProjectReseauxLogo(?ProjectReseaux $projectReseauxLogo): self
     {
-        $this->projectReseaux = $projectReseaux;
+        $this->projectReseauxLogo = $projectReseauxLogo;
 
         return $this;
     }
@@ -107,6 +111,42 @@ class Image
     public function setProjectSite(?ProjectSite $projectSite): self
     {
         $this->projectSite = $projectSite;
+
+        return $this;
+    }
+
+    public function getExample(): ?ProjectReseaux
+    {
+        return $this->example;
+    }
+
+    public function setExample(?ProjectReseaux $example): self
+    {
+        $this->example = $example;
+
+        return $this;
+    }
+    
+    public function getVisuals(): ?ProjectReseaux
+    {
+        return $this->visuals;
+    }
+
+    public function setVisuals(?ProjectReseaux $visuals): self
+    {
+        $this->visuals = $visuals;
+
+        return $this;
+    }
+    
+    public function getLogoSite(): ?ProjectReseaux
+    {
+        return $this->logo_site;
+    }
+
+    public function setLogoSite(?ProjectReseaux $logo_site): self
+    {
+        $this->logo_site = $logo_site;
 
         return $this;
     }

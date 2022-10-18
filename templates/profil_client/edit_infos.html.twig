@@ -14,7 +14,7 @@
 					<div class="div_img">
 						<img id="avatar_img" class="img-fluid" {% if app.user.googleId %}
 																src="{{app.user.avatar}}" referrerpolicy="no-referrer"
-																({% elseif app.user.avatar %} 
+																{% elseif app.user.avatar %} 
 																src="{{asset("assets/uploads/avatar/" ~  app.user.avatar)}}" 
 																{% else %} src="{{asset("assets/uploads/avatar/default.png")}}") 
 																{% endif %}  alt="Photo de profil">	

@@ -45,7 +45,7 @@ class ProjectReseaux
     #[ORM\Column(length: 200, nullable: true)]
     private ?string $location = null;
 
-    #[ORM\OneToMany(mappedBy: 'projectReseaux', targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'projectReseauxLogo', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     private Collection $logo;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -81,11 +81,12 @@ class ProjectReseaux
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $desired_colors = null;
 
-    #[ORM\OneToMany(mappedBy: 'projectReseaux', targetEntity: Image::class, cascade: ['persist', 'remove'])]
-    private Collection $example;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $liked_example = null;
+
+    #[ORM\OneToMany(mappedBy: 'example', targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    private Collection $example;
 
 
     public function __construct($user)
@@ -199,7 +200,7 @@ class ProjectReseaux
     {
         if (!$this->logo->contains($logo)) {
             $this->logo->add($logo);
-            $logo->setProjectReseaux($this);
+            $logo->setProjectReseauxLogo($this);
         }
 
         return $this;
@@ -209,8 +210,8 @@ class ProjectReseaux
     {
         if ($this->logo->removeElement($logo)) {
             // set the owning side to null (unless already changed)
-            if ($logo->getProjectReseaux() === $this) {
-                $logo->setProjectReseaux(null);
+            if ($logo->getProjectReseauxLogo() === $this) {
+                $logo->setProjectReseauxLogo(null);
             }
         }
 
@@ -349,36 +350,6 @@ class ProjectReseaux
         return $this;
     }
 
-    /**
-     * @return Collection<int, Image>
-     */
-    public function getExample(): Collection
-    {
-        return $this->example;
-    }
-
-    public function addExample(Image $example): self
-    {
-        if (!$this->example->contains($example)) {
-            $this->example->add($example);
-            $example->setProjectReseaux($this);
-        }
-
-        return $this;
-    }
-
-    public function removeExample(Image $example): self
-    {
-        if ($this->example->removeElement($example)) {
-            // set the owning side to null (unless already changed)
-            if ($example->getProjectReseaux() === $this) {
-                $example->setProjectReseaux(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getLikedExample(): ?string
     {
         return $this->liked_example;
@@ -411,6 +382,36 @@ class ProjectReseaux
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getExample(): Collection
+    {
+        return $this->example;
+    }
+
+    public function addExample(Image $example): self
+    {
+        if (!$this->example->contains($example)) {
+            $this->example->add($example);
+            $example->setExample($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExample(Image $example): self
+    {
+        if ($this->example->removeElement($example)) {
+            // set the owning side to null (unless already changed)
+            if ($example->getExample() === $this) {
+                $example->setExample(null);
+            }
+        }
 
         return $this;
     }

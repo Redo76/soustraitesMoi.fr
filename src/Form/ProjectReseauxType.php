@@ -21,7 +21,7 @@ class ProjectReseauxType extends AbstractType
             ->add('brand_name', TextType::class, [
                 'label' => 'Nom de marque :',
                 'label_attr' => ['class' => "form-label"],
-                'required' => false,
+                'required' => true,
             ])
             ->add('activity', TextType::class, [
                 'label' => 'Activité :',
@@ -66,6 +66,7 @@ class ProjectReseauxType extends AbstractType
                 "multiple" => true,
                 "required" => false,
                 "mapped" => false,
+                'attr' => ['class' => "fileInput"],
                 'row_attr' => ['class' => 'project_imgs mb-3'],
                 'constraints' => [
                     new All([
@@ -127,7 +128,7 @@ class ProjectReseauxType extends AbstractType
                 'label' => 'Ce que vous souhaitez transmettre comme informations au public via votre communication
                 (tarif produits, etc) ? Quel est l’objectif poursuivit ?',
                 'label_attr' => ['class' => "form-label-misc"],
-                ])
+            ])
             ->add('desired_colors', TextType::class, [
                 'label' => 'Couleurs souhaitées sur votre communication (en général en lien avec le logo) ? et pourquoi celles-ci :',
                 'label_attr' => ['class' => "form-label"],
@@ -145,6 +146,7 @@ class ProjectReseauxType extends AbstractType
                 "multiple" => true,
                 "required" => false,
                 "mapped" => false,
+                'attr' => ['class' => "fileInput"],
                 'row_attr' => ['class' => 'project_imgs2 mb-3'],
                 'constraints' => [
                     new All([

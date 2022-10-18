@@ -38,7 +38,7 @@ class ProjectLogo
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $unwanted_colors = null;
 
-    #[ORM\OneToMany(mappedBy: 'projectLogo', targetEntity: Image::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'goodprojectLogo', targetEntity: Image::class, cascade: ['persist', 'remove'])]
     private Collection $good_logo_example;
 
     #[ORM\OneToMany(mappedBy: 'badProjectLogo', targetEntity: Image::class, cascade: ['persist', 'remove'])]

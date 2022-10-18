@@ -60,6 +60,7 @@ class ProjectLogoType extends AbstractType
                 "multiple" => true,
                 "required" => false,
                 "mapped" => false,
+                'attr' => ['class' => "fileInput"],
                 'row_attr' => ['class' => 'project_imgs mb-3'],
                 'constraints' => [
                     new All([
@@ -71,32 +72,33 @@ class ProjectLogoType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('bad_logo_example', FileType::class, [
-                'label' => 'Montrer les exemples de logos (avec des captures écran) que vous n’aimez pas :',
-                'label_attr' => ['class' => "form-label-misc"],
-                "multiple" => true,
-                "required" => false,
-                "mapped" => false,
-                'row_attr' => ['class' => 'project_imgs2 mb-3'],
-                'constraints' => [
-                    new All([
-                        'constraints' => [
-                            new Image([
-                                'maxSize' => '5M'
-                            ])
-                        ],
-                    ]),
-                ]
-            ])
+            // ->add('bad_logo_example', FileType::class, [
+            //     'label' => 'Montrer les exemples de logos (avec des captures écran) que vous n’aimez pas :',
+            //     'label_attr' => ['class' => "form-label-misc"],
+            //     "multiple" => true,
+            //     "required" => false,
+            //     "mapped" => false,
+            //     'attr' => ['class' => "fileInput"],
+            //     'row_attr' => ['class' => 'project_imgs2 mb-3'],
+            //     'constraints' => [
+            //         new All([
+            //             'constraints' => [
+            //                 new Image([
+            //                     'maxSize' => '5M'
+            //                 ])
+            //             ],
+            //         ]),
+            //     ]
+            // ])
             ->add('other_brands', TextType::class, [
                 'label' => '* C’est une indication supplémentaire',
                 'label_attr' => ['class' => "form-label-misc"],
-                'required' => true,
+                'required' => false,
             ])
             ->add('support', TextType::class, [
                 'label' => 'Quels seront les supports sur lesquels votre logo sera utilisé ?',
                 'label_attr' => ['class' => "form-label-misc"],
-                'required' => true,
+                'required' => false,
             ])
             ->add('creation', ChoiceType::class, [
                 'label' => 'Avez-vous besoin des fichiers de création (Photoshop) ?',

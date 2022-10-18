@@ -15,11 +15,18 @@
     {{ form_row(form.location) }}
     {{ form_row(form.logo) }}
     <template id="template_project">
-        <div class="card mt-1 w-25">
-            <img src="#" class="project-img w-100 h-100" alt="Image projet">
+        <div class="template_card mt-1 w-25">
+            <a href="">
+                <div class="div_img_prjt">
+                    <img src="#" class="project-img w-100 h-100" alt="Image projet">
+                    <div>
+                        <i class="fa-solid fa-x"></i>
+                    </div>
+                </div>
+            </a>
         </div>
     </template>
-    <div class="img-list d-flex flex-wrap">
+    <div class="img-list d-flex flex-wrap mb-3">
 
     </div>
     <h3>Liens vers vos réseaux actuels</h3>
@@ -63,11 +70,18 @@
     {{ form_row(form.liked_example) }}
     {{ form_row(form.example) }}
     <template id="template_project2">
-        <div class="card mt-1 w-25">
-            <img src="#" class="project-img2 w-100 h-100" alt="Image projet">
+        <div class="template_card mt-1 w-25">
+            <a href="">
+                <div class="div_img_prjt">
+                    <img src="#" class="project-img2 w-100 h-100" alt="Image projet">
+                    <div>
+                        <i class="fa-solid fa-x"></i>
+                    </div>
+                </div>
+            </a>
         </div>
     </template>
-    <div class="img-list2 d-flex flex-wrap">
+    <div class="img-list2 d-flex flex-wrap mb-3">
 
     </div>
     <button class="btn">{{ button_label|default('Valider') }}</button>

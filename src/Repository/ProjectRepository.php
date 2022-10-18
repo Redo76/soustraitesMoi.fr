@@ -42,21 +42,6 @@ class ProjectRepository extends ServiceEntityRepository
     // LIER USER/PROJECT:
     // utiliser la fonction findBy
     // quand je rappellerai la fonction dans le Projectcontroller, le paramètre $value deviendra $user
-    public function findAllProjectsByUserId($userId): array
-    {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT p
-            FROM App\Entity\Project p
-            INNER JOIN p.User u
-            INNER JOIN u.projectLogos pl
-            INNER JOIN u.projectReseaux pr
-            WHERE u.id = :id'
-        )->setParameter('id', $userId);
-
-        return $query->getOneOrNullResult();
-    }
 
     public function findAllByUserId($value): array
     {

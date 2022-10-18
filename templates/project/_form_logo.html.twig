@@ -1,4 +1,4 @@
-{{ form_start(form) }}
+{{ form_start(form, {"attr" :{"enctype" : "multipart/form-data"}}) }}
     {{ form_row(form.brand_name) }}
     {{ form_row(form.activity) }}
     {{ form_row(form.budget) }}
@@ -9,21 +9,39 @@
     {{ form_row(form.unwanted_colors) }}
     <h3>Exemples de Logos appréciés</h3>
     {{ form_row(form.good_logo_example) }}
+    {# <div class="project_imgs">
+        <label for="good_logo_example">test</label>
+        <input type="file" name="good_logo_example" class="" multiple="true">
+    </div> #}
     <template id="template_project">
-        <div class="card mt-1 w-25">
-            <img src="#" class="project-img w-100 h-100" alt="Image projet">
+        <div class="template_card mt-1 w-25">
+                <div class="div_img_prjt">
+                    <img src="#" class="project-img w-100 h-100" alt="Image projet">
+                    <div>
+                        <i class="fa-solid fa-x"></i>
+                    </div>
+                </div>
         </div>
     </template>
-    <div class="img-list d-flex flex-wrap">
+    <div class="img-list d-flex flex-wrap mb-3">
 
     </div>
-    {{ form_row(form.bad_logo_example) }}
+    {# {{ form_row(form.bad_logo_example) }} #}
+    <div class="project_imgs2">
+        <label for="bad_logo_example">test</label>
+        <input type="file" name="bad_logo_example" class="" multiple="true">
+    </div>
     <template id="template_project2">
-        <div class="card mt-1 w-25">
-            <img src="#" class="project-img2 w-100 h-100" alt="Image projet">
+        <div class="template_card mt-1 w-25">
+                <div class="div_img_prjt">
+                    <img src="#" class="project-img2 w-100 h-100" alt="Image projet">
+                    <div>
+                        <i class="fa-solid fa-x"></i>
+                    </div>
+                </div>
         </div>
     </template>
-    <div class="img-list2 d-flex flex-wrap">
+    <div class="img-list2 d-flex flex-wrap mb-3">
 
     </div>
     <h3>Autres marques concurrentes à la votre</h3>

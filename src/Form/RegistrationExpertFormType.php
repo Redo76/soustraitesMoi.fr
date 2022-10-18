@@ -75,7 +75,11 @@ class RegistrationExpertFormType extends AbstractType
                 'label' => false,
                 'attr' => ['placeholder' => 'Nom comercial'],
             ])
-            
+            ->add('jobInCompany', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['placeholder' => "Fonction dans l'entreprise"],
+            ])
             ->add('siret', TextType::class, [
                 'label' => false,
                 'attr' => ['placeholder' => 'N° de siret'],

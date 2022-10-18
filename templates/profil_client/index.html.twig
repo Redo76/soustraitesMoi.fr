@@ -111,27 +111,30 @@
 					</tbody>
 				</table>
 
-				<h4>Informations Société</h4>
-				<table class="table">
-					<tbody>
-						<tr>
-							<th>Nom</th>
-							<td>{{app.user.companyName ? app.user.companyName : 'Non défini'}}</td>
-						</tr>
-						<tr>
-							<th>Nom commercial</th>
-							<td>{{app.user.companyCommercialName ? app.user.companyCommercialName : 'Non défini'}}</td>
-						</tr>
-						<tr>
-							<th>Fonction dans l'entreprise</th>
-							<td>{{ app.user.jobInCompany ? app.user.jobInCompany : 'Non défini'}}</td>
-						</tr>
-						<tr>
-							<th>N° de siret</th>
-							<td>{{app.user.siret ? app.user.siret : 'Non défini'}}</td>
-						</tr>
-					</tbody>
-				</table>
+				{% if app.user.isCompany %}
+					<h4>Informations Société</h4>
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>Nom</th>
+								<td>{{app.user.companyName ? app.user.companyName : 'Non défini'}}</td>
+							</tr>
+							<tr>
+								<th>Nom commercial</th>
+								<td>{{app.user.companyCommercialName ? app.user.companyCommercialName : 'Non défini'}}</td>
+							</tr>
+							<tr>
+								<th>Fonction dans l'entreprise</th>
+								<td>{{ app.user.jobInCompany ? app.user.jobInCompany : 'Non défini'}}</td>
+							</tr>
+							<tr>
+								<th>N° de siret</th>
+								<td>{{app.user.siret ? app.user.siret : 'Non défini'}}</td>
+							</tr>
+						</tbody>
+					</table>
+				{% endif %}
+
 
 			</div>
             <div class="d-flex align-items-center justify-between">

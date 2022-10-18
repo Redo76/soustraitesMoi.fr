@@ -43,6 +43,13 @@
                 <h3 class="pb-3">Adresse</h3>
                 {{ form_row(registrationExpertForm.address) }}
             </article>
+            <article id="company_info">
+                <h3 class="mb-4">Informations Société</h3>
+                {{ form_row(registrationExpertForm.companyName) }}
+                {{ form_row(registrationExpertForm.companyCommercialName) }}
+                {{ form_row(registrationExpertForm.jobInCompany) }}
+                {{ form_row(registrationExpertForm.siret) }}
+            </article>
             <button type="submit" class="btn">S'inscrire</button>
 		</section>
         {{ form_end(registrationExpertForm) }}
