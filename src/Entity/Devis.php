@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DevisRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,23 @@ class Devis
 
     #[ORM\ManyToOne(inversedBy: 'devis')]
     private ?Address $adresse = null;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $siret = null;
+
+    #[ORM\ManyToOne(inversedBy: 'devis')]
+    private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'devis', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $images;
+
+    
+
+    public function __construct($user)
+    {
+        $this->user = $user;
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +154,60 @@ class Devis
     public function setAdresse(?Address $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?string $siret): self
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setDevis($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getDevis() === $this) {
+                $image->setDevis(null);
+            }
+        }
 
         return $this;
     }

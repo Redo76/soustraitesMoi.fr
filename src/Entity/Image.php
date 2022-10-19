@@ -37,6 +37,9 @@ class Image
     #[ORM\ManyToOne(inversedBy: 'logo_files')]
     private ?ProjectSite $logo_site = null;
 
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?Devis $devis = null;
+
 
     public function getId(): ?int
     {
@@ -147,6 +150,18 @@ class Image
     public function setLogoSite(?ProjectReseaux $logo_site): self
     {
         $this->logo_site = $logo_site;
+
+        return $this;
+    }
+
+    public function getDevis(): ?Devis
+    {
+        return $this->devis;
+    }
+
+    public function setDevis(?Devis $devis): self
+    {
+        $this->devis = $devis;
 
         return $this;
     }

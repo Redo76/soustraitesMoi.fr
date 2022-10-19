@@ -81,6 +81,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $resetToken = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Devis::class, orphanRemoval: true)]
+    private Collection $devis;
+
 
     public function __construct()
     {
@@ -88,6 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->projectLogos = new ArrayCollection();
         $this->projectReseaux = new ArrayCollection();
         $this->projectSites = new ArrayCollection();
+        $this->devis = new ArrayCollection();
     }
 
     
@@ -422,6 +426,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setResetToken(?string $resetToken): self
     {
         $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Devis>
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevi(Devis $devi): self
+    {
+        if (!$this->devis->contains($devi)) {
+            $this->devis->add($devi);
+            $devi->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevi(Devis $devi): self
+    {
+        if ($this->devis->removeElement($devi)) {
+            // set the owning side to null (unless already changed)
+            if ($devi->getUser() === $this) {
+                $devi->setUser(null);
+            }
+        }
 
         return $this;
     }

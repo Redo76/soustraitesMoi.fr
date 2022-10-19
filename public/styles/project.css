@@ -254,6 +254,100 @@
     border-radius: 5px;
     background: #fff;
 }
+/* page des devis */
+#devis_main {
+    margin-bottom: 6%;
+}
+
+#devis_section {
+    width: 75%;
+    margin: auto;
+    background-color: whitesmoke;
+    padding: 30px 10px 30px 10px;
+    border-radius: 20px;
+}
+
+#devis_section legend {
+    font-size: 16px;
+}
+
+#devis_section select {
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 2px #cbced1, inset -0.2px -0.2px 1px black;
+}
+
+#devis_section textarea {
+    border-radius: 20px;
+    box-shadow: inset 4px 4px 4px #cbced1, inset -0.2px -0.2px 1px black;
+}
+
+#h1_devis {
+    margin-top: 4%;
+    margin-bottom: 6%;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 39px;
+    color: goldenrod;
+}
+
+#h6_devis {
+    text-align: center;
+    margin-bottom: 6%;
+    font-weight: 400;
+}
+
+.mb-3 input {
+    border-radius: 20px;
+    box-shadow: inset 4px 4px 4px #cbced1, inset -0.2px -0.2px 1px black;
+}
+
+#devis_p {
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 26px;
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+#devis_form_Images.form-control {
+    margin-top: 4%;
+    margin-bottom: 4%;
+    border-radius: 20px;
+    box-shadow: inset 4px 4px 4px #cbced1, inset -0.2px -0.2px 1px black;
+}
+
+#devis_form_date_redaction_time_hour {
+    display: none;
+}
+
+#devis_form_date_redaction_time_minute {
+    display: none;
+}
+
+#devis_form_duree_validite_time_hour {
+    display: none;
+}
+
+#devis_form_duree_validite_time_minute {
+    display: none;
+}
+
+.input-group-text {
+    display: none;
+}
+
+#devis_div {
+    margin-top: 4%;
+    margin-bottom: 4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#devis_btn {
+    margin-top: 6%;
+    width: 200px;
+}
 
 @media only screen and (min-width: 768px) {
     .nouveau_projet h3{
@@ -367,6 +461,34 @@
         height: 110px;
         width: 110px;
     }
+    /* page devis */
+
+    #devis_section {
+        padding: 30px 20px 30px 20px;
+    }
+
+    #h1_devis {
+        font-size: 52px;
+        font-weight: 400;
+    }
+
+    #h6_devis {
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    #devis_section legend {
+        font-size: 20px;
+    }
+
+    #devis_p {
+        font-size: 39px;
+    }
+
+    #devis_btn {
+        width: 500px;
+        margin-bottom: 4%;
+    }
 }
 
 @media only screen and (min-width: 1200px) {
@@ -426,4 +548,46 @@
         padding-left: 4%;
         font-size: 28px;
     }
+        /* page devis */
+
+    #devis_section {
+        width: 50%;
+    }
+
+    #h1_devis {
+        margin-top: 0%;
+        margin-bottom: 2%;
+        font-size: 65px;
+        text-shadow: 2px 2px black;
+    }
+
+    #h6_devis {
+        margin-bottom: 3%;
+    }
+
+    #devis_btn {
+        font-size: 26px;
+    }
+
+    /* page devis */
+
+    #devis_section {
+        width: 50%;
+    }
+
+    #h1_devis {
+        margin-top: 0%;
+        margin-bottom: 2%;
+        font-size: 65px;
+        text-shadow: 2px 2px black;
+    }
+
+    #h6_devis {
+        margin-bottom: 3%;
+    }
+
+    #devis_btn {
+        font-size: 26px;
+    }
+    
 }

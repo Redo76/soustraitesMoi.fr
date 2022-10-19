@@ -1,20 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DevisController!{% endblock %}
+{% block title %}Proposer un devis
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<h1 id="h1_devis">Proposer votre devis</h1>
+	<h6 id="h6_devis">Remplissez ce formulaire.<br>
+		ou<br>
+		Uploader votre modèle de devis.</h6>
+	<main id="devis_main">
+		<section id="devis_section">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Redou/OneDrive/Documents/DWWM2/soustraitesMoi.fr-1/src/Controller/DevisController.php'|file_link(0) }}">src/Controller/DevisController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Redou/OneDrive/Documents/DWWM2/soustraitesMoi.fr-1/templates/devis/index.html.twig'|file_link(0) }}">templates/devis/index.html.twig</a></code></li>
-    </ul>
-</div>
+			{{ form_start(devisForm) }}
+			{{ form_row(devisForm.reference) }}
+			{{ form_row(devisForm.date_redaction) }}
+			{{ form_row(devisForm.duree_validite) }}
+			{{ form_row(devisForm.detail) }}
+			{{ form_row(devisForm.prix_ht) }}
+			{{ form_row(devisForm.prix_ttc) }}
+			{{ form_row(devisForm.raison_Social) }}
+			{{ form_row(devisForm.adresse) }}
+			{{ form_row(devisForm.siret) }}
+			<p id="devis_p">Ou si vous préférez</p>
+			{{ form_row(devisForm.Images) }}
+			<div id="devis_div">
+				<button id="devis_btn" type="submit" class="btn">Valider</button>
+			</div>
+			{{ form_end(devisForm) }}
+		</section>
+	</main>
 {% endblock %}
