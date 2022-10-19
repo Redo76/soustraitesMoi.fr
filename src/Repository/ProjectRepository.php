@@ -58,7 +58,7 @@ class ProjectRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT nom_du_projet , created_at FROM `project` UNION SELECT nom_du_projet , created_at FROM `project_logo` UNION SELECT nom_du_projet , created_at FROM `project_reseaux` UNION SELECT nom_du_projet , created_at FROM `project_site`;";
+        $sql = "SELECT nom_du_projet , type, created_at FROM `project` UNION SELECT nom_du_projet , type, created_at FROM `project_logo` UNION SELECT nom_du_projet , type, created_at FROM `project_reseaux` UNION SELECT nom_du_projet , type, created_at FROM `project_site`;";
     
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();

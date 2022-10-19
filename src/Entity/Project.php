@@ -44,6 +44,9 @@ class Project
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $created_at = null;
 
+    #[ORM\Column(length: 15, nullable: true)]
+    private ?string $type = null;
+
     // LIER USER/PROJECT
     // à mettre pour que chaque nouveau projet soit rattaché au user connecté
     public function __construct($user)
@@ -156,6 +159,18 @@ class Project
     public function setCreatedAt(?\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

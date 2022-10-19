@@ -68,6 +68,9 @@ class ProjectLogo
     #[ORM\Column(nullable: true)]
     private ?bool $statut = null;
 
+    #[ORM\Column(length: 15, nullable: true)]
+    private ?string $type = null;
+
     public function __construct($user)
     {
         $this->user = $user;
@@ -317,6 +320,18 @@ class ProjectLogo
     public function setStatut(?bool $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

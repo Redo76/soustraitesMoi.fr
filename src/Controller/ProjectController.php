@@ -69,13 +69,14 @@ class ProjectController extends AbstractController
                     $project->addImage($img);
                 }
             }
+            $project->setType("Libre");
 
             $projectRepository->add($project, true);
 
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('project/project_libre.html.twig', [
+        return $this->renderForm('project/project_libre/project_libre.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);
@@ -114,13 +115,14 @@ class ProjectController extends AbstractController
                     $project->addBadLogoExample($img);
                 }
             }
+            $project->setType("Logo");
 
             $projectLogoRepository->add($project, true);
 
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('project/project_logo.html.twig', [
+        return $this->renderForm('project/project_logo/project_logo.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);
@@ -156,13 +158,14 @@ class ProjectController extends AbstractController
                     $project->addExample($img);
                 }
             }
+            $project->setType("Réseaux Sociaux");
 
             $projectReseauxRepository->add($project, true);
 
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('project/project_reseaux.html.twig', [
+        return $this->renderForm('project/project_reseaux/project_reseaux.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);
@@ -199,13 +202,14 @@ class ProjectController extends AbstractController
                     $project->addVisualsFile($img);
                 }
             }
+            $project->setType("Site Web");
 
             $projectSiteRepository->add($project, true);
 
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('project/project_site.html.twig', [
+        return $this->renderForm('project/project_site/project_site.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);

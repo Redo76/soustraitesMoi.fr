@@ -296,10 +296,10 @@
     font-weight: 400;
 }
 
-.mb-3 input {
+/* .mb-3 input {
     border-radius: 20px;
     box-shadow: inset 4px 4px 4px #cbced1, inset -0.2px -0.2px 1px black;
-}
+} */
 
 #devis_p {
     text-align: center;
