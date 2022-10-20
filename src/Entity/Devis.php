@@ -16,7 +16,7 @@ class Devis
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 75, nullable: true)]
     private ?string $reference = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
@@ -40,7 +40,7 @@ class Devis
     #[ORM\ManyToOne(inversedBy: 'devis')]
     private ?Address $adresse = null;
 
-    #[ORM\Column(length: 30, nullable: true)]
+    #[ORM\Column(length: 14, nullable: true)]
     private ?string $siret = null;
 
     #[ORM\ManyToOne(inversedBy: 'devis')]

@@ -22,16 +22,19 @@ class ProjectLogoType extends AbstractType
             ->add('Nom_du_projet', TextType::class, [
                 'label' => 'Nom du projet :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 75],
                 'required' => true,
             ])
             ->add('activity', TextType::class, [
                 'label' => 'Activité :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 75],
                 'required' => false,
             ])
             ->add('budget', TextType::class, [
                 'label' => 'Budget :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
             ])
             ->add('start_date', DateType::class, [
@@ -47,11 +50,13 @@ class ProjectLogoType extends AbstractType
             ->add('desired_colors', TextType::class, [
                 'label' => 'Couleurs souhaitées et pourquoi :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 255],
                 'required' => true,
             ])
             ->add('unwanted_colors', TextType::class, [
                 'label' => 'Couleurs non souhaitées et pourquoi :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 255],
                 'required' => true,
             ])
             ->add('good_logo_example', FileType::class, [
@@ -93,11 +98,13 @@ class ProjectLogoType extends AbstractType
             ->add('other_brands', TextType::class, [
                 'label' => '* C’est une indication supplémentaire',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 75],
                 'required' => false,
             ])
             ->add('support', TextType::class, [
                 'label' => 'Quels seront les supports sur lesquels votre logo sera utilisé ?',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 75],
                 'required' => false,
             ])
             ->add('creation', ChoiceType::class, [
@@ -114,6 +121,7 @@ class ProjectLogoType extends AbstractType
             ->add('img_format', TextType::class, [
                 'label' => 'Quel(s) format(s) d’image souhaitez-vous (Jpg, Tiff, Png) ?',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 75],
                 'required' => true,
             ])
             ->add('background', ChoiceType::class, [

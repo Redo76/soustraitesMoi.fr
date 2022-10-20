@@ -12,11 +12,12 @@ use App\Form\ProjectSiteType;
 use App\Entity\ProjectReseaux;
 use App\Service\UploaderHelper;
 use App\Form\ProjectReseauxType;
+use App\Repository\UserRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\ProjectLogoRepository;
 use App\Repository\ProjectSiteRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\ProjectReseauxRepository;
-use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,17 +29,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProjectController extends AbstractController
 {
     #[Route('/mes-projets', name: 'app_project_index', methods: ['GET'])]
-    public function index(ProjectRepository $projectRepository, UserRepository $userRepository, ProjectLogoRepository $projectLogoRepository): Response
+    public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        // LIER USER/PROJECT:
-        // déclarer $user= info class user avec le get
-        // déclarer $projects comme objet du tableau project
-        // puis rappeler la fonction findAllByUserId en mettant en paramètre user
-        $user=$this->getUser();
-        // $projects=$projectRepository->findAllProjectsByUserId($user);
-        // dd($projects);
+        $userId = $this->getUser()->getId();
+        $projects = $userRepository->findAllProjectsByUserId($userId);
+
+        $projectsPagination = $paginator->paginate(
+            $projects, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
         return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAllByUserId($user),
+            'projects' => $projectsPagination,
         ]);
     }
 
@@ -94,7 +96,7 @@ class ProjectController extends AbstractController
             // $uploadedFiles2 = $form['bad_logo_example']->getData();
             $uploadedFiles2 = $request->files->get('bad_logo_example');
 
-            dd($uploadedFiles2);
+            // dd($uploadedFiles2);
 
             if ($uploadedFiles1) {
                 foreach ($uploadedFiles1 as $key => $uploadedFile) {
@@ -165,7 +167,7 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('project/project_reseaux/project_reseaux.html.twig', [
+        return $this->renderForm('project/project_réseaux/project_reseaux.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);
@@ -202,7 +204,7 @@ class ProjectController extends AbstractController
                     $project->addVisualsFile($img);
                 }
             }
-            $project->setType("Site Web");
+            $project->setType("Site Internet");
 
             $projectSiteRepository->add($project, true);
 
@@ -215,40 +217,30 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_project_show', methods: ['GET'])]
-    public function show(Project $project): Response
+    #[Route('/{id}&{type}', name: 'app_project_info', methods: ['GET', 'POST'])]
+    public function edit(int $id, string $type, Request $request, ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository, ProjectReseauxRepository $projectReseauxRepository, ProjectSiteRepository $projectSiteRepository): Response
     {
-        return $this->render('project/show.html.twig', [
-            'project' => $project,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_project_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, Project $project, ProjectRepository $projectRepository): Response
-    {
-        $form = $this->createForm(ProjectType::class, $project);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedFiles = $form['Images']->getData();
-
-            if ($uploadedFiles) {
-                foreach ($uploadedFiles as $key => $uploadedFile) {
-                    $newFilename = $uploaderHelper->uploadProjectImages($uploadedFile, $slugger);
-                    $img = new Image();
-                    $img->setName($newFilename);
-
-                    $project->addImage($img);
-                }
-            }
-            $projectRepository->add($project, true);
-
-            return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
+        $type = ["type" => $type]["type"];
+        if ($type == "Libre") {
+            $project = $projectRepository->findOneBy(["id" => $id]);
+            $repo = "project_libre";
+            // dd($project);
+        } elseif ($type == "Logo") {
+            $project = $projectLogoRepository->findOneBy(["id" => $id]);
+            $repo = "project_logo";
+            // dd($project);
+        } elseif ($type == "Réseaux Sociaux") {
+            $project = $projectReseauxRepository->findOneBy(["id" => $id]);
+            $repo = "project_réseaux";
+            // dd($project);
+        } elseif ($type == "Site Internet") {
+            $project = $projectSiteRepository->findOneBy(["id" => $id]);
+            $repo = "project_site";
+            // dd($project);
         }
 
-        return $this->renderForm('project/edit.html.twig', [
+        return $this->render('project/'. $repo . '/project_info.html.twig', [
             'project' => $project,
-            'form' => $form,
         ]);
     }
 

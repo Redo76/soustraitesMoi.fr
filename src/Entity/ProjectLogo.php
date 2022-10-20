@@ -50,13 +50,13 @@ class ProjectLogo
     #[ORM\Column(length: 75, nullable: true)]
     private ?string $support = null;
 
-    #[ORM\Column(length: 25, nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?bool $creation = null;
 
     #[ORM\Column(length: 75, nullable: true)]
     private ?string $img_format = null;
 
-    #[ORM\Column(length: 15, nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?bool $background = null;
 
     #[ORM\ManyToOne(inversedBy: 'projectLogos')]

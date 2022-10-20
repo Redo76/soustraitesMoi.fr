@@ -20,9 +20,12 @@ class ProjectType extends AbstractType
             ->add('Nom_du_projet', TextType::class, [
                 'label' => 'Nom du projet',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 75],
                 'required' => false,
             ])
-            ->add('Categorie')
+            ->add('Categorie', TextType::class,[
+                'attr' => ['maxlength' => 75],
+            ])
             ->add('Description', TextareaType::class, [
                 'label' => 'Description',
                 'label_attr' => ['class' => "form-label"],

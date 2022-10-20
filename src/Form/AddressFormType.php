@@ -17,24 +17,24 @@ class AddressFormType extends AbstractType
         $builder
             ->add('address',TextType::class, [
                 'label' => false,
-                'attr' => ['placeholder' => 'Adresse'],
+                'attr' => ['placeholder' => 'Adresse','maxlength' => 150],
             ])
             ->add('address2',TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Adresse ligne 2'],
+                'attr' => ['placeholder' => 'Adresse ligne 2','maxlength' => 150],
             ])
             ->add('codePostal',TextType::class, [
                 'label' => false,
-                'attr' => ['placeholder' => 'Code Postal'],
+                'attr' => ['placeholder' => 'Code Postal','maxlength' => 20],
             ])
             ->add('city',TextType::class, [
                 'label' => false,
-                'attr' => ['placeholder' => 'Ville'],
+                'attr' => ['placeholder' => 'Ville','maxlength' => 100],
             ])
             ->add('country',TextType::class, [
                 'label' => false,
-                'attr' => ['placeholder' => 'Pays'],
+                'attr' => ['placeholder' => 'Pays','maxlength' => 100],
             ])
         ;
     }

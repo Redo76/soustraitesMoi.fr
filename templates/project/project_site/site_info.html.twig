@@ -1,107 +1,83 @@
 <form>
     <div class="mb-3">
         <label for="Pn" class="form-label">Nom du projet :</label>
-        <input type="text" name="Pn" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="Pn" value="{{project.NomDuProjet}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="pp" class="form-label">Présentation du projet en quelques lignes :</label>
-        <textarea type="text" name="pp" class="form-control" disabled="disabled" aria-describedby="">
-            vrgfzregkrzogk
-        </textarea>
+        <textarea type="text" name="pp" class="form-control" disabled="disabled" aria-describedby="">{{project.presentation}}</textarea>
     </div>
     <div class="mb-3">
         <label for="Acp" class="form-label">Activité principale :</label>
-        <input type="text" name="Acp" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="Acp" value="{{project.activity}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="op" class="form-label">Offres et projets :</label>
-        <input type="text" name="op" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="op" value="{{project.offers}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="sc" class="form-label">Services(Service client / vente à domicile) :</label>
-        <input type="text" name="sc" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="sc" value="{{project.service}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="vl" class="form-label">Les valeurs (au moins 3) :</label>
-        <input type="text" name="vl" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
-    </div>
-    <div class="mb-3">
-        <label for="pb" class="form-label">Combien de publication par jour, semaine, ou mois :</label>
-        <input type="text" name="pb" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
-    </div>
-    <div class="mb-3">
-        <label for="si" class="form-label">Site internet :</label>
-        <input type="text" name="si" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="vl" value="{{project.valeurs}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="pc" class="form-label">Profil client :</label>
-        <textarea type="text" name="pc" class="form-control" disabled="disabled" aria-describedby="">
-            vrgfzregkrzogk
-        </textarea>
+        <textarea type="text" name="pc" class="form-control" disabled="disabled" aria-describedby="">{{project.profilClient}}</textarea>
     </div>
     <h3>Les objectifs du site</h3>
     <div class="mb-3">
         <label for="op" class="form-label-misc">Objectif principal :</label>
-        <textarea type="text" name="op" class="form-control" disabled="disabled" aria-describedby="">
-            vrgfzregkrzogk
-        </textarea>
+        <textarea type="text" name="op" class="form-control" disabled="disabled" aria-describedby="">{{project.mainObjective}}</textarea>
     </div>
     <div class="mb-3">
         <label for="os" class="form-label-misc">Objectif secondaire :</label>
-        <textarea type="text" name="os" class="form-control" disabled="disabled" aria-describedby="">
-            vrgfzregkrzogk
-        </textarea>
+        <textarea type="text" name="os" class="form-control" disabled="disabled" aria-describedby="">{{project.secondaryObjective}}</textarea>
     </div>
     <h3>Listez les pages que vous souhaitez</h3>
     <div class="mb-3">
         <label for="ac" class="form-label-misc">Accueil :</label>
-        <textarea type="text" name="ac" class="form-control" disabled="disabled" aria-describedby="">
-            vrgfzregkrzogk
-        </textarea>
+        <textarea type="text" name="ac" class="form-control" disabled="disabled" aria-describedby="">{{project.homepage}}</textarea>
     </div>
     <div class="mb-3">
         <label for="ap" class="form-label-misc">À propos / notre histoire :</label>
-        <textarea type="text" name="ap" class="form-control" disabled="disabled" aria-describedby="">
-            vrgfzregkrzogk
-        </textarea>
+        <textarea type="text" name="ap" class="form-control" disabled="disabled" aria-describedby="">{{project.about}}</textarea>
     </div>
     <div class="mb-3">
         <label for="ns" class="form-label-misc">Nos services :</label>
-        <textarea type="text" name="ns" class="form-control" disabled="disabled" aria-describedby="">
-            vrgfzregkrzogk
-        </textarea>
+        <textarea type="text" name="ns" class="form-control" disabled="disabled" aria-describedby="">{{project.ourServices}}</textarea>
     </div>
     <div class="mb-3">
         <label for="ct" class="form-label-misc">Contact :</label>
-        <textarea type="text" name="ct" class="form-control" disabled="disabled" aria-describedby="">
-            vrgfzregkrzogk
-        </textarea>
+        <textarea type="text" name="ct" class="form-control" disabled="disabled" aria-describedby="">{{project.contact}}</textarea>
     </div>
     <h3>Fonctionnalités du site :</h3>
     <div class="mb-3">
         <label for="fc" class="form-label-misc">Formulaire de contact :</label>
-        <input type="text" name="fc" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="fc" value="{{project.contactForm}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="mr" class="form-label-misc">Moteur de recherche sur-mesure :</label>
-        <input type="text" name="mr" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="mr" value="{{project.searchBar}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="cp" class="form-label-misc">Catalogue produit :</label>
-        <input type="text" name="cp" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="cp" value="{{project.catalogue}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="ec" class="form-label-misc">Espace client :</label>
-        <input type="text" name="ec" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="ec" value="{{project.client}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="nl" class="form-label-misc">Inscription newsletter :</label>
-        <input type="text" name="nl" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="nl" value="{{project.newsletter}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <h3>Brief créatif (À fournir) :</h3>
     <div class="mb-3">
         <label for="l" class="form-label-misc">Logo ?</label>
-        <input type="text" name="l" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="l" value="{{project.logo}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <template id="template_project">
         <div class="template_card mt-1 w-25">
@@ -118,7 +94,7 @@
     </div>
     <div class="mb-3">
         <label for="v" class="form-label-misc">Visuels ?</label>
-        <input type="text" name="v" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="v" value="{{project.visuals}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     
     <template id="template_project2">
@@ -133,21 +109,23 @@
     </template>
     <div class="img-list2 d-flex flex-wrap mb-3">
 
+    </div>
+
     <div class="mb-3">
         <label for="t" class="form-label-misc">Typographie ?</label>
-        <input type="text" name="t" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="t" value="{{project.typography}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="c" class="form-label-misc">Couleurs ?</label>
-        <input type="text" name="c" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="c" value="{{project.colors}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <h3>Références</h3>
     <div class="mb-3">
         <label for="scc" class="form-label-misc">Sites coup de cœur :</label>
-        <input type="text" name="scc" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="scc" value="{{project.lovedSites}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="sc" class="form-label-misc">Sites concurrents :</label>
-        <input type="text" name="sc" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="sc" value="{{project.otherSite}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
 </form>

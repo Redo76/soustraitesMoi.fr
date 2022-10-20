@@ -1,36 +1,38 @@
 <form>
     <div class="mb-3">
         <label for="Pn" class="form-label">Nom du projet :</label>
-        <input type="text" name="Pn" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="Pn" value="{{project.NomDuProjet}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="Ac" class="form-label">Activité :</label>
-        <input type="text" name="Ac" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="Ac" value="{{project.activity}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="Bd" class="form-label">Budget :</label>
-        <input type="text" name="Bd" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="Bd" value="{{project.budget}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <div class="mb-3">
         <label for="Db" class="form-label">Délai de réalisation (date butoir) :</label>
-        <input type="text" name="Db" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="Db" value="{{project.startDate|date("d/m/Y")}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <h3>Explication de la marque</h3>
     <div class="mb-3">
         <label for="ex" class="form-label-misc">Explication de la marque et des valeurs de la marque :</label>
-        <textarea type="text" name="ex" class="form-control" disabled="disabled" aria-describedby="">
-            vrgfzregkrzogk
-        </textarea>
+        <textarea type="text" name="ex" class="form-control" disabled="disabled" aria-describedby="">{{project.explanation}}</textarea>
     </div>
     <div class="mb-3">
-        <label for="cs" class="form-label-misc">Couleurs souhaitées et pourquoi :</label>
-        <input type="text" name="cs" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <label for="cs" class="form-label">Couleurs souhaitées et pourquoi :</label>
+        {# <input type="text" name="cs" value="{{project.desiredColors}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="cs" class="form-control" disabled="disabled" aria-describedby="">{{project.desiredColors}}</textarea>
+
     </div>
     <div class="mb-3">
-        <label for="cns" class="form-label-misc">Couleurs non souhaitées et pourquoi :</label>
-        <input type="text" name="cns" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <label for="cns" class="form-label">Couleurs non souhaitées et pourquoi :</label>
+        {# <input type="text" name="cns" value="{{project.unwantedColors}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="cns" class="form-control" disabled="disabled" aria-describedby="">{{project.unwantedColors}}</textarea>
     </div>
     <h3>Exemples de Logos appréciés</h3>
+    <h4 class="form-label-misc">Montrer les exemples de logos (avec des captures écran) que vous aimez :</h4>
     
     <template id="template_project">
         <div class="template_card mt-1 w-25">
@@ -59,23 +61,25 @@
     <div class="img-list2 d-flex flex-wrap mb-3">
 
     </div>
+
     <h3>Autres marques concurrentes à la votre</h3>
     <div class="mb-3">
         <label for="mc" class="form-label-misc">* C’est une indication supplémentaire</label>
-        <input type="text" name="mc" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="mc" value="{{project.otherBrands}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
     <h3>Utilisation du logo</h3>
     <div class="mb-3">
         <label for="su" class="form-label-misc">Quels seront les supports sur lesquels votre logo sera utilisé ?</label>
-        <input type="text" name="su" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+        <input type="text" name="su" value="{{project.support}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
+    <h4 class="form-label-misc">Avez-vous besoin des fichiers de création (Photoshop) ?</h4>
     <div class="mb-3">
         <div>
-            <input type="radio" name="oui" checked disabled="disabled">
-            <label for="huey">Oui</label>
+            <input type="radio" name="oui" {% if project.creation == true %} checked {% endif %} disabled="disabled">
+            <label for="oui">Oui</label>
         </div>
         <div>
-            <input type="radio" name="non" disabled="disabled">
+            <input type="radio" name="non" {% if project.creation == false %} checked {% endif %} disabled="disabled">
             <label for="non">Non</label>
         </div>
     </div>
@@ -83,20 +87,21 @@
         <div class="col">
             <div class="mb-3">
                 <label for="fm" class="form-label-misc">Quel(s) format(s) d’image souhaitez-vous (Jpg, Tiff, Png) ?</label>
-                <input type="text" name="fm" value="131635454" class="form-control" disabled="disabled" aria-describedby="">
+                <input type="text" name="fm" value="{{project.imgFormat}}" class="form-control" disabled="disabled" aria-describedby="">
             </div>
         </div>
         <div class="col">
-                <div class="mb-3">
-        <div>
-            <input type="radio" name="oui" checked disabled="disabled">
-            <label for="huey">Oui</label>
-        </div>
-        <div>
-            <input type="radio" name="non" disabled="disabled">
-            <label for="non">Non</label>
-        </div>
-    </div>
+            <h4 class="form-label-misc">Avec ou Sans fond transparent ?</h4>
+            <div class="mb-3">
+                <div>
+                    <input type="radio" name="oui2" {% if project.background == true %} checked {% endif %} disabled="disabled">
+                    <label for="oui2">Oui</label>
+                </div>
+                <div>
+                    <input type="radio" name="non2" {% if project.background == false %} checked {% endif %} disabled="disabled">
+                    <label for="non2">Non</label>
+                </div>
+            </div>
         </div>
     </div>
 </form>

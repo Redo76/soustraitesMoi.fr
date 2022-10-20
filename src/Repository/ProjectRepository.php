@@ -43,22 +43,11 @@ class ProjectRepository extends ServiceEntityRepository
     // utiliser la fonction findBy
     // quand je rappellerai la fonction dans le Projectcontroller, le paramètre $value deviendra $user
 
-    public function findAllByUserId($value): array
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.User = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
-    }
-
     public function findAllProjects(): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT nom_du_projet , type, created_at FROM `project` UNION SELECT nom_du_projet , type, created_at FROM `project_logo` UNION SELECT nom_du_projet , type, created_at FROM `project_reseaux` UNION SELECT nom_du_projet , type, created_at FROM `project_site`;";
+        $sql = "SELECT id, nom_du_projet , type, created_at FROM `project` UNION SELECT id, nom_du_projet , type, created_at FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at FROM `project_site`;";
     
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();

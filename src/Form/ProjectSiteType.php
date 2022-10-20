@@ -20,6 +20,7 @@ class ProjectSiteType extends AbstractType
             ->add('Nom_du_projet', TextType::class, [
                 'label' => 'Nom du projet :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 75],
                 'required' => true,
             ])
             ->add('presentation', TextareaType::class, [
@@ -30,21 +31,25 @@ class ProjectSiteType extends AbstractType
             ->add('activity', TextType::class, [
                 'label' => 'Activité principale :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 75],
                 'required' => true,
             ])
             ->add('offers', TextType::class, [
                 'label' => 'Offres et projets :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 150],
                 'required' => true,
             ])
             ->add('service', TextType::class, [
                 'label' => 'Services(Service client / vente à domicile) :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 150],
                 'required' => true,
             ])
             ->add('valeurs', TextType::class, [
                 'label' => 'Les valeurs (au moins 3) :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 150],
                 'required' => true,
                 ])
             ->add('profil_client', TextareaType::class, [
@@ -85,31 +90,37 @@ class ProjectSiteType extends AbstractType
             ->add('contact_form', TextType::class, [
                 'label' => 'Formulaire de contact :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
             ])
             ->add('search_bar', TextType::class, [
                 'label' => 'Moteur de recherche sur-mesure :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
             ])
             ->add('catalogue', TextType::class, [
                 'label' => 'Catalogue produit :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
             ])
             ->add('client', TextType::class, [
                 'label' => 'Espace client :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
                 ])
             ->add('newsletter', TextType::class, [
                 'label' => 'Inscription newsletter :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
             ])
             ->add('logo', TextType::class, [
                 'label' => 'Logo ?',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 150],
                 'required' => true,
             ])
             ->add('logo_files', FileType::class, [
@@ -133,6 +144,7 @@ class ProjectSiteType extends AbstractType
             ->add('visuals', TextType::class, [
                 'label' => 'Visuels ?',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 255],
                 'required' => true,
             ])
             ->add('visuals_files', FileType::class, [
@@ -156,19 +168,22 @@ class ProjectSiteType extends AbstractType
             ->add('typography', TextType::class, [
                 'label' => 'Typographie ?',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
             ])
             ->add('colors', TextType::class, [
                 'label' => 'Couleurs ?',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
             ])
             ->add('loved_sites', TextType::class, [
                 'label' => 'Sites coup de cœur :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 255],
                 'required' => false,
             ])
-            ->add('other_site', TextType::class, [
+            ->add('other_site', TextAreaType::class, [
                 'label' => 'Sites concurrents :',
                 'label_attr' => ['class' => "form-label-misc"],
                 'required' => false,

@@ -15,7 +15,8 @@ class ResetPasswordRequestFormType extends AbstractType
             ->add('email' , EmailType::class, [
                 'label' => 'saisir votre e-mail',
                 'attr' => [
-                    'placeholder' => 'exemple@email.fr'
+                    'placeholder' => 'exemple@email.fr',
+                    'maxlength' => 180
                 ]
             ]) 
         ;

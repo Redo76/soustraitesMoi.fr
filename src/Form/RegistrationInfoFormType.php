@@ -56,22 +56,22 @@ class RegistrationInfoFormType extends AbstractType
             ->add('companyName', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Nom'],
+                'attr' => ['placeholder' => 'Nom','maxlength' => 75],
             ])
             ->add('companyCommercialName', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Nom comercial'],
+                'attr' => ['placeholder' => 'Nom comercial','maxlength' => 180],
             ])
             ->add('jobInCompany', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => "Fonction dans l'entreprise"],
+                'attr' => ['placeholder' => "Fonction dans l'entreprise",'maxlength' => 75],
             ])
             ->add('siret', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'N° de siret'],
+                'attr' => ['placeholder' => 'N° de siret','maxlength' => 14],
                 'constraints' => [
                     new Regex([
                         'pattern'=> '/^[0-9]{14}$/',

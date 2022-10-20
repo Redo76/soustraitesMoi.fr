@@ -21,16 +21,19 @@ class ProjectReseauxType extends AbstractType
             ->add('Nom_du_projet', TextType::class, [
                 'label' => 'Nom du projet :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 75],
                 'required' => true,
             ])
             ->add('activity', TextType::class, [
                 'label' => 'Activité :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 75],
                 'required' => false,
             ])
             ->add('budget', TextType::class, [
                 'label' => 'Budget :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
             ])
             ->add('start_date', DateType::class, [
@@ -42,22 +45,26 @@ class ProjectReseauxType extends AbstractType
             ->add('mission_duration', TextType::class, [
                 'label' => 'Durée de la mission :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
             ])
             ->add('publication', TextType::class, [
                 'label' => 'Combien de publication par jour,
                 semaine, ou mois :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 50],
                 'required' => true,
             ])
             ->add('website', TextType::class, [
                 'label' => 'Site internet :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 255],
                 'required' => true,
             ])
             ->add('location', TextType::class, [
                 'label' => 'Dates et lieux (si événement, …) :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 200],
                 'required' => false,
             ])
             ->add('logo', FileType::class, [
@@ -81,47 +88,56 @@ class ProjectReseauxType extends AbstractType
             ->add('snapchat', TextType::class, [
                 'label' => 'Snapchat :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 255],
                 'required' => false,
             ])
             ->add('tiktok', TextType::class, [
                 'label' => 'TikTok :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 255],
                 'required' => false,
             ])
             ->add('instagram', TextType::class, [
                 'label' => 'Instagram :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 255],
                 'required' => false,
             ])
             ->add('facebook', TextType::class, [
                 'label' => 'Facebook :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 255],
                 'required' => false,
             ])
             ->add('linkedin', TextType::class, [
                 'label' => 'LinkedIn :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 255],
                 'required' => false,
             ])
             ->add('twitter', TextType::class, [
                 'label' => 'Twitter :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 255],
                 'required' => false,
             ])
             ->add('pinterest', TextType::class, [
                 'label' => 'Pinterest :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 255],
                 'required' => false,
             ])
             ->add('other_media', TextType::class, [
                 'label' => 'Autres :',
                 'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 255],
                 'required' => false,
             ])
             ->add('community_manager', TextType::class, [
                 'label' => 'Parmi ceux-ci quelles sont ceux sur lesquels vous souhaitez faire appel à un Community
                 Manager ?',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 200],
                 'required' => false,
             ])
             ->add('impact', TextareaType::class, [
@@ -132,9 +148,10 @@ class ProjectReseauxType extends AbstractType
             ->add('desired_colors', TextType::class, [
                 'label' => 'Couleurs souhaitées sur votre communication (en général en lien avec le logo) ? et pourquoi celles-ci :',
                 'label_attr' => ['class' => "form-label"],
+                'attr' => ['maxlength' => 255],
                 'required' => false,
             ])
-            ->add('liked_example', TextType::class, [
+            ->add('liked_example', TextAreaType::class, [
                 'label' => 'Montrer des exemples de pages que vous avez consulté que vous aimez (Et pourquoi ?
                 dans la mise en page, les couleurs, les visuels, etc)',
                 'label_attr' => ['class' => "form-label-misc"],

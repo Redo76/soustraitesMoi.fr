@@ -19,7 +19,7 @@
                 <td>{{project.nom_du_projet}}</td>
                 <td>{{project.type}}</td>
                 <td>
-                    <a class="button" href="{{path('test')}}">Consulter</a>
+                    <a class="button" href="{{path('app_project_info', {"id" : project.id, "type" : project.type})}}">Consulter</a>
                 </td>
                 <td>{{project.created_at|date("d/m/Y")}}</td>
                 </tr>

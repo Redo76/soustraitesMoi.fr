@@ -32,22 +32,22 @@ class EditProfileExpertType extends AbstractType
         ])
         ->add('firstname', TextType::class, [
             'label' => false,
-            'attr' => ['class' => 'firstName','placeholder' => 'Prénom'],
+            'attr' => ['class' => 'firstName','placeholder' => 'Prénom','maxlength' => 75],
             'required' => true,
         ])
         ->add('lastname', TextType::class, [
             'label' => false,
-            'attr' => ['class' => 'Nom','placeholder' => 'Nom'],
+            'attr' => ['class' => 'Nom','placeholder' => 'Nom','maxlength' => 75],
             'required' => true,
         ])
         ->add('email', EmailType::class, [
             'label' => false,
-            'attr' => ['placeholder' => 'Email'],
+            'attr' => ['placeholder' => 'Email','maxlength' => 180],
             'required' => true,
         ])
         ->add('phone', TelType::class,[
             'label' => false,
-            'attr' => ['placeholder' => 'N° Téléphone'],
+            'attr' => ['placeholder' => 'N° Téléphone','maxlength' => 20],
             'constraints' => [
                 new Regex([
                     'pattern'=> '/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/',
@@ -60,22 +60,22 @@ class EditProfileExpertType extends AbstractType
         ->add('companyName', TextType::class, [
             'label' => false,
             'required' => false,
-            'attr' => ['placeholder' => 'Nom'],
+            'attr' => ['placeholder' => 'Nom','maxlength' => 75],
         ])
         ->add('companyCommercialName', TextType::class, [
             'label' => false,
             'required' => false,
-            'attr' => ['placeholder' => 'Nom comercial'],
+            'attr' => ['placeholder' => 'Nom comercial','maxlength' => 180],
         ])
         ->add('jobInCompany', TextType::class, [
             'label' => false,
             'required' => false,
-            'attr' => ['placeholder' => "Fonction dans l'entreprise"],
+            'attr' => ['placeholder' => "Fonction dans l'entreprise",'maxlength' => 75],
         ])
         ->add('siret', TextType::class, [
             'label' => false,
             'required' => false,
-            'attr' => ['placeholder' => 'N° de siret'],
+            'attr' => ['placeholder' => 'N° de siret','maxlength' => 14],
             'constraints' => [
                 new Regex([
                     'pattern'=> '/^[0-9]{14}$/',

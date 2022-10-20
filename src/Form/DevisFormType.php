@@ -29,7 +29,7 @@ class DevisFormType extends AbstractType
         ->add('reference', TextType::class, [
             'label' => 'Référence',
             'label_attr' => ['class' => "form-label"],
-            'attr' => ['placeholder' => 'nom du projet lié au devis'],
+            'attr' => ['placeholder' => 'nom du projet lié au devis','maxlength' => 75],
             'required' => false,
         ])
         ->add('date_redaction', DateType::class, [
@@ -62,6 +62,7 @@ class DevisFormType extends AbstractType
             ->add('siret', TextType::class, [
                 'label' => 'N° de siret',
                 'required' => false,
+                'attr' => ['maxlength' => 14],
                 'constraints' => [
                     new Regex([
                         'pattern'=> '/^[0-9]{14}$/',
