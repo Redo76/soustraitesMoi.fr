@@ -31,11 +31,13 @@
     </div>
     <div class="mb-3">
         <label for="si" class="form-label">Site internet :</label>
-        <input type="text" name="si" value="{{project.website}}" class="form-control" disabled="disabled" aria-describedby="">
+        {# <input type="text" name="si" value="{{project.website}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="si" class="form-control" disabled="disabled" aria-describedby="">{{project.website}}</textarea>
     </div>
     <div class="mb-3">
         <label for="dl" class="form-label">Dates et lieux (si événement, …) :</label>
-        <input type="text" name="dl" value="{{project.location}}" class="form-control" disabled="disabled" aria-describedby="">
+        {# <input type="text" name="dl" value="{{project.location}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.location}}</textarea>
     </div>
 
     <template id="template_project">
@@ -56,13 +58,16 @@
         <div class="col">
             <div class="mb-3">
                 <label for="sp" class="form-label-misc">Snapchat :</label>
-                <input type="text" name="sp" value="{{project.snapchat}}" class="form-control" disabled="disabled" aria-describedby="">
+                {# <input type="text" name="sp" value="{{project.snapchat}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+                <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.snapchat}}</textarea>
+
             </div>
         </div>
         <div class="col">
             <div class="mb-3">
                 <label for="tt" class="form-label-misc">TikTok :</label>
-                <input type="text" name="tt" value="{{project.tiktok}}" class="form-control" disabled="disabled" aria-describedby="">
+                {# <input type="text" name="tt" value="{{project.tiktok}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+                <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.tiktok}}</textarea>
             </div>
         </div>
     </div>
@@ -70,13 +75,15 @@
         <div class="col">
             <div class="mb-3">
                 <label for="in" class="form-label-misc">Instagram :</label>
-                <input type="text" name="in" value="{{project.instagram}}" class="form-control" disabled="disabled" aria-describedby="">
+                {# <input type="text" name="in" value="{{project.instagram}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+                <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.instagram}}</textarea>
             </div>
         </div>
         <div class="col">
             <div class="mb-3">
                 <label for="fb" class="form-label-misc">Facebook :</label>
-                <input type="text" name="fb" value="{{project.facebook}}" class="form-control" disabled="disabled" aria-describedby="">
+                {# <input type="text" name="fb" value="{{project.facebook}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+                <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.facebook}}</textarea>
             </div>
         </div>
     </div>
@@ -84,13 +91,15 @@
         <div class="col">
             <div class="mb-3">
                 <label for="li" class="form-label-misc">LinkedIn :</label>
-                <input type="text" name="li" value="{{project.linkedin}}" class="form-control" disabled="disabled" aria-describedby="">
+                {# <input type="text" name="li" value="{{project.linkedin}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+                <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.linkedin}}</textarea>
             </div>
         </div>
         <div class="col">
             <div class="mb-3">
                 <label for="tw" class="form-label-misc">Twitter :</label>
-                <input type="text" name="tw" value="{{project.twitter}}" class="form-control" disabled="disabled" aria-describedby="">
+                {# <input type="text" name="tw" value="{{project.twitter}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+                <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.twitter}}</textarea>
             </div>
         </div>
     </div>
@@ -98,19 +107,22 @@
         <div class="col">
             <div class="mb-3">
                 <label for="pt" class="form-label-misc">Pinterest :</label>
-                <input type="text" name="pt" value="{{project.pinterest}}" class="form-control" disabled="disabled" aria-describedby="">
+                {# <input type="text" name="pt" value="{{project.pinterest}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+                <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.pinterest}}</textarea>
             </div>
         </div>
         <div class="col">
             <div class="mb-3">
                 <label for="at" class="form-label-misc">Autres :</label>
-                <input type="text" name="at" value="{{project.otherMedia}}" class="form-control" disabled="disabled" aria-describedby="">
+                {# <input type="text" name="at" value="{{project.otherMedia}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+                <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.otherMedia}}</textarea>
             </div>
         </div>
     </div>
     <div class="mb-3">
         <label for="cm" class="form-label">Parmi ceux-ci quelles sont ceux sur lesquels vous souhaitez faire appel à un Community Manager ?</label>
-        <input type="text" name="cm" value="{{project.communityManager}}" class="form-control" disabled="disabled" aria-describedby="">
+        {# <input type="text" name="cm" value="{{project.communityManager}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.communityManager}}</textarea>
     </div>
     <h3>Impact de votre communication :</h3>
     <div class="mb-3">
@@ -119,7 +131,8 @@
     </div>
     <div class="mb-3">
         <label for="cc" class="form-label">Couleurs souhaitées sur votre communication (en général en lien avec le logo) ? et pourquoi celles-ci :</label>
-        <input type="text" name="cc" value="{{project.desiredColors}}" class="form-control" disabled="disabled" aria-describedby="">
+        {# <input type="text" name="cc" value="{{project.desiredColors}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.desiredColors}}</textarea>
     </div>
     <h3>Exemples de pages appréciés</h3>
     <div class="mb-3">

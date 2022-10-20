@@ -13,15 +13,18 @@
     </div>
     <div class="mb-3">
         <label for="op" class="form-label">Offres et projets :</label>
-        <input type="text" name="op" value="{{project.offers}}" class="form-control" disabled="disabled" aria-describedby="">
+        {# <input type="text" name="op" value="{{project.offers}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.offers}}</textarea>
     </div>
     <div class="mb-3">
         <label for="sc" class="form-label">Services(Service client / vente à domicile) :</label>
-        <input type="text" name="sc" value="{{project.service}}" class="form-control" disabled="disabled" aria-describedby="">
+        {# <input type="text" name="sc" value="{{project.service}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.service}}</textarea>
     </div>
     <div class="mb-3">
         <label for="vl" class="form-label">Les valeurs (au moins 3) :</label>
-        <input type="text" name="vl" value="{{project.valeurs}}" class="form-control" disabled="disabled" aria-describedby="">
+        {# <input type="text" name="vl" value="{{project.valeurs}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.valeurs}}</textarea>
     </div>
     <div class="mb-3">
         <label for="pc" class="form-label">Profil client :</label>
@@ -77,7 +80,8 @@
     <h3>Brief créatif (À fournir) :</h3>
     <div class="mb-3">
         <label for="l" class="form-label-misc">Logo ?</label>
-        <input type="text" name="l" value="{{project.logo}}" class="form-control" disabled="disabled" aria-describedby="">
+        {# <input type="text" name="l" value="{{project.logo}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.logo}}</textarea>
     </div>
     <template id="template_project">
         <div class="template_card mt-1 w-25">
@@ -94,7 +98,8 @@
     </div>
     <div class="mb-3">
         <label for="v" class="form-label-misc">Visuels ?</label>
-        <input type="text" name="v" value="{{project.visuals}}" class="form-control" disabled="disabled" aria-describedby="">
+        {# <input type="text" name="v" value="{{project.visuals}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.visuals}}</textarea>
     </div>
     
     <template id="template_project2">
@@ -122,7 +127,8 @@
     <h3>Références</h3>
     <div class="mb-3">
         <label for="scc" class="form-label-misc">Sites coup de cœur :</label>
-        <input type="text" name="scc" value="{{project.lovedSites}}" class="form-control" disabled="disabled" aria-describedby="">
+        {# <input type="text" name="scc" value="{{project.lovedSites}}" class="form-control" disabled="disabled" aria-describedby=""> #}
+        <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.lovedSites}}</textarea>
     </div>
     <div class="mb-3">
         <label for="sc" class="form-label-misc">Sites concurrents :</label>
