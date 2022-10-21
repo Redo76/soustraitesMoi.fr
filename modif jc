@@ -457,6 +457,20 @@ class DevisRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
+    public function devisPdf()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM `devis` ORDER BY date_redaction DESC LIMIT 1;";
+    
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAssociative();
+        
+    }
 }
 
 ________________________________________________________________________________________________
@@ -495,6 +509,108 @@ DANS TEMPLATE CREER DOSSIER devis PUIS FICHIER index.html.twig
 		</section>
 	</main>
 {% endblock %}
+
+
+DANS TEMPLATE DEVIS CREER FICHIER pdfadmin.html.twig COLLER :
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	<style>
+		#devis_h1 {
+			text-align: center;
+			margin-bottom: 10%;
+			background-color: whitesmoke;
+		}
+		#prix {
+			display: flex;
+			justify-content: space-around;
+		}
+		.minitab {
+			border-collapse: separate;
+			border-spacing: 20px;
+		}
+		th {
+			border: 1px solid black;
+			padding: 10px;
+		}
+		td {
+			border: 1px solid black;
+			padding: 5px 20px;
+		}
+		.whitesmoke {
+			background-color: whitesmoke;
+		}
+	</style>
+{% endblock %}
+
+{% block title %}Imprimer un devis
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block body %}
+	<h1 id="devis_h1">Devis n°{{devis.id}}</h1>
+
+	<div>
+		<h3 class="devis_h3">Devis établi pour le projet :</h3>
+		<p class="devis_p">
+			{{devis.reference}}</p>
+	</div>
+	<hr>
+	<h3 class="devis_h3">Dates et montants :</h3>
+	<div class="whitesmoke">
+		<table class="minitab">
+			<thead>
+				<tr>
+					<th scope="col">Date de redaction</th>
+					<th scope="col">Durée de validité</th>
+					<th scope="col">Montant HT</th>
+					<th scope="col">Montant TTC</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{devis.date_redaction|format_datetime('medium', 'none', locale='fr')}}</td>
+					<td>{{devis.duree_validite|format_datetime('medium', 'none', locale='fr')}}</td>
+					<td>{{devis.prix_ht}}
+						euros</td>
+					<td>{{devis.prix_ttc}}
+						euros</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<hr>
+	<div>
+		<h3 class="devis_h3">Détail des prestations :</h3>
+		<p class="devis_p">
+			{{devis.detail}}</p>
+	</div>
+	<hr>
+	<h3 class="devis_h3">Société qui a établi le devis :</h3>
+	<div class="whitesmoke">
+		<table class="minitab">
+			<thead>
+				<tr>
+					<th scope="col">Raison Sociale</th>
+					<th scope="col">Adresse</th>
+					<th scope="col">N° de siret</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{devis.raison_social}}</td>
+					<td>{{devis.adresse}}</td>
+					<td>{{devis.siret}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
 
 ____________________________________________________________________________________________________
 DANS project.css COLLER:
