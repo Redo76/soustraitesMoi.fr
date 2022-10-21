@@ -43,8 +43,6 @@ class DevisController extends AbstractController
                 }
             }
             
-            
-            
             $devis = $form->getData();
 
             $entityManager->persist($devis);
@@ -61,6 +59,38 @@ class DevisController extends AbstractController
         // 'devis' => $devis,
         'devisForm'=>$form,
     ]);
+}
+
+// pdf devis Joffrine
+#[Route('/pdf-admin', name: 'devis_pdf_admin' , methods: ['GET', 'POST'])]
+public function devisPdfAdmin(Request $request, DevisRepository $devisRepository ) {
+
+   $devis=$devisRepository->devisPdf();
+   
+// Configure Dompdf according to your needs
+$pdfOptions = new Options();
+$pdfOptions->set('defaultFont', 'Arial');
+
+// Instantiate Dompdf with our options
+$dompdf = new Dompdf($pdfOptions);
+
+$html = $this->renderView('devis/pdfadmin.html.twig', [
+        'devis' =>$devis,
+    ]);
+
+    // Load HTML to Dompdf
+$dompdf->loadHtml($html);
+    
+// (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+$dompdf->setPaper('A4', 'portrait');
+
+// Render the HTML as PDF
+$dompdf->render();
+
+// Output the generated PDF to Browser (inline view)
+$dompdf->stream("pdfadmin.pdf", [
+    "Attachment" => false
+]);
 }
 }
 
