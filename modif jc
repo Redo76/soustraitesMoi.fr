@@ -1,3 +1,121 @@
+___________________________________________________________ UPLOAD DEVIS______________________________________________________________________________________________
+
+DANS ENTITY USER AJOUTER :
+ #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cv = null;
+    
+REGENERER GETTERS SETTERS
+FAIRE MIGRATION
+
+________________________________________
+
+DANS ExpertController AJOUTER :
+// essai cv
+
+#[Route('/cv', name: 'app_cv_expert', methods : ['GET', 'POST'])]
+public function cvExpert(SluggerInterface $slugger, UploaderHelper $uploaderHelper, Request $request, EntityManagerInterface $entityManager): Response
+{
+    $user = $this->getUser();
+    $form = $this->createForm(EditProfileExpertType::class, $user);
+    
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        /** @var UploadedFile $uploadedFile */
+        $user = new User();
+        $uploadedFile = $form['cv']->getData();
+
+        if ($uploadedFile) {
+            $newFilename = $uploaderHelper->uploadCv($uploadedFile, $slugger);
+            $user = $form->getData();
+            $user->setcv($newFilename);
+        }
+        else {
+            $user = $form->getData();
+        }
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'votre document a bien été enregistré'
+        );
+
+        return $this->redirectToRoute('app_expert');
+    }
+    return $this->render('profil_expert/cvexpert.html.twig', [
+        'controller_name' => 'ExpertController', 
+        'EditExpert' =>$form->createView(),
+    ]);
+    
+____________________________________________________________________
+DANS EditProfileExpertType AJOUTER:
+
+ ->add('cv', FileType::class, [
+            "label" => false,
+            "required" => false,
+            'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
+            'mapped' => false,
+        ])
+	
+	
+______________________________________________________________________
+DANS UploaderHelper AJOUTER :
+
+// essai cv
+    public function uploadCv(UploadedFile $uploadedFile, SluggerInterface $slugger) :string
+    {
+        //On génère un nouveau nom de fichier
+        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = $slugger->slug($originalFilename);
+        $newFilename = $slugger->slug($safeFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+
+        $uploadedFile->move(
+            
+            $this->uploadsPath."/cv",
+            $newFilename
+        );
+
+        return $newFilename;
+    }
+
+
+___________________________________________________________________________
+DANS TEMPLATE profil_expert CREER cvexpert.html.twig COLLER :
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<main id="cv_main">
+<section id="cv_section">
+<h3 id="h3_cv">Vous souhaitez nous déposer un cv ou un mini portfolio ?</h3>
+	<div id="cv_expert">
+	{{ form_start(EditExpert) }}
+	{{ form_row(EditExpert.cv) }}
+	</div>
+		<button class="btn" type="submit">Valider</button>
+	<div id="cv_hide">
+		{{ form_row(EditExpert.avatar) }}
+		{{ form_row(EditExpert.firstname) }}
+		{{ form_row(EditExpert.lastname) }}
+		{{ form_row(EditExpert.email) }}
+		{{ form_row(EditExpert.phone) }}
+		{{ form_row(EditExpert.address) }}
+		{{ form_row(EditExpert.companyName) }}
+		{{ form_row(EditExpert.companyCommercialName) }}
+		{{ form_row(EditExpert.jobInCompany) }}
+		{{ form_row(EditExpert.siret) }}
+	</div>
+    <img id="cv_img" src="assets/img/Artboard6.PNG">
+	{{ form_end(EditExpert) }}
+    </section>
+    </main>
+{% endblock %}
+
+
+
+
+
 _____________________________________________________CREATION DES DEVIS______________________________________________________________________________________________
 
 CREER DevisController.php COLLER:
@@ -61,6 +179,7 @@ class DevisController extends AbstractController
     ]);
 }
 
+/////////////////////////////////////////////////////////// POUR GENERER UN PDF ////////////////////////////////////////////////////////////////////////////////////
 // pdf devis Joffrine
 #[Route('/pdf-admin', name: 'devis_pdf_admin' , methods: ['GET', 'POST'])]
 public function devisPdfAdmin(Request $request, DevisRepository $devisRepository ) {
@@ -511,6 +630,7 @@ DANS TEMPLATE CREER DOSSIER devis PUIS FICHIER index.html.twig
 {% endblock %}
 
 
+/////////////////////////////////////////////////////////// POUR GENERER PDF /////////////////////////////////////////////////////////////////////////////////////////
 DANS TEMPLATE DEVIS CREER FICHIER pdfadmin.html.twig COLLER :
 
 {% extends 'base.html.twig' %}
