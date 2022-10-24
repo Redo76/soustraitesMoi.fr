@@ -112,7 +112,9 @@ DANS TEMPLATE profil_expert CREER cvexpert.html.twig COLLER :
     </main>
 {% endblock %}
 
-
+________________________________________________________________
+DANS TEMPLATE profil_expert->edit_infos.html.twig AJOUTER :
+<div style="display:none;">{{ form_row(EditExpert.cv) }}</div>
 
 
 
