@@ -1,478 +1,121 @@
-___________________________________________________MOT DE PASSE OUBLIE____________________________________________________________________________________
-
-DANS ENTITY/USER, AJOUTER:
-
-#[ORM\Column(length: 100, nullable: true)]
-    private ?string $resetToken = null;
-
-PUIS Cmd  php bin/console make:entity --regenerate App
-PUIS MIGRATION
-___________________________________________________________________________________________________________________________________________________________
-
-ENSUITE DANS SECURITYCONTROLLER, METTRE :
-
-// pour mdp oublié
-    #[Route('/oubli-mdp', name: 'forgotten_password')]
-    public function forgottenPassword(
-        Request $request,
-        UserRepository $userRepository,
-        TokenGeneratorInterface $tokenGenerator,
-        EntityManagerInterface $entitymanager,
-        MailerInterface $mail,
-    ): Response {
-        $form = $this->createForm(ResetPasswordRequestFormType::class);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // rechercher user par son email
-            $user = $userRepository->findOneByEmail($form->get('email')->getData());
-
-            // vérifier si on a un utilisateur
-            if ($user) {
-                // on génere un token de réinitialisation
-                $token = $tokenGenerator->generateToken();
-                $user->setResetToken($token);
-                $entitymanager->persist($user);
-                $entitymanager->flush();
-
-                // on génère un lien de réinitialisation du mot de passe
-                $url = $this->generateUrl('reset_pass', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
-
-                //envoi du mail
-                $email = (new TemplatedEmail())
-                    ->from('soustraitesmoi@gmail.com')
-                    ->to($user->getEmail())
-                    ->subject('reini mdp')
-                    ->htmlTemplate('emails/password_reset.html.twig')
-                    ->context([
-                        'user' => $user,
-                        'url' => $url,
-                    ]);
-
-                $mail->send($email);
-
-                $this->addFlash('success', "l'e-mail a bien été envoyé");
-                return $this->redirectToRoute('app_login');
-            }
-            // si $user est null càd si on a pas cette adresse mail dans la bdd
-            $this->addFlash('danger', 'Un problème est survenu');
-            return $this->redirectToRoute('app_login');
-        }
-
-        return $this->render('security/reset_password_request.html.twig', [
-            'requestPassForm' => $form->createView()
-        ]);
-    }
-
-    //nouvelle route pour le lien de réinitialisation
-    #[Route('/oubli-mdp/{token}', name: 'reset_pass')]
-    public function resetPass(
-        string $token,
-        Request $request,
-        UserRepository $userRepository,
-        EntityManagerInterface $entitymanager,
-        UserPasswordHasherInterface $passwordHasher,
-    ): Response {
-        //on vérifie si on a CE token dans la bdd
-        $user = $userRepository->findOneByResetToken($token);
-
-        if ($user) {
-            $form = $this->createForm(ResetPasswordFormType::class);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                //on efface le token
-                $user->setResetToken(' ');
-                $user->setPassword(
-                    $passwordHasher->hashPassword(
-                        $user,
-                        $form->get('password')->getData()
-                    )
-                );
-                $entitymanager->persist($user);
-                $entitymanager->flush();
-
-                $this->addFlash('success', 'Votre mot de passe a bien été modifié');
-                return $this->redirectToRoute('app_login');
-            }
-
-            return $this->render('security/reset_password.html.twig', [
-                'passForm' => $form->createView()
-            ]);
-        }
-        $this->addFlash('danger', 'Jeton invalide');
-        return $this->redirectToRoute('app_login');
-    }
-}
-
-_____________________________________________________________________________________________________________________________________________________
-
-ENSUITE CREER UN FORMULAIRE ResetPasswordFormType.php
-
-<?php
-
-namespace App\Form;
-
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-
-class ResetPasswordFormType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-        ->add('password', RepeatedType::class, [
-            'type' => PasswordType::class,
-            'invalid_message' => 'Les mots de passe ne correspondent pas.',
-            'options' => ['attr' => ['class' => 'password-field']],
-            'required' => true,
-            'first_options'  => ['label' => 'saisir votre nouveau mot de passe', 'attr' => ['placeholder' => 'Mot de passe']],
-            'second_options' => ['label' => false, 'attr' => ['placeholder' => 'Confirmation mot de passe']],
-            'constraints' => [
-                new Regex([
-                    'pattern'=> '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',
-                    'match'=> true,
-                    'message'=> 'Veuillez entrer un mot de passe contenant 6 caractères dont 1 majusucle, 1 minuscule et 1 chiffre',
-                ]),
-            ]
-            ]);
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            // Configure your form options here
-        ]);
-    }
-}
-
-_________________________________________________________________________________________________________________________________________________________________
-
-PUIS CREER UN FORMULAIRE ResetPasswordRequestFormType.php
-
-<?php
-
-namespace App\Form;
-
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
-class ResetPasswordRequestFormType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('email' , EmailType::class, [
-                'label' => 'saisir votre e-mail',
-                'attr' => [
-                    'placeholder' => 'exemple@email.fr'
-                ]
-            ]) 
-        ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            // Configure your form options here
-        ]);
-    }
-}
-
-___________________________________________________________________________________________________________________________________________________________________
-
-PUIS DANS TEMPLATE CREER UN DOSSIER emails PUIS UN FICHIER password_request.html.twig, Y METTRE :
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-	</head>
-	<body>
-		<p>Bonjour {{ user.firstName }},</p>
-		<p>pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant :
-			<a href="{{ url|raw }}">{{ url|raw }}</a>
-		</p>
-		<p>Merci</p>
-	</body>
-</html>
-
-___________________________________________________________________________________________________________________________________________________________________
-
-DANS TEMPLATE SECURITY:
-CREER UN FICHIER reset_password_request.html.twig, Y METTRE:
-
-{% extends 'base.html.twig' %}
-
-{% block title %}Réinitialisation du mot de passe
-{% endblock %}
-
-{% block body %}
-	<main class="container my-3">
-		<section class="row">
-			<div class="col">
-            <h1>Réinitialisation du mot de passe</h1>
-            {{form_start(requestPassForm)}}
-            {{ form_row(requestPassForm.email)}}
-            <button type="submit" class="btn btn-dark">Valider</button>
-            {{form_end(requestPassForm)}}
-            </div>
-		</section>
-	</main>
-{% endblock %}
-__________________________________________________________________________________________________________________________________________________________________
-
-DANS TEMPLATE SECURITY, CREER UN FICHIER reset_password.html.twig, Y METTRE:
-
-{% extends 'base.html.twig' %}
-
-{% block title %}Réinitialisation du mot de passe
-{% endblock %}
-
-{% block body %}
-	<main class="container my-3">
-		<section class="row">
-			<div class="col">
-            <h1>Réinitialisation du mot de passe</h1>
-            {{form_start(passForm)}}
-            {{ form_row(passForm.password)}}
-            <button type="submit" class="btn btn-dark">Valider</button>
-            {{form_end(passForm)}}
-            </div>
-		</section>
-	</main>
-{% endblock %}
-
-________________________________________________________________________________________________________________________________________________________________
-
-DANS login.html.twig , DECOMMENTER (ligne 28/29? LE INPUT JUSTE EN DESSOUS DE "MDP OUBLIE") :
-
-<input
-				type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        
-        
-        
-        
-_________________________________________________POUR LES MESSAGES ADDFLASH________________________________________________________________________________________
-
-DANS TEMPLATE/PARTIALS CREER UN FICHIER flash.html.twig
-
-{% for label, messages in app.flashes %}
-	{% for message in messages %}
-		<div class="alert alert-{{ label }} alert-dismissible" role="alert">
-			<button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
-			<div class="alert-message">
-				{{ message|raw}}
-			</div>
-		</div>
-	{% endfor %}
-{% endfor %}
-
-DANS base.html.twig ENTRE <body> </body> METTRE,
-
-{% include "partials/flash.html.twig" %}
-
-
-____________________________________________PAGE CHOIX TYPE DE PROJETS____________________________________________________________________________________________
-
-DANS TEMPLATE/project/new.html.twig, COLLER:
-
-{% extends 'base.html.twig' %}
-
-{% block title %}Nouveau Projet
-{% endblock %}
-
-{% block body %}
-	{% if app.user %}
-		<main id="choixprojet">
-			<h2>Choisissez un type de projet</h2>
-			<article class="choix_article">
-				<div id="choix_div">
-					<a href="{{path('app_project_logo')}}">
-						<img src="{{asset('assets/img/choixlogo.webp')}}" alt="">
-						<div class="d-flex align-center justify-content-between gap-3 w-75">
-							<h3>Logo Design</h3>
-						</div>
-					</a>
-					<a href="#">
-						<img src="{{asset('assets/img/choixsite.webp ')}}" alt="">
-						<div class="d-flex align-center justify-content-between gap-3 w-75">
-							<h3>Site web</h3>
-						</div>
-					</a>
-
-					<a href="{{path('app_project_reseaux')}}">
-						<img src="{{asset('assets/img/choixreseaux.webp')}}" alt="">
-						<div class="d-flex align-center justify-content-between gap-3 w-75">
-							<h3>Reseaux Sociaux</h3>
-						</div>
-					</a>
-					<a href="{{path('app_project_free')}}">
-						<img src="{{asset('assets/img/choixlibre.webp')}}" alt="">
-						<div id="autretype" class="d-flex align-center justify-content-between gap-3 w-75">
-							<h3>Autre type</h3>
-						</div>
-					</a>
-				</div>
-			</article>
-		{% else %}
-			<div>
-				<h2>Vous devez d'abord vous connecter ou créer un compte</h2>
-				<a href="{{path('app_login')}}">Compris</a>
-			</div>
-		{% endif %}
-	</main>
-{% endblock %}
-{# {% block footer %}
-{% endblock %} #}
-
-PUIS DANS PROJECT.CSS COLLER :
-
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
-
-/* choix type de projet */
-#choixprojet {
-    background-color: white;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 8%;
-}
-
-#choixprojet a {
-    display: flex;
-    margin: auto;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 80%;
-    padding: 3%;
-    text-decoration: none;
-    border: 1px lightgray solid;
-    border-radius: 10px;
-    font-size: 25px;
-    box-shadow: 1px 1px 1px 1px gray;
-    margin-bottom: 4%;
-}
-
-#choixprojet h2 {
-    margin-bottom: 10%;
-    margin-top: 5%;
-    font-size: 39px;
-    text-align: center;
-    padding: 0px 10px 0px 10px;
-    font-weight: 600;
-    font-family: 'Dancing Script', cursive;
-    font-style: italic;
-}
-
-
-#choixprojet a img {
-    height: 100px;
-    width: 100px;
-}
-
-#choixprojet a div {
-    padding: 8% 2% 5% 2%;
-}
-
-#choixprojet a h3 {
-    padding-left: 5%;
-}
-
-PUIS DANS PROJECT.CSS @media 768px COLLER :
-
-/* choix projets */
-
-    #choixprojet {
-        margin-bottom: 0%;
-        padding-bottom: 60px;
-    }
-
-    #choixprojet h2 {
-        font-size: 62px;
-        font-weight: 800;
-        margin-bottom: 4%;
-    }
-
-    .choix_article {
-        width: 90%;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        height: 500px;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    #choix_div {
-        width: 90%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
-
-    #choixprojet a {
-        width: 45%;
-    }
-
-    #choixprojet a h3 {
-        padding-left: 6%;
-        font-size: 36px;
-    }
-
-    #choixprojet a img {
-        height: 110px;
-        width: 110px;
-    }
+___________________________________________________________ UPLOAD DEVIS______________________________________________________________________________________________
+
+DANS ENTITY USER AJOUTER :
+ #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cv = null;
     
-PUIS DANS PROJECT.CSS @media 1200px COLLER: 
+REGENERER GETTERS SETTERS
+FAIRE MIGRATION
 
-/* choix projets */
+________________________________________
 
-    #choixprojet {
-        padding-bottom: 60px;
+DANS ExpertController AJOUTER :
+// essai cv
+
+#[Route('/cv', name: 'app_cv_expert', methods : ['GET', 'POST'])]
+public function cvExpert(SluggerInterface $slugger, UploaderHelper $uploaderHelper, Request $request, EntityManagerInterface $entityManager): Response
+{
+    $user = $this->getUser();
+    $form = $this->createForm(EditProfileExpertType::class, $user);
+    
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        /** @var UploadedFile $uploadedFile */
+        $user = new User();
+        $uploadedFile = $form['cv']->getData();
+
+        if ($uploadedFile) {
+            $newFilename = $uploaderHelper->uploadCv($uploadedFile, $slugger);
+            $user = $form->getData();
+            $user->setcv($newFilename);
+        }
+        else {
+            $user = $form->getData();
+        }
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'votre document a bien été enregistré'
+        );
+
+        return $this->redirectToRoute('app_expert');
+    }
+    return $this->render('profil_expert/cvexpert.html.twig', [
+        'controller_name' => 'ExpertController', 
+        'EditExpert' =>$form->createView(),
+    ]);
+    
+____________________________________________________________________
+DANS EditProfileExpertType AJOUTER:
+
+ ->add('cv', FileType::class, [
+            "label" => false,
+            "required" => false,
+            'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
+            'mapped' => false,
+        ])
+	
+	
+______________________________________________________________________
+DANS UploaderHelper AJOUTER :
+
+// essai cv
+    public function uploadCv(UploadedFile $uploadedFile, SluggerInterface $slugger) :string
+    {
+        //On génère un nouveau nom de fichier
+        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = $slugger->slug($originalFilename);
+        $newFilename = $slugger->slug($safeFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+
+        $uploadedFile->move(
+            
+            $this->uploadsPath."/cv",
+            $newFilename
+        );
+
+        return $newFilename;
     }
 
-    #choixprojet h2 {
-        margin-bottom: 6%;
-        margin-top: 0%;
-    }
 
-    .choix_article {
-        width: 80%;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        height: 500px;
-        justify-content: space-around;
-    }
+___________________________________________________________________________
+DANS TEMPLATE profil_expert CREER cvexpert.html.twig COLLER :
 
-    #choix_div {
-        width: 90%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
+{% extends 'base.html.twig' %}
 
-    #choixprojet a {
-        width: 40%;
-    }
+{% block body %}
+<main id="cv_main">
+<section id="cv_section">
+<h3 id="h3_cv">Vous souhaitez nous déposer un cv ou un mini portfolio ?</h3>
+	<div id="cv_expert">
+	{{ form_start(EditExpert) }}
+	{{ form_row(EditExpert.cv) }}
+	</div>
+		<button class="btn" type="submit">Valider</button>
+	<div id="cv_hide">
+		{{ form_row(EditExpert.avatar) }}
+		{{ form_row(EditExpert.firstname) }}
+		{{ form_row(EditExpert.lastname) }}
+		{{ form_row(EditExpert.email) }}
+		{{ form_row(EditExpert.phone) }}
+		{{ form_row(EditExpert.address) }}
+		{{ form_row(EditExpert.companyName) }}
+		{{ form_row(EditExpert.companyCommercialName) }}
+		{{ form_row(EditExpert.jobInCompany) }}
+		{{ form_row(EditExpert.siret) }}
+	</div>
+    <img id="cv_img" src="assets/img/Artboard6.PNG">
+	{{ form_end(EditExpert) }}
+    </section>
+    </main>
+{% endblock %}
 
-    #choixprojet a h3 {
-        padding-left: 4%;
-        font-size: 28px;
-    }
+________________________________________________________________
+DANS TEMPLATE profil_expert->edit_infos.html.twig AJOUTER :
+<div style="display:none;">{{ form_row(EditExpert.cv) }}</div>
+
 
 
 _____________________________________________________CREATION DES DEVIS______________________________________________________________________________________________
@@ -520,8 +163,6 @@ class DevisController extends AbstractController
                 }
             }
             
-            
-            
             $devis = $form->getData();
 
             $entityManager->persist($devis);
@@ -538,6 +179,39 @@ class DevisController extends AbstractController
         // 'devis' => $devis,
         'devisForm'=>$form,
     ]);
+}
+
+/////////////////////////////////////////////////////////// POUR GENERER UN PDF ////////////////////////////////////////////////////////////////////////////////////
+// pdf devis Joffrine
+#[Route('/pdf-admin', name: 'devis_pdf_admin' , methods: ['GET', 'POST'])]
+public function devisPdfAdmin(Request $request, DevisRepository $devisRepository ) {
+
+   $devis=$devisRepository->devisPdf();
+   
+// Configure Dompdf according to your needs
+$pdfOptions = new Options();
+$pdfOptions->set('defaultFont', 'Arial');
+
+// Instantiate Dompdf with our options
+$dompdf = new Dompdf($pdfOptions);
+
+$html = $this->renderView('devis/pdfadmin.html.twig', [
+        'devis' =>$devis,
+    ]);
+
+    // Load HTML to Dompdf
+$dompdf->loadHtml($html);
+    
+// (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+$dompdf->setPaper('A4', 'portrait');
+
+// Render the HTML as PDF
+$dompdf->render();
+
+// Output the generated PDF to Browser (inline view)
+$dompdf->stream("pdfadmin.pdf", [
+    "Attachment" => false
+]);
 }
 }
 
@@ -904,6 +578,20 @@ class DevisRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
+    public function devisPdf()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM `devis` ORDER BY date_redaction DESC LIMIT 1;";
+    
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAssociative();
+        
+    }
 }
 
 ________________________________________________________________________________________________
@@ -942,6 +630,109 @@ DANS TEMPLATE CREER DOSSIER devis PUIS FICHIER index.html.twig
 		</section>
 	</main>
 {% endblock %}
+
+
+/////////////////////////////////////////////////////////// POUR GENERER PDF /////////////////////////////////////////////////////////////////////////////////////////
+DANS TEMPLATE DEVIS CREER FICHIER pdfadmin.html.twig COLLER :
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	<style>
+		#devis_h1 {
+			text-align: center;
+			margin-bottom: 10%;
+			background-color: whitesmoke;
+		}
+		#prix {
+			display: flex;
+			justify-content: space-around;
+		}
+		.minitab {
+			border-collapse: separate;
+			border-spacing: 20px;
+		}
+		th {
+			border: 1px solid black;
+			padding: 10px;
+		}
+		td {
+			border: 1px solid black;
+			padding: 5px 20px;
+		}
+		.whitesmoke {
+			background-color: whitesmoke;
+		}
+	</style>
+{% endblock %}
+
+{% block title %}Imprimer un devis
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block body %}
+	<h1 id="devis_h1">Devis n°{{devis.id}}</h1>
+
+	<div>
+		<h3 class="devis_h3">Devis établi pour le projet :</h3>
+		<p class="devis_p">
+			{{devis.reference}}</p>
+	</div>
+	<hr>
+	<h3 class="devis_h3">Dates et montants :</h3>
+	<div class="whitesmoke">
+		<table class="minitab">
+			<thead>
+				<tr>
+					<th scope="col">Date de redaction</th>
+					<th scope="col">Durée de validité</th>
+					<th scope="col">Montant HT</th>
+					<th scope="col">Montant TTC</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{devis.date_redaction|format_datetime('medium', 'none', locale='fr')}}</td>
+					<td>{{devis.duree_validite|format_datetime('medium', 'none', locale='fr')}}</td>
+					<td>{{devis.prix_ht}}
+						euros</td>
+					<td>{{devis.prix_ttc}}
+						euros</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<hr>
+	<div>
+		<h3 class="devis_h3">Détail des prestations :</h3>
+		<p class="devis_p">
+			{{devis.detail}}</p>
+	</div>
+	<hr>
+	<h3 class="devis_h3">Société qui a établi le devis :</h3>
+	<div class="whitesmoke">
+		<table class="minitab">
+			<thead>
+				<tr>
+					<th scope="col">Raison Sociale</th>
+					<th scope="col">Adresse</th>
+					<th scope="col">N° de siret</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{devis.raison_social}}</td>
+					<td>{{devis.adresse}}</td>
+					<td>{{devis.siret}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
 
 ____________________________________________________________________________________________________
 DANS project.css COLLER:
