@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/project')]
 class ProjectController extends AbstractController
@@ -218,7 +218,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/{id}&{type}', name: 'app_project_info', methods: ['GET', 'POST'])]
-    public function edit(int $id, string $type, Request $request, ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository, ProjectReseauxRepository $projectReseauxRepository, ProjectSiteRepository $projectSiteRepository): Response
+    public function edit(int $id, string $type, UserRepository $userRepository, ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository, ProjectReseauxRepository $projectReseauxRepository, ProjectSiteRepository $projectSiteRepository): Response
     {
         $type = ["type" => $type]["type"];
         if ($type == "Libre") {
@@ -228,7 +228,6 @@ class ProjectController extends AbstractController
         } elseif ($type == "Logo") {
             $project = $projectLogoRepository->findOneBy(["id" => $id]);
             $repo = "project_logo";
-            // dd($project);
         } elseif ($type == "Réseaux Sociaux") {
             $project = $projectReseauxRepository->findOneBy(["id" => $id]);
             $repo = "project_réseaux";
@@ -238,6 +237,10 @@ class ProjectController extends AbstractController
             $repo = "project_site";
             // dd($project);
         }
+        $userId = $project->getUser()->getId();
+        $user = $userRepository->findUserById($userId);
+        // dd($user);
+
 
         return $this->render('project/'. $repo . '/project_info.html.twig', [
             'project' => $project,

@@ -3,55 +3,32 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class UserCrudController extends AbstractCrudController
+#[Route('/admin/utilisateurs')]
+class UserCrudController extends AbstractController
 {
-    public static function getEntityFqcn(): string
+    #[Route('/client', name: 'app_admin_client', methods: ['GET'])]
+    public function indexClient(UserRepository $userRepository): Response
     {
-        return User::class;
+        $role = "ROLE_CLIENT";
+
+        return $this->render('admin/users.html.twig', [
+            'users' => $userRepository->findUsersByRole($role),
+        ]);
     }
 
-    public function configureCrud(Crud $crud): Crud
+    #[Route('/expert', name: 'app_admin_expert', methods: ['GET'])]
+    public function indexExpert(UserRepository $userRepository): Response
     {
-        return $crud
-            ->setEntityLabelInPlural('Utilisateurs')
-            ->setEntityLabelInSingular('Utilisateur')
-            ->setPageTitle('index', 'gestion des utilisateurs');
-    }
+        $roles = "ROLE_EXPERT";
 
-    
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id')
-            ->hideOnIndex()
-            ->hideOnForm(),
-            TextField::new('firstName')
-            ->setFormTypeOption('disabled', 'disabled'),
-            TextField::new('lastName')
-            ->setFormTypeOption('disabled', 'disabled'),
-            TextField::new('password')
-            ->hideOnIndex()
-            ->hideOnForm(),
-            TextField::new('avatar')
-            ->hideOnIndex()
-            ->hideOnForm(),
-            TextField::new('phone')
-            ->setFormTypeOption('disabled', 'disabled'),
-            IdField::new('GoogleId')
-            ->hideOnIndex()
-            ->hideOnForm(),
-            TextField::new('Siret')
-            ->setFormTypeOption('disabled', 'disabled'),
-            TextField::new('CompanyName')
-            ->setFormTypeOption('disabled', 'disabled'),
-            TextField::new('CompanyCommercialName')
-            ->setFormTypeOption('disabled', 'disabled'),
-        ];
+        return $this->render('admin/users.html.twig', [
+            'users' => $userRepository->findUsersByRole($roles),
+        ]);
     }
-    
 }

@@ -1,0 +1,49 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Projets en cours de validation
+{% endblock %}
+
+{% block body %}
+
+<main class="p-5 w-100">
+	<h1 class="mb-4">Projets en cours de validation</h1>
+
+	<table class="table text-white">
+		<thead>
+			<tr>
+				<th>Titre</th>
+				<th>Catégorie</th>
+				<th>Description</th>
+				<th>Date de publication</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for project in projects %}
+
+				<tr>
+					<td>{{ project.nom_du_projet }}</td>
+					<td>{{ project.type }}</td>
+					<td>
+						<a href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}" type="button" class="btn btn-secondary">Afficher le contenu</a>
+					</td>
+					<td>{{ project.created_at|date('d/m/Y') }}</td>
+					<td>
+						<a href="#" class="deleteBtn">
+							<i class="fa-solid fa-trash-can"></i>
+						</a>
+					</td>
+				</tr>
+			</div>
+		</tbody>
+	</td>
+	</tr>
+    {% else %}
+	<tr>
+		<td colspan="7">Aucun projet trouvé</td>
+	</tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</main>
+{% endblock %}

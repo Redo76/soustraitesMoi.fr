@@ -8,6 +8,12 @@
 <section class="nouveau_projet">
 <div class="brand-logo"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"></div>
     {{ include('project/project_logo/logo_info.html.twig') }}
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class=" d-flex flex-wrap align-items-center justify-content-around">
+        <a href="#" class="ValidBtn">VALIDER LE PROJET</a>
+        <a href="#" class="NoValidBtn">REFUSER LE PROJET</a>
+    </div>
+    {% endif %}
 </section>
     <a href="{{ path('app_project_index') }}">back to list</a>
 {% endblock %}

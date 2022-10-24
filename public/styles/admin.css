@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap');
+
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --primary: #d2b511;
+    --secondary : #f6f6f6;
+    --first-color: #3E3F3A;
+    --button-active-blue: #1669F2;
+}
+
+body{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    color: black;
+}
+
+nav{
+    background-color: #d2b511c6;
+}
+
+a{
+    text-decoration: none;
+}
+
+h5{
+    font-family: 'Calligraffitti', cursive;
+}
+h6{
+    color: rgba(211, 211, 211, 0.651);
+}
+
+.nav-link{
+    color: rgba(211, 211, 211, 0.651);
+    font-size: 15px;
+}
+.nav-link:hover{
+    color: #d2b511c6;
+}
+
+main{
+    background-color: #3e3f3aef;
+    width: 100%;
+    color: white;
+}
+
+.deleteBtn{
+    color: white;
+}
+.deleteBtn:hover{
+    color: crimson;
+}
+
+.dropdown button{
+    color: white;
+}
+.dropdown button:hover{
+    background-color: white;
+    color: #d2b511c6;
+}
+
+
+@media only screen and (min-width: 768px){
+
+}
+
+@media only screen and (min-width: 992px){
+
+}
+
+@media only screen and (min-width: 1200px){
+
+}

@@ -1,0 +1,54 @@
+<nav class="d-flex flex-column align-items-center flex-shrink-0 text-white" style="width: 280px; height: 100vh;">
+
+	<a class=" d-flex align-items-center justify-content-between gap-4 mb-4 pt-4 px-4" href="/">
+		<div class="site d-flex gap-2 w-75 justify-content-between">
+			<div class="title fs-5">
+				<h5 class="mb-0 text-white ">SOUSTRAITESMOI</h5>
+			</div>
+
+		</div>
+	</a>
+
+	<h3 class="mb-4 text-white ">ADMINISTRATION</h3>
+	<div class="d-flex flex-column h-100 w-100 bg-primary pt-4">
+
+		<div class="container px-5 pb-5">
+			<ul class="nav flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+				<li class="w-100 submenu py-2">
+					<h6 class="px-0 align-middle d-flex gap-2 align-items-center">
+						PROJETS
+					</h6>
+					<ul class="nav flex-column ms-1" id="submenu1">
+						<li class="w-100">
+							<a href="{{path('app_admin_projects')}}" class="nav-link px-0 d-flex align-items-center gap-3">
+								<i class="fa-solid fa-newspaper"></i>
+								PROJETS VALIDÉS</a>
+						</li>
+						<li>
+							<a href="{{path('app_admin_IpProjects')}}" class="nav-link px-0 d-flex align-items-center gap-3">
+								<i class="fa-solid fa-bars-progress"></i>
+								PROJETS EN COURS DE VALIDATION</a>
+						</li>
+					</ul>
+				</li>
+				<li class="w-100 submenu">
+					<h6 class="px-0 align-middle d-flex gap-2 align-items-center">
+						UTILISATEURS
+					</h6>
+					<ul class="nav flex-column ms-1" id="submenu1">
+						<li class="w-100">
+							<a href="{{path('app_admin_client')}}" class="nav-link px-0 d-flex align-items-center gap-3">
+								<i class="fa-solid fa-user"></i>
+								CLIENT</a>
+						</li>
+						<li class="w-100">
+							<a href="{{path('app_admin_expert')}}" class="nav-link px-0 d-flex align-items-center gap-3">
+								<i class="fa-regular fa-user"></i>
+								EXPERT</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>

@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AllProjectsController extends AbstractController
 {
-    #[Route('/tous-les projets', name: 'app_projects')]
+    #[Route('/tous-les-projets', name: 'app_projects')]
     public function index(ProjectRepository $projectRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $projects = $projectRepository->findAllProjects();
@@ -27,17 +27,6 @@ class AllProjectsController extends AbstractController
         );
         return $this->render('project/projects.html.twig', [
             'projects' => $projectsPagination,
-        ]);
-    }
-    
-    #[Route('/test', name: 'test')]
-    public function index2(ProjectRepository $projectRepository, PaginatorInterface $paginator, Request $request): Response
-    {
-        $project = new ProjectLogo($this->getUser());
-        $form = $this->createForm(ProjectLogoType::class, $project);
-
-        return $this->render('project/project_logo/project_info.html.twig', [
-            'project' => $project,
         ]);
     }
 }
