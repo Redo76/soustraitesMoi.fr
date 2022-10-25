@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Devis;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Image;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Devis>
@@ -21,7 +24,7 @@ class DevisRepository extends ServiceEntityRepository
         parent::__construct($registry, Devis::class);
     }
 
-    public function add(Devis $entity, bool $flush = false): void
+    public function save(Devis $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -39,28 +42,49 @@ class DevisRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Devis[] Returns an array of Devis objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByDevisId(int $id)
+    {
+          // :id en gros = à id dans url. Et dans execute query () :id = $id
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            SELECT * FROM devis d
+            WHERE id = :id
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id' => $id]);
 
-//    public function findOneBySomeField($value): ?Devis
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        return $resultSet->fetchAssociative();
+    }
+
+
+
+    // test devis
+    public function tousDevis()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM `devis` ORDER BY id DESC;";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+
+// test afficher devis uploadé
+public function findByDevisUpload(int $id)
+{
+      // :id en gros = à id dans url. Et dans execute query () :id = $id
+    $conn = $this->getEntityManager()->getConnection();
+    $sql = '
+        SELECT name FROM image i
+        WHERE devis_id = :id
+        ';
+    $stmt = $conn->prepare($sql);
+    $resultSet = $stmt->executeQuery(['id' => $id]);
+
+    return $resultSet->fetchAssociative();
+}
+  
 }

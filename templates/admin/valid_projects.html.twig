@@ -1,12 +1,12 @@
 {% extends 'base_admin.html.twig' %}
 
-{% block title %}Projets en cours de validation
+{% block title %}Projets  validés
 {% endblock %}
 
 {% block body %}
 
 <main class="p-5 w-100">
-	<h1 class="mb-4">Projets en cours de validation</h1>
+	<h1 class="mb-4">Projets  validés</h1>
 
 	<table class="table text-white">
 		<thead>
@@ -37,7 +37,6 @@
 			</div>
 		</tbody>
 	</td>
-	</tr>
     {% else %}
 	<tr>
 		<td colspan="7">Aucun projet trouvé</td>
@@ -45,5 +44,9 @@
     {% endfor %}
     </tbody>
     </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(projects) }}
+    </div>
 </main>
 {% endblock %}

@@ -41,7 +41,7 @@ class ContactController extends AbstractController
                 ->from($contact->getEmail())
                 ->to('soustraitesmoi@gmail.com')
                 ->subject($contact->getSubject())
-                ->htmlTemplate('contact/contact.html.twig')
+                ->htmlTemplate('emails/contact.html.twig')
 
                 // pass variables (name => value) to the template
                 ->context([

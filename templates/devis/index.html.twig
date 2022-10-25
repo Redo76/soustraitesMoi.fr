@@ -4,29 +4,32 @@
 {% endblock %}
 
 {% block body %}
-	<h1 id="h1_devis">Proposer votre devis</h1>
-	<h6 id="h6_devis">Remplissez ce formulaire.<br>
-		ou<br>
-		Uploader votre modèle de devis.</h6>
-	<main id="devis_main">
-		<section id="devis_section">
+    <h1 id="h1_devis">Proposer votre devis</h1>
+    <h6 id="h6_devis">Remplissez ce formulaire.<br>
+        ou<br>
+        Uploader votre modèle de devis.</h6>
+    <main id="devis_main">
+        <section id="devis_section">
 
-			{{ form_start(devisForm) }}
-			{{ form_row(devisForm.reference) }}
-			{{ form_row(devisForm.date_redaction) }}
-			{{ form_row(devisForm.duree_validite) }}
-			{{ form_row(devisForm.detail) }}
-			{{ form_row(devisForm.prix_ht) }}
-			{{ form_row(devisForm.prix_ttc) }}
-			{{ form_row(devisForm.raison_Social) }}
-			{{ form_row(devisForm.adresse) }}
-			{{ form_row(devisForm.siret) }}
-			<p id="devis_p">Ou si vous préférez</p>
-			{{ form_row(devisForm.Images) }}
-			<div id="devis_div">
-				<button id="devis_btn" type="submit" class="btn">Valider</button>
-			</div>
-			{{ form_end(devisForm) }}
-		</section>
-	</main>
+            {{ form_start(devisForm) }}
+            {{ form_row(devisForm.reference) }}
+            <hr>
+            <p class="devis_p">Déposez votre devis </p>
+            <hr>
+            {{ form_row(devisForm.Images) }}
+            <p class="devis_p"> Ou continuez à remplir le formulaire</p>
+            {{ form_row(devisForm.date_redaction) }}
+            {{ form_row(devisForm.duree_validite) }}
+            {{ form_row(devisForm.detail) }}
+            {{ form_row(devisForm.prix_ht) }}
+            {{ form_row(devisForm.prix_ttc) }}
+            {{ form_row(devisForm.raison_Social) }}
+            {{ form_row(devisForm.adresse) }}
+            {{ form_row(devisForm.siret) }}
+            <div id="devis_div">
+                <button id="devis_btn" type="submit" class="btn">Valider</button>
+            </div>
+            {{ form_end(devisForm) }}
+        </section>
+    </main>
 {% endblock %}

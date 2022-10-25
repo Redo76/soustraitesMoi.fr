@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<main id="cv_main">
+<section id="cv_section">
+<h3 id="h3_cv">Vous souhaitez nous déposer un cv ou un mini portfolio ?</h3>
+	<div id="cv_expert">
+	{{ form_start(EditExpert) }}
+	{{ form_row(EditExpert.cv) }}
+	</div>
+		<button class="btn" type="submit">Valider</button>
+	<div id="cv_hide">
+		{{ form_row(EditExpert.avatar) }}
+		{{ form_row(EditExpert.firstname) }}
+		{{ form_row(EditExpert.lastname) }}
+		{{ form_row(EditExpert.email) }}
+		{{ form_row(EditExpert.phone) }}
+		{{ form_row(EditExpert.address) }}
+		{{ form_row(EditExpert.companyName) }}
+		{{ form_row(EditExpert.companyCommercialName) }}
+		{{ form_row(EditExpert.jobInCompany) }}
+		{{ form_row(EditExpert.siret) }}
+	</div>
+    <img id="cv_img" src="assets/img/Artboard6.PNG">
+	{{ form_end(EditExpert) }}
+    </section>
+    </main>
+{% endblock %}

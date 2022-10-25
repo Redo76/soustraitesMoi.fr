@@ -137,10 +137,13 @@
 
 
 			</div>
+
+		{% if app.user %}
             <div class="d-flex align-items-center justify-between">
                 <a class="button" href="{{path('app_edit_client')}}">Modifier profil</a>
                 <a class="button" href="#">Modifier mot de passe</a>
             </div>
+		{% endif %}
 		</div>
 	</main>
 {% endblock %}

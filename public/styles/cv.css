@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+
+#cv_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#cv_section {
+    background-color: whitesmoke;
+    width: 80%;
+    margin-bottom: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 2px 2px grey;
+}
+
+#h3_cv {
+    text-align: center;
+    margin-top: 4%;
+    margin-bottom: 4%;
+    padding: 5px 30px 5px 30px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 32px;
+}
+
+#cv_expert {
+    width: 75%;
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+#cv_img {
+    width: 200px;
+    height: 150px;
+    margin-bottom: 4%;
+    margin-top: 4%;
+    border-radius: 20px;
+}
+
+#cv_hide {
+    display: none;
+}
+
+@media only screen and (min-width: 768px) {
+    #h3_cv {
+        margin-top: 2%;
+        margin-bottom: 2%;
+        font-size: 64px;
+    }
+    
+    #cv_expert {
+        width: 50%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+    
+    #cv_img {
+        width: 600px;
+        height: 400px;
+    }
+}

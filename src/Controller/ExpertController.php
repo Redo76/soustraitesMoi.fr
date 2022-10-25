@@ -58,4 +58,40 @@ class ExpertController extends AbstractController
             'EditExpert' =>$form->createView(),
         ]);
     }
+    #[Route('/cv', name: 'app_cv_expert', methods : ['GET', 'POST'])]
+    public function cvExpert(SluggerInterface $slugger, UploaderHelper $uploaderHelper, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(EditProfileExpertType::class, $user);
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $uploadedFile */
+            $user = new User();
+            $uploadedFile = $form['cv']->getData();
+
+            if ($uploadedFile) {
+                $newFilename = $uploaderHelper->uploadCv($uploadedFile, $slugger);
+                $user = $form->getData();
+                $user->setcv($newFilename);
+            }
+            else {
+                $user = $form->getData();
+            }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'votre document a bien été enregistré'
+            );
+
+            return $this->redirectToRoute('app_expert');
+        }
+        return $this->render('profil_expert/cvexpert.html.twig', [
+            'controller_name' => 'ExpertController', 
+            'EditExpert' =>$form->createView(),
+        ]);
+    }
 }

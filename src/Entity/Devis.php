@@ -29,15 +29,15 @@ class Devis
     private ?string $detail = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $prix_ht = null;
+    private ?string $prix_ht = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $prix_ttc = null;
+    private ?string $prix_ttc = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $raison_social = null;
 
-    #[ORM\ManyToOne(inversedBy: 'devis')]
+    #[ORM\ManyToOne(inversedBy: 'devis',cascade: ['persist', 'remove'])]
     private ?Address $adresse = null;
 
     #[ORM\Column(length: 14, nullable: true)]
@@ -110,24 +110,24 @@ class Devis
         return $this;
     }
 
-    public function getPrixHt(): ?int
+    public function getPrixHt(): ?string
     {
         return $this->prix_ht;
     }
 
-    public function setPrixHt(?int $prix_ht): self
+    public function setPrixHt(?string $prix_ht): self
     {
         $this->prix_ht = $prix_ht;
 
         return $this;
     }
 
-    public function getPrixTtc(): ?int
+    public function getPrixTtc(): ?string
     {
         return $this->prix_ttc;
     }
 
-    public function setPrixTtc(?int $prix_ttc): self
+    public function setPrixTtc(?string $prix_ttc): self
     {
         $this->prix_ttc = $prix_ttc;
 

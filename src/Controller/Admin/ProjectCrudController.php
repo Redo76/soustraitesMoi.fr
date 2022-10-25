@@ -3,12 +3,20 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Project;
+use App\Entity\ProjectLogo;
+use App\Repository\UserRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\ProjectLogoRepository;
+use App\Repository\ProjectSiteRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Repository\ProjectReseauxRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 #[Route('/admin/projets')]
 class ProjectCrudController extends AbstractController
@@ -43,51 +51,42 @@ class ProjectCrudController extends AbstractController
         ]);
     }
 
-    // #[Route('/{id}', name: 'app_article_crud_show', methods: ['GET'])]
-    // public function show(Post $post): Response
-    // {
-    //     return $this->render('article_crud/show.html.twig', [
-    //         'post' => $post,
-    //     ]);
-    // }
+    #[Route('/{id}&{type}', name: 'admin_project_delete', methods: ['GET'])]
+    public function delete(int $id, string $type, MailerInterface $mailer,UserRepository $userRepository, ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository, ProjectReseauxRepository $projectReseauxRepository, ProjectSiteRepository $projectSiteRepository): Response
+    {
+        $type = ["type" => $type]["type"];
+        if ($type == "Libre") {
+            $project = $projectRepository->find(["id" => $id]);
+            $repository = $projectRepository;
+        } elseif ($type == "Logo") {
+            $project = $projectLogoRepository->find(["id" => $id]);
+            $repository = $projectLogoRepository;
+        } elseif ($type == "Réseaux Sociaux") {
+            $project = $projectReseauxRepository->find(["id" => $id]);
+            $repository = $projectReseauxRepository;
+        } elseif ($type == "Site Internet") {
+            $project = $projectSiteRepository->find(["id" => $id]);
+            $repository = $projectSiteRepository;
+        }
 
-    // #[Route('/{id}/edit', name: 'app_article_crud_edit', methods: ['GET', 'POST'])]
-    // public function edit(Request $request, Post $post, PostRepository $postRepository, SluggerInterface $slugger): Response
-    // {
-    //     $form = $this->createForm(ArticlePostType::class, $post);
-    //     $form->handleRequest($request);
+        $userId = $project->getUser()->getId();
+        $user = $userRepository->findUserById($userId);
+        $email = (new TemplatedEmail())
+            ->from('soustraitesmoi@gmail.com')
+            ->to($user->getEmail())
+            ->subject('Suppression de votre projet')
+            ->htmlTemplate('emails/project_denied.html.twig')
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $thumbnail = $form->get('thumbnail')->getData();
-    //         if ($thumbnail) {
-    //             $originalFilename = pathinfo($thumbnail->getClientOriginalName(), PATHINFO_FILENAME);
-    //             $safeFilename = $slugger->slug($originalFilename);
-    //             $newFilename = '../uploads/thumbnails/' . $safeFilename . '-' . uniqid() . '.' . $thumbnail->guessExtension();
-    //             $thumbnail->move(
-    //                 $this->getParameter('thumbnails_directory'),
-    //                 $newFilename
-    //             );
-    //             $post->setThumbnail($newFilename);
-    //         }
-
-    //         $postRepository->add($post, true);
-
-    //         return $this->redirectToRoute('app_article_crud_index', [], Response::HTTP_SEE_OTHER);
-    //     }
-
-    //     return $this->renderForm('article_crud/edit.html.twig', [
-    //         'post' => $post,
-    //         'form' => $form,
-    //     ]);
-    // }
-
-    // #[Route('/{id}', name: 'app_article_crud_delete', methods: ['POST'])]
-    // public function delete(Request $request, Post $post, PostRepository $postRepository): Response
-    // {
-    //     if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
-    //         $postRepository->remove($post, true);
-    //     }
-
-    //     return $this->redirectToRoute('app_article_crud_index', [], Response::HTTP_SEE_OTHER);
-    // }
+            // pass variables (name => value) to the template
+            ->context([
+                'user' => $user,
+                'projectName' => $project->getNomDuProjet(),
+            ]);
+            
+            $mailer->send($email);
+            
+        $repository->remove($project, true);
+                
+        return $this->redirectToRoute('app_admin_IpProjects', [], Response::HTTP_SEE_OTHER);
+    }
 }

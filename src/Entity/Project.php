@@ -53,7 +53,7 @@ class Project
     {
         $this->User = $user;
         $this->images = new ArrayCollection();
-        $this->createdAt = new \DateTimeImmutable('now');
+        $this->created_at = new \DateTimeImmutable('now');
     }
 
     public function getId(): ?int
@@ -173,5 +173,10 @@ class Project
         $this->type = $type;
 
         return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
     }
 }

@@ -84,6 +84,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Devis::class, orphanRemoval: true)]
     private Collection $devis;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cv = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created_at = null;
 
     public function __construct()
     {
@@ -92,6 +97,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->projectReseaux = new ArrayCollection();
         $this->projectSites = new ArrayCollection();
         $this->devis = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable('now');
     }
 
     
@@ -460,4 +466,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getCv(): ?string
+    {
+        return $this->cv;
+    }
+
+    public function setCv(?string $cv): self
+    {
+        $this->cv = $cv;
+
+        return $this;
+    }
 }

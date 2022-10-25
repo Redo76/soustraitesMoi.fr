@@ -43,6 +43,15 @@ h6{
 .nav-link:hover{
     color: #d2b511c6;
 }
+a{
+    color: #d2b511c6;
+}
+a:hover{
+    color: white;
+}
+/* .nav-link:visited{
+    color: #d2b511c6;
+} */
 
 main{
     background-color: #3e3f3aef;
@@ -65,6 +74,19 @@ main{
     color: #d2b511c6;
 }
 
+.pp{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+img{
+    width: 100%;
+    height: 100%;
+}
 
 @media only screen and (min-width: 768px){
 

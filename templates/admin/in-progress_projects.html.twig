@@ -14,8 +14,8 @@
 				<th>Titre</th>
 				<th>Catégorie</th>
 				<th>Description</th>
+				<th>Utilisateur</th>
 				<th>Date de publication</th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -27,28 +27,16 @@
 					<td>
 						<a href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}" type="button" class="btn btn-secondary">Afficher le contenu</a>
 					</td>
-					<td>{{ project.created_at|date('d/m/Y') }}</td>
 					<td>
-						<a href="#" class="deleteBtn">
-							<i class="fa-solid fa-trash-can"></i>
+						<a href="#">
+							Voir
 						</a>
-						{# <div class="dropdown">
-							<button class="btn" type="button" id="dropdownMenuButton{{project.id}}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fa-solid fa-ellipsis"></i>
-							</button>
-							<div class="dropdown-menu  dropdown-menu-end" aria-labelledby="dropdownMenuButton{{project.id}}">
-
-								<a class="dropdown-item" href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}">Afficher le contenu</a>
-								<a class="dropdown-item text-warning" href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}">Modifier</a>
-								{{ include('article_crud/_delete_form.html.twig') }}
-							</div>
-						</div>#} 
 					</td>
+					<td>{{ project.created_at|date('d/m/Y') }}</td>
 				</tr>
 			</div>
 		</tbody>
 	</td>
-	</tr>
     {% else %}
 	<tr>
 		<td colspan="7">Aucun projet trouvé</td>
@@ -56,5 +44,9 @@
     {% endfor %}
     </tbody>
     </table>
+
+	<div class="navigation">
+        {{ knp_pagination_render(projects) }}
+    </div>
 </main>
 {% endblock %}

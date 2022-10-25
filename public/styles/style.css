@@ -24,6 +24,9 @@ a{
 a:hover{
     color: antiquewhite;
 }
+/* a:visited{
+    color: antiquewhite;
+} */
 .hide{
     display: none;
 }

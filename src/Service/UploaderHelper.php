@@ -63,4 +63,20 @@ class UploaderHelper
 
         return $newFilename;
     }
+
+    public function uploadCv(UploadedFile $uploadedFile, SluggerInterface $slugger) :string
+    {
+        //On génère un nouveau nom de fichier
+        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = $slugger->slug($originalFilename);
+        $newFilename = $slugger->slug($safeFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+
+        $uploadedFile->move(
+            
+            $this->uploadsPath."/cv",
+            $newFilename
+        );
+
+        return $newFilename;
+    }
 }

@@ -102,7 +102,7 @@ class ProjectReseaux
         $this->user = $user;
         $this->logo = new ArrayCollection();
         $this->example = new ArrayCollection();
-        $this->createdAt = new \DateTimeImmutable('now');
+        $this->created_at = new \DateTimeImmutable('now');
     }
 
 
@@ -459,5 +459,10 @@ class ProjectReseaux
         $this->type = $type;
 
         return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
     }
 }

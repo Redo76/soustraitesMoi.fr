@@ -20,16 +20,16 @@ class DevisFormType extends AbstractType
         $builder
         // essai upload
         ->add('Images', FileType::class, [
-            'label' => 'uploader votre devis en pdf',
+            'label' => 'Uploader votre devis en pdf',
             "multiple" => true,
             "required" => false,
             "mapped" => false,
             'row_attr' => ['class' => 'devis_imgs'],
         ])
         ->add('reference', TextType::class, [
-            'label' => 'Référence',
+            'label' => 'Référence (à remplir obligatoirement)',
             'label_attr' => ['class' => "form-label"],
-            'attr' => ['placeholder' => 'nom du projet lié au devis','maxlength' => 75],
+            'attr' => ['placeholder' => 'Nom du projet lié au devis','maxlength' => 75],
             'required' => false,
         ])
         ->add('date_redaction', DateType::class, [
@@ -51,16 +51,24 @@ class DevisFormType extends AbstractType
                 'label_attr' => ['class' => "form-label"],
                 'required' => false,
             ])
-            ->add('prix_ht')
-            ->add('prix_ttc')
+            ->add('prix_ht', TextType::class, [
+                'label' => 'Prix HT :',
+                'label_attr' => ['class' => "form-label"],
+                'required' => false,
+            ])
+            ->add('prix_ttc', TextType::class, [
+                'label' => 'Prix TTC :',
+                'label_attr' => ['class' => "form-label"],
+                'required' => false,
+            ])
             ->add('raison_Social', TextType::class, [
-                'label' => 'raison sociale',
+                'label' => 'Raison sociale :',
                 'required' => false,
             ])
             ->add('adresse', AddressFormType::class,[
             ])
             ->add('siret', TextType::class, [
-                'label' => 'N° de siret',
+                'label' => 'N° de siret :',
                 'required' => false,
                 'attr' => ['maxlength' => 14],
                 'constraints' => [

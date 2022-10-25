@@ -38,7 +38,7 @@ class ProjectLogo
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $unwanted_colors = null;
 
-    #[ORM\OneToMany(mappedBy: 'goodprojectLogo', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'goodProjectLogo', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $good_logo_example;
 
     #[ORM\OneToMany(mappedBy: 'badProjectLogo', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
@@ -76,7 +76,7 @@ class ProjectLogo
         $this->user = $user;
         $this->good_logo_example = new ArrayCollection();
         $this->bad_logo_example = new ArrayCollection();
-        $this->createdAt = new \DateTimeImmutable('now');
+        $this->created_at = new \DateTimeImmutable('now');
     }
 
     public function getId(): ?int
@@ -334,5 +334,20 @@ class ProjectLogo
         $this->type = $type;
 
         return $this;
+    }
+
+    public function isCreation(): ?bool
+    {
+        return $this->creation;
+    }
+
+    public function isBackground(): ?bool
+    {
+        return $this->background;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
     }
 }

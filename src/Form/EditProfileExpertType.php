@@ -84,6 +84,12 @@ class EditProfileExpertType extends AbstractType
                 ]),
             ]
         ])
+        ->add('cv', FileType::class, [
+            "label" => false,
+            "required" => false,
+            'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
+            'mapped' => false,
+        ])
         ;
     }
 

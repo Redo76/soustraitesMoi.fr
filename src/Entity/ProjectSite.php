@@ -111,7 +111,7 @@ class ProjectSite
         $this->user = $user;
         $this->visuals_files = new ArrayCollection();
         $this->logo_files = new ArrayCollection();
-        $this->createdAt = new \DateTimeImmutable('now');
+        $this->created_at = new \DateTimeImmutable('now');
     }
 
     public function getId(): ?int
@@ -513,5 +513,10 @@ class ProjectSite
         $this->type = $type;
 
         return $this;
+    }
+
+    public function isStatut(): ?bool
+    {
+        return $this->statut;
     }
 }
