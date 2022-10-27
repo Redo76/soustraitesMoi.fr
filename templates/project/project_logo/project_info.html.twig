@@ -12,7 +12,7 @@
         <a href="{{path('admin_project_delete', {'id': project.id, 'type': project.type})}}" onclick="return confirm('Êtes-vous sûr de votre choix ?')" class="NoValidBtn">REFUSER LE PROJET</a>
     </div>
     {% elseif is_granted('ROLE_EXPERT') %}
-        <a href="{{path('app_devis', {'nomProjet': project.NomDuProjet})}}" class="btn">Proposez votre devis</a>
+        <a href="{{path('app_devis', {"id" : project.id, "type" : project.type})}}" class="btn">Proposez votre devis</a>
     {% endif %}
 </section>
 {% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Devis{% endblock %}
+
+{% block body %}
+<div class="list">
+    <table class="table table-striped">
+        <thead class="table-primary">
+            <tr>
+            <th scope="col">Nom du projet</th>
+            <th scope="col" >Type</th>
+            <th scope="col" >Description</th>
+            <th scope="col" >Date de publication</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for devis in devis %}
+                <tr>
+                <td>{{devis.nom_du_projet}}</td>
+                <td>{{devis.type}}</td>
+                <td>
+                    <a class="button" href="{{path('app_devis_info', {"id" : devis.id, "type" : devis.type})}}">Consulter</a>
+                </td>
+                <td>{{devis.created_at|date("d/m/Y")}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(deviss) }}
+    </div>
+
+</div>
+{% endblock %}

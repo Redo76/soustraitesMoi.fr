@@ -129,7 +129,7 @@
                 <i class="fa-solid fa-sort-down"></i>
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                     {% if is_granted('ROLE_EXPERT')  %}
-                    <li><a class="dropdown-item" href="{{path('app_projects')}}">Mes Devis</a></li>
+                    <li><a class="dropdown-item" href="{{path('app_devis_user')}}">Mes Devis</a></li>
                     <li><a class="dropdown-item" href="{{path('app_expert')}}">Profil</a></li>
                     {% elseif is_granted('ROLE_CLIENT')  %}
                     <li><a class="dropdown-item" href="{{path('app_project_index')}}">Mes Projets</a></li>

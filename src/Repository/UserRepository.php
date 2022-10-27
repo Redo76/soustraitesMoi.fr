@@ -68,6 +68,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // returns an array of arrays (i.e. a raw data set)
         return $resultSet->fetchAllAssociative();
     }
+
+    public function findAllDevisByUserId($id): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM `devis` AS d WHERE d.user_id = :id ORDER BY d.created_at DESC";
+    
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(["id" => $id]);
+        
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
     
     public function findUserById($id): ?User
     {

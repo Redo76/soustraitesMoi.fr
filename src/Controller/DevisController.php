@@ -10,6 +10,7 @@ use App\Form\DevisFormType;
 use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\Types\DateType;
+use App\Repository\UserRepository;
 use App\Repository\DevisRepository;
 use App\Repository\ImageRepository;
 use App\Repository\AddressRepository;
@@ -18,6 +19,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ProjectLogoRepository;
 use App\Repository\ProjectSiteRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\ProjectReseauxRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,6 +55,9 @@ class DevisController extends AbstractController
     
             $devis->setAdresse($address);
         }
+        if ($user->getCompanyName()) {
+            $devis->setRaisonSocial($user->getCompanyName());
+        }
         if ($user->getSiret()) {
             $devis->setSiret($user->getSiret());
         }
@@ -61,6 +66,8 @@ class DevisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($form['ref']->getData());
+
             // essai upload
             $uploadedFiles = $form['Images']->getData();
 
@@ -76,6 +83,7 @@ class DevisController extends AbstractController
             }
 
             $devis = $form->getData();
+            $project->addDevi($devis);
 
             $entityManager->persist($devis);
             $entityManager->flush();
@@ -93,6 +101,22 @@ class DevisController extends AbstractController
         ]);
     }
 
+    #[Route('/mes-devis', name: 'app_devis_user', methods: ['GET'])]
+    public function devisUser(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+        $userId = $this->getUser()->getId();
+        $devis = $userRepository->findAllDevisByUserId($userId);
+
+        dd($devis);
+        $devisPagination = $paginator->paginate(
+            $devis, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+        return $this->render('project/index.html.twig', [
+            'devis' => $devisPagination,
+        ]);
+    }
 
     // pdf devis Joffrine
     #[Route('/pdf-admin/{id}', name: 'devis_pdf_admin', methods: ['GET', 'POST'])]
