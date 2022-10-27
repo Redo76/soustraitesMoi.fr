@@ -12,6 +12,7 @@ use App\Form\ProjectSiteType;
 use App\Entity\ProjectReseaux;
 use App\Service\UploaderHelper;
 use App\Form\ProjectReseauxType;
+use App\Repository\ImageRepository;
 use App\Repository\UserRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\ProjectLogoRepository;
@@ -93,8 +94,7 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $uploadedFiles1 = $form['good_logo_example']->getData();
-            // $uploadedFiles2 = $form['bad_logo_example']->getData();
-            $uploadedFiles2 = $request->files->get('bad_logo_example');
+            $uploadedFiles2 = $form['bad_logo_example']->getData();
 
             // dd($uploadedFiles2);
 
@@ -200,7 +200,7 @@ class ProjectController extends AbstractController
                     $newFilename = $uploaderHelper->uploadProjectImages($uploadedFile, $slugger);
                     $img = new Image();
                     $img->setName($newFilename);
-
+                    
                     $project->addVisualsFile($img);
                 }
             }
@@ -218,32 +218,40 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/{id}&{type}', name: 'app_project_info', methods: ['GET', 'POST'])]
-    public function edit(int $id, string $type, UserRepository $userRepository, ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository, ProjectReseauxRepository $projectReseauxRepository, ProjectSiteRepository $projectSiteRepository): Response
+    public function edit(int $id, string $type, ImageRepository $imageRepository, UserRepository $userRepository, ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository, ProjectReseauxRepository $projectReseauxRepository, ProjectSiteRepository $projectSiteRepository): Response
     {
         $type = ["type" => $type]["type"];
         if ($type == "Libre") {
             $project = $projectRepository->findOneBy(["id" => $id]);
+            $images1 = $imageRepository->findByProjectFree(["id" => $id]);
+            $images2 = null;
             $repo = "project_libre";
             // dd($project);
         } elseif ($type == "Logo") {
             $project = $projectLogoRepository->findOneBy(["id" => $id]);
+            $images1 = $imageRepository->findByGoodLogo(["id" => $id]);
+            $images2 = $imageRepository->findByBadLogo(["id" => $id]);
             $repo = "project_logo";
         } elseif ($type == "Réseaux Sociaux") {
             $project = $projectReseauxRepository->findOneBy(["id" => $id]);
+            $images1 = $imageRepository->findByReseauxLogo(["id" => $id]);
+            $images2 = $imageRepository->findByReseauxExample(["id" => $id]);
             $repo = "project_réseaux";
             // dd($project);
         } elseif ($type == "Site Internet") {
             $project = $projectSiteRepository->findOneBy(["id" => $id]);
+            $images1 = $imageRepository->findByVisuals(["id" => $id]);
+            $images2 = $imageRepository->findByLogoSite(["id" => $id]);
             $repo = "project_site";
-            // dd($project);
+            // dd($images2);
         }
-        $userId = $project->getUser()->getId();
-        $user = $userRepository->findUserById($userId);
-        // dd($user);
-
+        // dd($images1);
+        // dd($images2);
 
         return $this->render('project/'. $repo . '/project_info.html.twig', [
             'project' => $project,
+            'images1' => $images1,
+            'images2' => $images2,
         ]);
     }
 }

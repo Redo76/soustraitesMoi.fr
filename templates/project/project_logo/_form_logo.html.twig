@@ -14,30 +14,26 @@
         <input type="file" name="good_logo_example" class="" multiple="true">
     </div> #}
     <template id="template_project">
-        <div class="template_card mt-1 w-25">
+        <div class="template_card mt-1 w-50">
                 <div class="div_img_prjt">
                     <img src="#" class="project-img w-100 h-100" alt="Image projet">
-                    <div>
+                    {# <div>
                         <i class="fa-solid fa-x"></i>
-                    </div>
+                    </div> #}
                 </div>
         </div>
     </template>
     <div class="img-list d-flex flex-wrap mb-3">
 
     </div>
-    {# {{ form_row(form.bad_logo_example) }} #}
-    <div class="project_imgs2">
-        <label for="bad_logo_example">test</label>
-        <input type="file" name="bad_logo_example" class="" multiple="true">
-    </div>
+    {{ form_row(form.bad_logo_example) }}
     <template id="template_project2">
-        <div class="template_card mt-1 w-25">
+        <div class="template_card mt-1 w-50">
                 <div class="div_img_prjt">
                     <img src="#" class="project-img2 w-100 h-100" alt="Image projet">
-                    <div>
+                    {# <div>
                         <i class="fa-solid fa-x"></i>
-                    </div>
+                    </div> #}
                 </div>
         </div>
     </template>

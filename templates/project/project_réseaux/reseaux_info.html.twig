@@ -40,18 +40,11 @@
         <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.location}}</textarea>
     </div>
 
-    <template id="template_project">
-        <div class="template_card mt-1 w-25">
-                <div class="div_img_prjt">
-                    <img src="#" class="project-img w-100 h-100" alt="Image projet">
-                    <div>
-                        <i class="fa-solid fa-x"></i>
-                    </div>
-                </div>
-        </div>
-    </template>
-    <div class="img-list d-flex flex-wrap mb-3">
-
+    <h4 class="form-label">Logo (à insérer) :</h4>
+    <div class="img-list d-flex flex-wrap mb-3 justify-content-evenly">
+            {% for image1 in images1 %}
+                <img src="{{asset('assets/uploads/project_img/' ~ image1.name)}}" class="project-img" alt="Image projet">
+            {% endfor %}
     </div>
     <h3>Liens vers vos réseaux actuels</h3>
     <div class="row">
@@ -140,17 +133,9 @@
         <input type="text" name="ep" value="{{project.likedExample}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
 
-    <template id="template_project2">
-        <div class="template_card mt-1 w-25">
-                <div class="div_img_prjt">
-                    <img src="#" class="project-img2 w-100 h-100" alt="Image projet">
-                    <div>
-                        <i class="fa-solid fa-x"></i>
-                    </div>
-                </div>
-        </div>
-    </template>
-    <div class="img-list2 d-flex flex-wrap mb-3">
-
+    <div class="img-list2 d-flex flex-wrap mb-3 justify-content-evenly">
+            {% for image2 in images2 %}
+                <img src="{{asset('assets/uploads/project_img/' ~ image2.name)}}" class="project-img2" alt="Image projet">
+            {% endfor %}
     </div>
 </form>

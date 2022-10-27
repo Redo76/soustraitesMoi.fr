@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil Utilisateur
+{% endblock %}
+
+{% block body %}
+	{# <section class="h-100 gradient-custom-2">
+		<div class="container py-5 h-100">
+			<div class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col col-lg-9 col-xl-7">
+					<div class="card">
+						<div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+							<div class="ms-4 mt-5 d-flex flex-column" style="width: 150px; height: 150px;">
+								<img style="width: 150px; height: 150px" {% if (user.googleId) %} src="{{user.avatar}}" {% else %} ({% if user.avatar == null %} src="{{asset("assets/uploads/avatar/default.png")}}" {% else %} src="{{asset("uploads/avatar/" ~ user.avatar)}}") {% endif %} {% endif %} alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2" style="width: 150px; z-index: 1">
+							</div>
+							<div class="ms-3" style="margin-top: 130px; color:#d2b511">
+								<h5>{{user.firstname}}
+									{{user.lastname}}</h5>
+							</div>
+						</div>
+						<div class="p-4 text-black" style="background-color: #f8f9fa;">
+							<button type="button" class="btn btn-outline-dark" style="background-color:#d2b511;" data-mdb-ripple-color="dark" style="z-index:1;">
+								Suivre mon projet
+							</button>
+						</div>
+						<div class="card-body p-4 text-black">
+							<div class=" mb-5">
+								<p class="lead fw-normal mb-1">Mes infos enregistrées</p>
+							</div>
+							<div class="p-3" style="background-color: #f8f9fa; box-shadow: 2px 2px gray">
+								<p class="font-italic mb-1">{{user.email}}</p>
+								<p class="font-italic mb-1">{{user.phone}}</p>
+								<p class="font-italic mb-0">{{user.companyName}}</p>
+							</div>
+							<button type="button" class="btn btn-outline-dark mt-5" style="background-color:#d2b511;" data-mdb-ripple-color="dark" style="z-index:1;">
+								Modifier mon profil
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section> #}
+<main class="mt-4 p-lg-5 w-100 container-md home_container">
+		<div class="d-flex flex-column gap-3 justify-content-around profil_card">
+            <h1>Mon profil</h1>
+            <aside class="profil_picture">
+                <div class="d-flex justify-content-center">
+                    <img class="img-fluid" 	{% if user.googleId %}
+											src="{{user.avatar}}" referrerpolicy="no-referrer"
+											({% elseif user.avatar %} 
+											src="{{asset("assets/uploads/avatar/" ~  user.avatar)}}" 
+											{% else %} src="{{asset("assets/uploads/avatar/default.png")}}") 
+											{% endif %}  alt="Photo de profil">                
+				</div>
+            </aside>
+			<div class=" w-100 p-2 p-lg-4">
+
+				{# {% for message in flashes('success') %}
+					<div class="alert alert-success mb-2">
+						{{ message }}
+					</div>
+				{% endfor %} #}
+				<h4>Informations personnelles</h4>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Prénom</th>
+							<td>{{user.firstname}}</td>
+						</tr>
+						<tr>
+							<th>Nom</th>
+							<td>{{user.lastname}}</td>
+						</tr>
+						<tr>
+							<th>Email</th>
+							<td>{{user.email}}</td>
+						</tr>
+						<tr>
+							<th>Téléphone</th>
+							<td>{{user.phone ? user.phone : 'Non défini'}}</td>
+						</tr>
+					</tbody>
+
+				</table>
+				
+				<h4>Adresse</h4>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Adresse</th>
+							<td>{{user.address ? user.address.address : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Adresse ligne 2</th>
+							<td>{{user.address ? user.address.address2 : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Ville</th>
+							<td>{{user.address ? user.address.city : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Code postal</th>
+							<td>{{user.address ? user.address.codePostal : 'Non défini'}}</td>
+						</tr>
+						<tr>
+							<th>Pays</th>
+							<td>{{user.address ? user.address.country : 'Non défini'}}</td>
+						</tr>
+					</tbody>
+				</table>
+
+				{% if user.isCompany %}
+					<h4>Informations Société</h4>
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>Nom</th>
+								<td>{{user.companyName ? user.companyName : 'Non défini'}}</td>
+							</tr>
+							<tr>
+								<th>Nom commercial</th>
+								<td>{{user.companyCommercialName ? user.companyCommercialName : 'Non défini'}}</td>
+							</tr>
+							<tr>
+								<th>Fonction dans l'entreprise</th>
+								<td>{{ user.jobInCompany ? user.jobInCompany : 'Non défini'}}</td>
+							</tr>
+							<tr>
+								<th>N° de siret</th>
+								<td>{{user.siret ? user.siret : 'Non défini'}}</td>
+							</tr>
+						</tbody>
+					</table>
+				{% endif %}
+
+
+			</div>
+		</div>
+	</main>
+{% endblock %}

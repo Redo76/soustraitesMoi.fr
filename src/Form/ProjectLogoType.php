@@ -65,7 +65,7 @@ class ProjectLogoType extends AbstractType
                 "multiple" => true,
                 "required" => false,
                 "mapped" => false,
-                'attr' => ['class' => "fileInput"],
+                'attr' => ['class' => "fileInput", 'data-bs-toggle' => 'tooltip', 'data-bs-placement' => 'right', 'title' => 'Afin de sélectionner plusieurs images, maintenez Ctrl+clic de la souris.'],
                 'row_attr' => ['class' => 'project_imgs mb-3'],
                 'constraints' => [
                     new All([
@@ -77,24 +77,24 @@ class ProjectLogoType extends AbstractType
                     ]),
                 ]
             ])
-            // ->add('bad_logo_example', FileType::class, [
-            //     'label' => 'Montrer les exemples de logos (avec des captures écran) que vous n’aimez pas :',
-            //     'label_attr' => ['class' => "form-label-misc"],
-            //     "multiple" => true,
-            //     "required" => false,
-            //     "mapped" => false,
-            //     'attr' => ['class' => "fileInput"],
-            //     'row_attr' => ['class' => 'project_imgs2 mb-3'],
-            //     'constraints' => [
-            //         new All([
-            //             'constraints' => [
-            //                 new Image([
-            //                     'maxSize' => '5M'
-            //                 ])
-            //             ],
-            //         ]),
-            //     ]
-            // ])
+            ->add('bad_logo_example', FileType::class, [
+                'label' => 'Montrer les exemples de logos (avec des captures écran) que vous n’aimez pas :',
+                'label_attr' => ['class' => "form-label-misc"],
+                "multiple" => true,
+                "required" => false,
+                "mapped" => false,
+                'attr' => ['class' => "fileInput", 'data-bs-toggle' => 'tooltip', 'data-bs-placement' => 'right', 'title' => 'Afin de sélectionner plusieurs images, maintenez Ctrl+clic de la souris.'],
+                'row_attr' => ['class' => 'project_imgs2 mb-3'],
+                'constraints' => [
+                    new All([
+                        'constraints' => [
+                            new Image([
+                                'maxSize' => '5M'
+                            ])
+                        ],
+                    ]),
+                ]
+            ])
             ->add('other_brands', TextType::class, [
                 'label' => '* C’est une indication supplémentaire',
                 'label_attr' => ['class' => "form-label-misc"],

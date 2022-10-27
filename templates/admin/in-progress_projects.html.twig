@@ -28,8 +28,8 @@
 						<a href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}" type="button" class="btn btn-secondary">Afficher le contenu</a>
 					</td>
 					<td>
-						<a href="#">
-							Voir
+						<a href="{{path('app_admin_show', {'id': project.user_id})}}">
+							Voir le profil
 						</a>
 					</td>
 					<td>{{ project.created_at|date('d/m/Y') }}</td>

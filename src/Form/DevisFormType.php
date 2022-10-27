@@ -26,12 +26,12 @@ class DevisFormType extends AbstractType
             "mapped" => false,
             'row_attr' => ['class' => 'devis_imgs'],
         ])
-        ->add('reference', TextType::class, [
-            'label' => 'Référence (à remplir obligatoirement)',
-            'label_attr' => ['class' => "form-label"],
-            'attr' => ['placeholder' => 'Nom du projet lié au devis','maxlength' => 75],
-            'required' => false,
-        ])
+        // ->add('reference', TextType::class, [
+        //     'label' => 'Référence (à remplir obligatoirement)',
+        //     'label_attr' => ['class' => "form-label"],
+        //     'attr' => ['placeholder' => 'Nom du projet lié au devis','maxlength' => 75],
+        //     'required' => false,
+        // ])
         ->add('date_redaction', DateType::class, [
             'label' => 'Date de rédaction du devis :',
             'label_attr' => ['class' => "form-label"],

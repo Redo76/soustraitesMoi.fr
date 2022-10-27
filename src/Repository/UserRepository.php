@@ -60,7 +60,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT * FROM (SELECT nom_du_projet , type, created_at, user_id FROM `project` UNION SELECT nom_du_projet , type, created_at, user_id FROM `project_logo` UNION SELECT nom_du_projet , type, created_at, user_id FROM `project_reseaux` UNION SELECT nom_du_projet , type, created_at, user_id FROM `project_site`) AS p WHERE p.user_id = :id;";
+        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_site`) AS p WHERE p.user_id = :id ORDER BY p.created_at DESC";
     
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery(["id" => $id]);

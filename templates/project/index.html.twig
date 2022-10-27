@@ -15,8 +15,8 @@
 						<tr>
 						<th scope="col">Nom du projet</th>
 						<th scope="col" >Type</th>
-						<th scope="col" >Action</th>
 						<th scope="col" >Date de publication</th>
+						<th scope="col" >Validation</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -24,10 +24,14 @@
 							<tr>
 							<td>{{project.nom_du_projet}}</td>
 							<td>{{project.type}}</td>
-							<td>
-								
-							</td>
 							<td>{{project.created_at|date("d/m/Y")}}</td>
+							<td>
+								{% if project.statut %}
+									Validé
+								{% else %}
+									En cours
+								{% endif %}
+							</td>
 							</tr>
 						{% endfor %}
 					</tbody>

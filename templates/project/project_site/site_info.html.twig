@@ -83,18 +83,10 @@
         {# <input type="text" name="l" value="{{project.logo}}" class="form-control" disabled="disabled" aria-describedby=""> #}
         <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.logo}}</textarea>
     </div>
-    <template id="template_project">
-        <div class="template_card mt-1 w-25">
-                <div class="div_img_prjt">
-                    <img src="#" class="project-img w-100 h-100" alt="Image projet">
-                    <div>
-                        <i class="fa-solid fa-x"></i>
-                    </div>
-                </div>
-        </div>
-    </template>
-    <div class="img-list d-flex flex-wrap mb-3">
-
+    <div class="img-list d-flex flex-wrap mb-3 justify-content-evenly">
+            {% for image1 in images1 %}
+                <img src="{{asset('assets/uploads/project_img/' ~ image1.name)}}" class="project-img" alt="Image projet">
+            {% endfor %}
     </div>
     <div class="mb-3">
         <label for="v" class="form-label-misc">Visuels ?</label>
@@ -102,18 +94,10 @@
         <textarea type="text" name="dl" class="form-control" disabled="disabled" aria-describedby="">{{project.visuals}}</textarea>
     </div>
     
-    <template id="template_project2">
-        <div class="template_card mt-1 w-25">
-                <div class="div_img_prjt">
-                    <img src="#" class="project-img2 w-100 h-100" alt="Image projet">
-                    <div>
-                        <i class="fa-solid fa-x"></i>
-                    </div>
-                </div>
-        </div>
-    </template>
-    <div class="img-list2 d-flex flex-wrap mb-3">
-
+    <div class="img-list2 d-flex flex-wrap mb-3 justify-content-evenly">
+            {% for image2 in images2 %}
+                <img src="{{asset('assets/uploads/project_img/' ~ image2.name)}}" class="project-img2" alt="Image projet">
+            {% endfor %}
     </div>
 
     <div class="mb-3">

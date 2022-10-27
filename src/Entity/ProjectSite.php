@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ProjectSiteRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProjectSiteRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ProjectSiteRepository::class)]
+// #[UniqueEntity(fields: ['Nom_du_projet'], message: 'Il existe déjà un projet portant ce nom')]
 class ProjectSite
 {
     #[ORM\Id]
@@ -106,12 +108,16 @@ class ProjectSite
     #[ORM\Column(length: 15, nullable: true)]
     private ?string $type = null;
 
+    #[ORM\OneToMany(mappedBy: 'projet_site', targetEntity: Devis::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $devis;
+
     public function __construct($user)
     {
         $this->user = $user;
         $this->visuals_files = new ArrayCollection();
         $this->logo_files = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable('now');
+        $this->devis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -347,6 +353,36 @@ class ProjectSite
         return $this;
     }
 
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getLogoFiles(): Collection
+    {
+        return $this->logo_files;
+    }
+
+    public function addLogoFile(Image $logoFile): self
+    {
+        if (!$this->logo_files->contains($logoFile)) {
+            $this->logo_files->add($logoFile);
+            $logoFile->setLogoSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLogoFile(Image $logoFile): self
+    {
+        if ($this->logo_files->removeElement($logoFile)) {
+            // set the owning side to null (unless already changed)
+            if ($logoFile->getLogoSite() === $this) {
+                $logoFile->setLogoSite(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getVisuals(): ?string
     {
         return $this->visuals;
@@ -371,7 +407,7 @@ class ProjectSite
     {
         if (!$this->visuals_files->contains($visualsFile)) {
             $this->visuals_files->add($visualsFile);
-            $visualsFile->setProjectSite($this);
+            $visualsFile->setVisuals($this);
         }
 
         return $this;
@@ -381,8 +417,8 @@ class ProjectSite
     {
         if ($this->visuals_files->removeElement($visualsFile)) {
             // set the owning side to null (unless already changed)
-            if ($visualsFile->getProjectSite() === $this) {
-                $visualsFile->setProjectSite(null);
+            if ($visualsFile->getVisuals() === $this) {
+                $visualsFile->setVisuals(null);
             }
         }
 
@@ -449,35 +485,6 @@ class ProjectSite
         return $this;
     }
 
-    /**
-     * @return Collection<int, Image>
-     */
-    public function getLogoFiles(): Collection
-    {
-        return $this->logo_files;
-    }
-
-    public function addLogoFile(Image $logoFile): self
-    {
-        if (!$this->logo_files->contains($logoFile)) {
-            $this->logo_files->add($logoFile);
-            $logoFile->setProjectSite($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLogoFile(Image $logoFile): self
-    {
-        if ($this->logo_files->removeElement($logoFile)) {
-            // set the owning side to null (unless already changed)
-            if ($logoFile->getProjectSite() === $this) {
-                $logoFile->setProjectSite(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -519,4 +526,36 @@ class ProjectSite
     {
         return $this->statut;
     }
+
+    /**
+     * @return Collection<int, Devis>
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevi(Devis $devi): self
+    {
+        if (!$this->devis->contains($devi)) {
+            $this->devis->add($devi);
+            $devi->setProjetSite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevi(Devis $devi): self
+    {
+        if ($this->devis->removeElement($devi)) {
+            // set the owning side to null (unless already changed)
+            if ($devi->getProjetSite() === $this) {
+                $devi->setProjetSite(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

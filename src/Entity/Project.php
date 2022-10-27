@@ -8,11 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
-
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
+// #[UniqueEntity(fields: ['Nom_du_projet'], message: 'Il existe déjà un projet portant ce nom')]
 class Project
 {
     #[ORM\Id]
@@ -47,6 +48,9 @@ class Project
     #[ORM\Column(length: 15, nullable: true)]
     private ?string $type = null;
 
+    #[ORM\OneToMany(mappedBy: 'projet_libre', targetEntity: Devis::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $devis;
+
     // LIER USER/PROJECT
     // à mettre pour que chaque nouveau projet soit rattaché au user connecté
     public function __construct($user)
@@ -54,6 +58,7 @@ class Project
         $this->User = $user;
         $this->images = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable('now');
+        $this->devis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,5 +183,35 @@ class Project
     public function isStatut(): ?bool
     {
         return $this->statut;
+    }
+
+    /**
+     * @return Collection<int, Devis>
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevi(Devis $devi): self
+    {
+        if (!$this->devis->contains($devi)) {
+            $this->devis->add($devi);
+            $devi->setProjetLibre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevi(Devis $devi): self
+    {
+        if ($this->devis->removeElement($devi)) {
+            // set the owning side to null (unless already changed)
+            if ($devi->getProjetLibre() === $this) {
+                $devi->setProjetLibre(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -29,7 +29,7 @@
 					</td>
 					<td>{{ project.created_at|date('d/m/Y') }}</td>
 					<td>
-						<a href="#" class="deleteBtn">
+						<a href="{{path('admin_project_delete', {'id': project.id ,'type' : project.type})}}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')" class="deleteBtn">
 							<i class="fa-solid fa-trash-can"></i>
 						</a>
 					</td>

@@ -8,9 +8,11 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/utilisateurs')]
+#[IsGranted('ROLE_ADMIN')]
 class UserCrudController extends AbstractController
 {
     #[Route('/client', name: 'app_admin_client', methods: ['GET'])]
@@ -50,12 +52,35 @@ class UserCrudController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'admin_user_delete', methods: ['GET'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    
+    #[Route('/delete_{id}', name: 'admin_user_delete', methods: ['GET'])]
+    public function delete(int $id, UserRepository $userRepository): Response
     {
-        dd($user);
+        $user = $userRepository->findUserById($id);
+        $role = $user->getRoles()[0];
+        if ($role == "ROLE_CLIENT") {
+            $route = 'app_admin_client';
+        } elseif ($role == "ROLE_EXPERT") {
+            $route = 'app_admin_expert';
+        }
+        
         $userRepository->remove($user, true);
         
-        return $this->redirectToRoute('app_admin_client', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute($route, [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}', name: 'app_admin_show', methods: ['GET'])]
+    public function show(Request $request, User $user, UserRepository $userRepository): Response
+    {
+        $role = $user->getRoles()[0];
+        if ($role == "ROLE_CLIENT") {
+            $profil = "profil_client";
+        } elseif ($role == "ROLE_EXPERT") {
+            $profil = "profil_expert";
+        }
+        
+        return $this->render($profil .'/show.html.twig', [
+            'user' => $user,
+        ]);
     }
 }

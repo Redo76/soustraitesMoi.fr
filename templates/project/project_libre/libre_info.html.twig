@@ -7,8 +7,14 @@
         <label for="c" class="form-label">Catégorie :</label>
         <input type="text" name="c" value="{{project.Categorie}}" class="form-control" disabled="disabled" aria-describedby="">
     </div>
-        <div class="mb-3">
+    <div class="mb-3">
         <label for="d" class="form-label">Description</label>
         <textarea type="text" name="d" class="form-control" disabled="disabled" aria-describedby="">{{project.Description}}</textarea>
+    </div>
+    <h4 class="form-label">Images</h4>
+    <div class="img-list d-flex flex-wrap mb-3 justify-content-evenly">
+        {% for image1 in images1 %}
+            <img src="{{asset('assets/uploads/project_img/' ~ image1.name)}}" class="project-img" alt="Image projet">
+        {% endfor %}
     </div>
 </form>

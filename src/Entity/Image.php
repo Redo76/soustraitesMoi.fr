@@ -106,18 +106,6 @@ class Image
         return $this;
     }
 
-    public function getProjectSite(): ?ProjectSite
-    {
-        return $this->projectSite;
-    }
-
-    public function setProjectSite(?ProjectSite $projectSite): self
-    {
-        $this->projectSite = $projectSite;
-
-        return $this;
-    }
-
     public function getExample(): ?ProjectReseaux
     {
         return $this->example;
@@ -130,24 +118,24 @@ class Image
         return $this;
     }
     
-    public function getVisuals(): ?ProjectReseaux
+    public function getVisuals(): ?ProjectSite
     {
         return $this->visuals;
     }
 
-    public function setVisuals(?ProjectReseaux $visuals): self
+    public function setVisuals(?ProjectSite $visuals): self
     {
         $this->visuals = $visuals;
 
         return $this;
     }
     
-    public function getLogoSite(): ?ProjectReseaux
+    public function getLogoSite(): ?ProjectSite
     {
         return $this->logo_site;
     }
 
-    public function setLogoSite(?ProjectReseaux $logo_site): self
+    public function setLogoSite(?ProjectSite $logo_site): self
     {
         $this->logo_site = $logo_site;
 

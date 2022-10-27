@@ -39,6 +39,86 @@ class ImageRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByProjectFree($id): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.project = :val')
+            ->setParameter('val', $id)
+            ->orderBy('i.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByBadLogo($id): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.badProjectLogo = :val')
+            ->setParameter('val', $id)
+            ->orderBy('i.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByGoodLogo($id): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.goodProjectLogo = :val')
+            ->setParameter('val', $id)
+            ->orderBy('i.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByReseauxLogo($id): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.projectReseauxLogo = :val')
+            ->setParameter('val', $id)
+            ->orderBy('i.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByReseauxExample($id): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.example = :val')
+            ->setParameter('val', $id)
+            ->orderBy('i.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByVisuals($id): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.visuals = :val')
+            ->setParameter('val', $id)
+            ->orderBy('i.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function findByLogoSite($id): array
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.logo_site = :val')
+            ->setParameter('val', $id)
+            ->orderBy('i.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Image[] Returns an array of Image objects
 //     */

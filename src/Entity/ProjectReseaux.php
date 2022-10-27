@@ -8,8 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use App\Repository\ProjectReseauxRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ProjectReseauxRepository::class)]
+// #[UniqueEntity(fields: ['Nom_du_projet'], message: 'Il existe déjà un projet portant ce nom')]
 class ProjectReseaux
 {
     #[ORM\Id]
@@ -97,12 +99,16 @@ class ProjectReseaux
     #[ORM\Column(length: 15, nullable: true)]
     private ?string $type = null;
 
+    #[ORM\OneToMany(mappedBy: 'projet_reseaux', targetEntity: Devis::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $devis;
+
     public function __construct($user)
     {
         $this->user = $user;
         $this->logo = new ArrayCollection();
         $this->example = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable('now');
+        $this->devis = new ArrayCollection();
     }
 
 
@@ -464,5 +470,35 @@ class ProjectReseaux
     public function isStatut(): ?bool
     {
         return $this->statut;
+    }
+
+    /**
+     * @return Collection<int, Devis>
+     */
+    public function getDevis(): Collection
+    {
+        return $this->devis;
+    }
+
+    public function addDevi(Devis $devi): self
+    {
+        if (!$this->devis->contains($devi)) {
+            $this->devis->add($devi);
+            $devi->setProjetReseaux($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevi(Devis $devi): self
+    {
+        if ($this->devis->removeElement($devi)) {
+            // set the owning side to null (unless already changed)
+            if ($devi->getProjetReseaux() === $this) {
+                $devi->setProjetReseaux(null);
+            }
+        }
+
+        return $this;
     }
 }

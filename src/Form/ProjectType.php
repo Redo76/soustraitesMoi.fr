@@ -35,6 +35,7 @@ class ProjectType extends AbstractType
                 "required" => false,
                 "mapped" => false,
                 'row_attr' => ['class' => 'project_imgs'],
+                'attr' => ['class' => 'fileInput', 'data-bs-toggle' => 'tooltip', 'data-bs-placement' => 'right', 'title' => 'Afin de sélectionner plusieurs images, maintenez Ctrl+clic de la souris.'],
                 'constraints' => [
                     new All([
                         'constraints' => [

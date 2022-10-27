@@ -47,7 +47,7 @@ class ProjectRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_site`) AS p WHERE p.statut = 1";
+        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_site`) AS p WHERE p.statut = true ORDER BY p.created_at DESC";
     
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
@@ -60,7 +60,7 @@ class ProjectRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_site`) AS p WHERE p.statut IS NULL;";
+        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_site`) AS p WHERE p.statut IS NULL ORDER BY p.created_at DESC;";
     
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();

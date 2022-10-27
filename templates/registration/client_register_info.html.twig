@@ -10,7 +10,7 @@
             {{ form_start(registrationForm) }}
             <article >
                 <h1>Renseignez vos informations</h1>
-
+                {{ form_row(registrationForm.phone) }}
                 <h3 class="pb-3">Adresse</h3>
                 {{ form_row(registrationForm.address) }}
                 {{ form_row(registrationForm.isCompany) }}

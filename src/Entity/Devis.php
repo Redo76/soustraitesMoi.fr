@@ -49,6 +49,18 @@ class Devis
     #[ORM\OneToMany(mappedBy: 'devis', targetEntity: Image::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $images;
 
+    #[ORM\ManyToOne(inversedBy: 'devis')]
+    private ?Project $projet_libre = null;
+
+    #[ORM\ManyToOne(inversedBy: 'devis')]
+    private ?ProjectLogo $projet_logo = null;
+
+    #[ORM\ManyToOne(inversedBy: 'devis')]
+    private ?ProjectReseaux $projet_reseaux = null;
+
+    #[ORM\ManyToOne(inversedBy: 'devis')]
+    private ?ProjectSite $projet_site = null;
+
     
 
     public function __construct($user)
@@ -208,6 +220,54 @@ class Devis
                 $image->setDevis(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProjetLibre(): ?Project
+    {
+        return $this->projet_libre;
+    }
+
+    public function setProjetLibre(?Project $projet_libre): self
+    {
+        $this->projet_libre = $projet_libre;
+
+        return $this;
+    }
+
+    public function getProjetLogo(): ?ProjectLogo
+    {
+        return $this->projet_logo;
+    }
+
+    public function setProjetLogo(?ProjectLogo $projet_logo): self
+    {
+        $this->projet_logo = $projet_logo;
+
+        return $this;
+    }
+
+    public function getProjetReseaux(): ?ProjectReseaux
+    {
+        return $this->projet_reseaux;
+    }
+
+    public function setProjetReseaux(?ProjectReseaux $projet_reseaux): self
+    {
+        $this->projet_reseaux = $projet_reseaux;
+
+        return $this;
+    }
+
+    public function getProjetSite(): ?ProjectSite
+    {
+        return $this->projet_site;
+    }
+
+    public function setProjetSite(?ProjectSite $projet_site): self
+    {
+        $this->projet_site = $projet_site;
 
         return $this;
     }

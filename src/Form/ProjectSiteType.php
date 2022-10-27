@@ -129,7 +129,7 @@ class ProjectSiteType extends AbstractType
                 "multiple" => true,
                 "required" => false,
                 "mapped" => false,
-                'attr' => ['class' => "fileInput"],
+                'attr' => ['class' => "fileInput", 'data-bs-toggle' => 'tooltip', 'data-bs-placement' => 'right', 'title' => 'Afin de sélectionner plusieurs images, maintenez Ctrl+clic de la souris.'],
                 'row_attr' => ['class' => 'project_imgs mb-3'],
                 'constraints' => [
                     new All([
@@ -153,7 +153,7 @@ class ProjectSiteType extends AbstractType
                 "multiple" => true,
                 "required" => false,
                 "mapped" => false,
-                'attr' => ['class' => "fileInput"],
+                'attr' => ['class' => "fileInput",'data-bs-toggle' => 'tooltip', 'data-bs-placement' => 'right', 'title' => 'Afin de sélectionner plusieurs images, maintenez Ctrl+clic de la souris.'],
                 'row_attr' => ['class' => 'project_imgs2 mb-3'],
                 'constraints' => [
                     new All([

@@ -64,6 +64,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
                             $existingUser->setRoles(["ROLE_CLIENT"]);
                         } else {
                             $existingUser->setRoles(["ROLE_EXPERT"]);
+                            $existingUser->setIsCompany(true);
                         }
                         $existingUser->setAvatar($googleUser->getAvatar());
                         $this->entityManager->persist($existingUser);

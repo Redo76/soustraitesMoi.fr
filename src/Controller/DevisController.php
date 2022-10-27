@@ -13,8 +13,12 @@ use Doctrine\DBAL\Types\DateType;
 use App\Repository\DevisRepository;
 use App\Repository\ImageRepository;
 use App\Repository\AddressRepository;
+use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ProjectLogoRepository;
+use App\Repository\ProjectSiteRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\ProjectReseauxRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,17 +29,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DevisController extends AbstractController
 {
-    #[Route('/devis', name: 'app_devis', methods: ['GET', 'POST'])]
+    #[Route('/devis/{id}&{type}', name: 'app_devis', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_EXPERT')]
-    public function index(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, DevisRepository $devisRepository, AddressRepository $addressRepository , EntityManagerInterface $entityManager): Response
+    public function index(int $id, string $type, Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, DevisRepository $devisRepository, AddressRepository $addressRepository , EntityManagerInterface $entityManager, ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository, ProjectReseauxRepository $projectReseauxRepository, ProjectSiteRepository $projectSiteRepository): Response
     {
         $user= $this->getUser();
         $devis = new Devis($user);
+
+        $type = ["type" => $type]["type"];
+        if ($type == "Libre") {
+            $project = $projectRepository->findOneBy(["id" => $id]);
+        } elseif ($type == "Logo") {
+            $project = $projectLogoRepository->findOneBy(["id" => $id]);
+        } elseif ($type == "Réseaux Sociaux") {
+            $project = $projectReseauxRepository->findOneBy(["id" => $id]);
+        } elseif ($type == "Site Internet") {
+            $project = $projectSiteRepository->findOneBy(["id" => $id]);
+        }
+
         if ($user->getAddress()) {
             $address_id = $user->getAddress()->getId();
             $address = $addressRepository->findAdressById($address_id);
     
             $devis->setAdresse($address);
+        }
+        if ($user->getSiret()) {
+            $devis->setSiret($user->getSiret());
         }
 
         $form = $this->createForm(DevisFormType::class, $devis);
@@ -70,6 +89,7 @@ class DevisController extends AbstractController
         return $this->renderForm('devis/index.html.twig', [
             // 'devis' => $devis,
             'devisForm' => $form,
+            'project' => $project,
         ]);
     }
 
