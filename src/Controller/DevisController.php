@@ -49,6 +49,8 @@ class DevisController extends AbstractController
             $project = $projectSiteRepository->findOneBy(["id" => $id]);
         }
 
+        $devis->setReference($project->getNomDuProjet());
+
         if ($user->getAddress()) {
             $address_id = $user->getAddress()->getId();
             $address = $addressRepository->findAdressById($address_id);
@@ -66,11 +68,10 @@ class DevisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form['ref']->getData());
-
+            
             // essai upload
             $uploadedFiles = $form['Images']->getData();
-
+            
             if ($uploadedFiles) {
                 foreach ($uploadedFiles as $key => $uploadedFile) {
                     $newFilename = $uploaderHelper->uploadDevis($uploadedFile, $slugger);

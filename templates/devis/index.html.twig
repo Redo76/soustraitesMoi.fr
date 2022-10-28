@@ -12,11 +12,11 @@
         <section id="devis_section">
 
             {{ form_start(devisForm) }}
-            <div class="mb-3">
+            {# <div class="mb-3">
                 <label for="ref" class="form-label">Référence :</label>
                 <input type="text" name="ref" value="{{project.NomDuProjet}}" class="form-control" disabled="disabled" aria-describedby="">
-            </div>
-            {# {{ form_row(devisForm.reference) }} #}
+            </div> #}
+            {{ form_row(devisForm.reference) }}
             <hr>
             <p class="devis_p">Déposez votre devis </p>
             <hr>
