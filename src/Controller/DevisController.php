@@ -108,13 +108,12 @@ class DevisController extends AbstractController
         $userId = $this->getUser()->getId();
         $devis = $userRepository->findAllDevisByUserId($userId);
 
-        dd($devis);
         $devisPagination = $paginator->paginate(
             $devis, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
-        return $this->render('project/index.html.twig', [
+        return $this->render('devis/user_devis.html.twig', [
             'devis' => $devisPagination,
         ]);
     }
@@ -170,7 +169,7 @@ class DevisController extends AbstractController
     #[Route('/devis-upload/{id}', name: 'devis_upload', methods: ['GET', 'POST'])]
     public function affichedevis(Request $request, DevisRepository $devisRepository,  int $id)
     {
-
+        dd($devisRepository->findByDevisUpload($id));
         $devis = $devisRepository->findByDevisUpload($id)['name'];
         return $this->render('devis/devisupload.html.twig', [
             'devis' => $devis,

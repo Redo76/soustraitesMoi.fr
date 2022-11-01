@@ -1,0 +1,59 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Projets acceptés
+{% endblock %}
+
+{% block body %}
+
+<main class="p-5 w-100">
+	<h1 class="mb-4">Projets acceptés</h1>
+
+	<table class="table text-white">
+		<thead>
+			<tr>
+				<th>Titre</th>
+				<th>Catégorie</th>
+				<th>Description</th>
+				<th>Prix proposé</th>
+				<th>Utilisateur</th>
+				<th>Date de publication</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for project in projects %}
+
+				<tr>
+					<td>{{ project.nom_du_projet }}</td>
+					<td>{{ project.type }}</td>
+					<td>
+						<a href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}" type="button" class="btn btn-secondary">Afficher le contenu</a>
+					</td>
+					<td>{{project.price ? project.price ~ " €" : 'Non défini'}}</td>
+					<td>
+						<a href="{{path('app_admin_show', {'id': project.user_id})}}">
+							Voir le profil
+						</a>
+					</td>
+					<td>{{ project.created_at|date('d/m/Y') }}</td>
+					<td>
+						<a href="{{path('admin_project_delete', {'id': project.id ,'type' : project.type})}}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')" class="deleteBtn">
+							<i class="fa-solid fa-trash-can"></i>
+						</a>
+					</td>
+				</tr>
+			</div>
+		</tbody>
+	</td>
+    {% else %}
+	<tr>
+		<td colspan="7">Aucun projet trouvé</td>
+	</tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+	<div class="navigation">
+        {{ knp_pagination_render(projects) }}
+    </div>
+</main>
+{% endblock %}

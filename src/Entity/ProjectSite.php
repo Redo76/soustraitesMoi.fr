@@ -108,6 +108,9 @@ class ProjectSite
     #[ORM\Column(length: 15, nullable: true)]
     private ?string $type = null;
 
+    #[ORM\Column(length: 15, nullable: true)]
+    private ?string $price = null;
+
     #[ORM\OneToMany(mappedBy: 'projet_site', targetEntity: Devis::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $devis;
 
@@ -557,5 +560,15 @@ class ProjectSite
         return $this;
     }
 
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
 
+    public function setPrice(?string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
 }

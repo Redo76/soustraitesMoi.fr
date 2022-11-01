@@ -63,8 +63,11 @@
       <button id="next">Next</button>
   </div> -->
 <aside id="carousel_btn">
-  {% if app.user == false %}
+  {% if is_granted('ROLE_EXPERT')  %}
+  {% else %}
     <button><a href="{{ path('app_project_new') }}">Déposer un projet</a></button>
+  {% endif %}
+  {% if app.user == false  %}
     <button><a href="{{ path('app_expert') }}">Devenir expert référencé</a></button>
   {% endif %}
 </aside>
@@ -79,8 +82,9 @@
           Obtenez un ou plusieurs devis, <br>
           choisissez celui qui vous convient, sous-traitez auprès de nos experts !
         </p>
-        {% if app.user == false %}
-        <a href="{{path('app_project_new')}}" type="button" class="button">Commencer</a>
+        {% if is_granted('ROLE_EXPERT')  %}
+        {% else %}
+          <a href="{{path('app_project_new')}}" type="button" class="button">Commencer</a>
         {% endif %}
         <div class="projet_info">
           <div class="row_info">
@@ -297,8 +301,9 @@
   </section>
   <section class="section_projet2 home_container">
     <h2>Soyez Prêts à Augmenter Votre Productivité avec Les Solutions de Nos Experts</h2>
-    {% if app.user == false %}
-    <a href="{{path('app_project_new')}}" type="button" class="button">Commencer</a>
+    {% if is_granted('ROLE_EXPERT')  %}
+    {% else %}
+      <a href="{{path('app_project_new')}}" type="button" class="button">Commencer</a>
     {% endif %}
     <img src="{{asset('assets/img/strm7.webp')}}" alt="">
   </section>

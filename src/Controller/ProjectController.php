@@ -247,6 +247,7 @@ class ProjectController extends AbstractController
         }
         // dd($images1);
         // dd($images2);
+        // dd($project);
 
         return $this->render('project/'. $repo . '/project_info.html.twig', [
             'project' => $project,

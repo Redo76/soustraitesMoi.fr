@@ -8,10 +8,25 @@
 <section class="nouveau_projet">
 <div class="brand-logo"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"></div>
     {{ include('project/project_libre/libre_info.html.twig') }}
-    {% if is_granted('ROLE_ADMIN') and project.statut == null  %}
+{% if project.statut is same as(false) and is_granted('ROLE_ADMIN')   %}
     <div class=" d-flex flex-wrap align-items-center justify-content-around">
         <a href="{{path('admin_project_validate', {'id': project.id, 'type': project.type})}}" onclick="return confirm('Êtes-vous sûr de votre choix ?')" class="ValidBtn">VALIDER LE PROJET</a>
+        <form action="{{path('admin_project_price', {'id': project.id, 'type': project.type})}}" method="post">
+            <label for="price" class="labelPrice">Proposer un prix :</label>
+            <div class="d-flex justify-content-around">
+                <input type="number" name="price" class="form-control inputPrice" value="{{project.price ? project.price : ""}}">
+
+                <button class="btn m-0" type="submit" onclick="return confirm('Êtes-vous sûr de votre choix ?')">Valider</button>
+            </div>
+        </form>
+        {% if project.price %}
+            <a href="{{path('admin_project_relance', {'id': project.id, 'type': project.type})}}" onclick="return confirm('Êtes-vous sûr de votre choix ?')" class="NoValidBtn bg-black">RELANCER</a>
+        {% endif %}
         
+    </div>
+    {% elseif project.statut is null and is_granted('ROLE_ADMIN')   %}
+    <div class=" d-flex flex-wrap align-items-center justify-content-around">
+        <a href="{{path('admin_project_accept', {'id': project.id, 'type': project.type})}}" onclick="return confirm('Êtes-vous sûr de votre choix ?')" class="ValidBtn">ACCEPTER LE PROJET</a>
         <a href="{{path('admin_project_delete', {'id': project.id, 'type': project.type})}}" onclick="return confirm('Êtes-vous sûr de votre choix ?')" class="NoValidBtn">REFUSER LE PROJET</a>
     </div>
     {% elseif is_granted('ROLE_EXPERT') %}

@@ -60,7 +60,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_site`) AS p WHERE p.user_id = :id ORDER BY p.created_at DESC";
+        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut, price FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_site`) AS p WHERE p.user_id = :id ORDER BY p.created_at DESC";
     
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery(["id" => $id]);
@@ -109,4 +109,61 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ->getResult();
     }
 
+    // essai affichage rib par user et nom fichier rib
+    public function findAllRib()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            SELECT id, first_name, last_name, rib FROM user u
+            ORDER BY id DESC
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+    }
+
+   // test afficher doc rib à l'ecran
+    public function findByRibUpload(int $id)
+    {
+        // :id en gros = à id dans url. Et dans execute query () :id = $id
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = ' 
+        SELECT rib FROM user u
+        WHERE id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id' => $id]);
+
+        return $resultSet->fetchAssociative();
+    }
+
+    // essai affichage cv par user et nom fichier cv
+    public function findAllCv()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            SELECT id, first_name, last_name, cv  FROM user u
+            ORDER BY id DESC
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+    }
+
+    // test afficher doc rib à l'ecran
+    public function findByCvUpload(int $id)
+    {
+        // :id en gros = à id dans url. Et dans execute query () :id = $id
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = ' 
+        SELECT cv FROM user u
+        WHERE id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id' => $id]);
+
+        return $resultSet->fetchAssociative();
+    }
 }

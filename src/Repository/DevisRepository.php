@@ -72,19 +72,19 @@ class DevisRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
-// test afficher devis uploadé
-public function findByDevisUpload(int $id)
-{
-      // :id en gros = à id dans url. Et dans execute query () :id = $id
-    $conn = $this->getEntityManager()->getConnection();
-    $sql = '
-        SELECT name FROM image i
-        WHERE devis_id = :id
-        ';
-    $stmt = $conn->prepare($sql);
-    $resultSet = $stmt->executeQuery(['id' => $id]);
+    // test afficher devis uploadé
+    public function findByDevisUpload(int $id)
+    {
+        // :id en gros = à id dans url. Et dans execute query () :id = $id
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+            SELECT name FROM image i
+            WHERE devis_id = :id
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id' => $id]);
 
-    return $resultSet->fetchAssociative();
-}
-  
+        return $resultSet->fetchAssociative();
+    }
+
 }
