@@ -63,8 +63,10 @@
       <button id="next">Next</button>
   </div> -->
 <aside id="carousel_btn">
-  <button><a href="{{ path('app_project_new') }}">Déposer un projet</a></button>
-  <button><a href="{{ path('app_expert') }}">Devenir expert référencé</a></button>
+  {% if app.user == false %}
+    <button><a href="{{ path('app_project_new') }}">Déposer un projet</a></button>
+    <button><a href="{{ path('app_expert') }}">Devenir expert référencé</a></button>
+  {% endif %}
 </aside>
 <main>
   <div class="flex_projet">
@@ -77,7 +79,9 @@
           Obtenez un ou plusieurs devis, <br>
           choisissez celui qui vous convient, sous-traitez auprès de nos experts !
         </p>
+        {% if app.user == false %}
         <a href="{{path('app_project_new')}}" type="button" class="button">Commencer</a>
+        {% endif %}
         <div class="projet_info">
           <div class="row_info">
             <div>
@@ -101,7 +105,7 @@
       </article>
     </section>
     <div class="projet_background_img">
-      <img src="{{asset('assets/img/Art1.svg')}}" alt="">
+      <img src="{{asset('assets/img/strm1.jpg')}}" alt="">
     </div>
   </div>
   <section class="section_info home_container">
@@ -128,7 +132,7 @@
     <div class="flex_info2">
       <article class="article_info2">
         <div class="center_img">
-          <img src="{{asset('assets/img/Artboard1.webp')}}" alt="Dessin d'une femme pointant du doigt">
+          <img src="{{asset('assets/img/strm4.jpg')}}" alt="Dessin d'une femme pointant du doigt">
         </div>
         <h3>Gagnez du temps dans votre activité</h3>
         <p>
@@ -139,7 +143,7 @@
       </article>
       <article class="article_info2">
         <div class="center_img">
-          <img src="{{asset('assets/img/Artboard2.webp')}}" alt="Dessin de plusieurs graphique">
+          <img src="{{asset('assets/img/strm3.jpg')}}" alt="Dessin de plusieurs graphique">
         </div>
         <h3>
           Des solutions <br> 
@@ -152,7 +156,7 @@
       </article>
       <article class="article_info2">
         <div class="center_img">
-          <img src="{{asset('assets/img/Artboard3.webp')}}" alt="Dessin d'un homme finissant premier d'une course">
+          <img src="{{asset('assets/img/strm5.jpg')}}" alt="Dessin d'un homme finissant premier d'une course">
         </div>
         <h3>
           Un service client <br>
@@ -166,7 +170,7 @@
       </article>
       <article class="article_info2">
         <div class="center_img">
-          <img src="{{asset('assets/img/Artboard4.webp')}}" alt="Dessin d'un homme pilotant un robot">
+          <img src="{{asset('assets/img/strm6.jpg')}}" alt="Dessin d'un homme pilotant un robot">
         </div>
         <h3>
           Pilotez votre entreprise comme un chef
@@ -180,7 +184,7 @@
   </section>
   <section class="section_info3">
     <div class="center_img">
-      <img src="{{asset('assets/img/Artboard5.png')}}" alt="">
+      <img src="{{asset('assets/img/strm8.png')}}" alt="">
     </div>
     <article class="home_container">
       <h2>Construits par des créatifs grâce à vos idées.</h2>
@@ -293,8 +297,10 @@
   </section>
   <section class="section_projet2 home_container">
     <h2>Soyez Prêts à Augmenter Votre Productivité avec Les Solutions de Nos Experts</h2>
+    {% if app.user == false %}
     <a href="{{path('app_project_new')}}" type="button" class="button">Commencer</a>
-    <img src="{{asset('assets/img/Art2.svg')}}" alt="">
+    {% endif %}
+    <img src="{{asset('assets/img/strm7.webp')}}" alt="">
   </section>
 </main>
 {% endblock %}

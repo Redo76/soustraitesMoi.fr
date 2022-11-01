@@ -21,6 +21,10 @@
                 {{ form_row(registrationForm.jobInCompany) }}
                 {{ form_row(registrationForm.siret) }}
             </article>
+            <article>
+                <h3 class="pb-3">Déposez votre rib</h3>
+                {{ form_row(registrationExpertForm.rib) }}
+            </article>
             <button type="submit" class="btn">S'inscrire</button>
             {{ form_end(registrationForm) }}
 		</section>

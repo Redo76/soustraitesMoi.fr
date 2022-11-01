@@ -29,7 +29,7 @@ class UserCrudController extends AbstractController
 
         return $this->render('admin/users.html.twig', [
             'users' => $usersPagination,
-            'roleTitle' => "Client",
+            'roleTitle' => "Client", 
         ]);
     }
 

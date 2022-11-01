@@ -63,4 +63,18 @@ class AddressRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function findAllAdressById($id)
+    {
+    $conn = $this->getEntityManager()->getConnection();
+    $sql = '
+        SELECT address, address2, code_postal, city, country FROM address a
+        WHERE id = :id
+        ';
+    $stmt = $conn->prepare($sql);
+    $resultSet = $stmt->executeQuery(['id' => $id]);
+
+    return $resultSet->fetchAllAssociative();
+    
+}
 }

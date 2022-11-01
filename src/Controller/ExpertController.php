@@ -94,4 +94,50 @@ class ExpertController extends AbstractController
             'EditExpert' =>$form->createView(),
         ]);
     }
+
+    // essai affichager tous les rib et expert correspondant
+    #[Route('/rib', name: 'rib_expert', methods: ['GET', 'POST'])]
+    public function afficherib(Request $request, UserRepository $userRepository)
+    {
+
+        $user = $userRepository->findAllRib();
+        return $this->render('admin/ribexpert.html.twig', [
+            // userS en prevision du { for user in users} dans template
+            'users' => $user,
+        ]);
+    }
+
+    //    test afficher à l'ecran rib uploadé   
+    #[Route('/rib-upload/{id}', name: 'rib_upload', methods: ['GET', 'POST'])]
+    public function affichedevis(Request $request, UserRepository $userRepository,  int $id)
+    {
+
+        $rib = $userRepository->findByribUpload($id)['rib'];
+        return $this->render('admin/ribupload.html.twig', [
+            'rib' => $rib,
+        ]);
+    }
+
+    // essai affichager tous les cv et expert correspondant
+    #[Route('/cv-admin', name: 'admin_cv_expert', methods: ['GET', 'POST'])]
+    public function affichecv(Request $request, UserRepository $userRepository)
+    {
+
+        $user = $userRepository->findAllCv();
+        return $this->render('admin/cvexpert.html.twig', [
+            // userS en prevision du { for user in users} dans template
+            'users' => $user,
+        ]);
+    }
+
+    //    test afficher à l'ecran rib uploadé   
+    #[Route('/cv-upload/{id}', name: 'cv_upload', methods: ['GET', 'POST'])]
+    public function afficheCvUpload(Request $request, UserRepository $userRepository,  int $id)
+    {
+
+        $cv = $userRepository->findByCvUpload($id)['cv'];
+        return $this->render('admin/cvupload.html.twig', [
+            'cv' => $cv,
+        ]);
+    }
 }

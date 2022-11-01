@@ -79,15 +79,33 @@
 			<thead>
 				<tr>
 					<th scope="col">Raison Sociale</th>
-					<th scope="col">Adresse</th>
 					<th scope="col">N° de siret</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>{{devis.raison_social}}</td>
-					<td>{{address.address}}</td>
 					<td>{{devis.siret}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="minitab">
+			<thead>
+				<tr>
+					<th scope="col">Adresse</th>
+					<th scope="col">Adresse 2</th>
+					<th scope="col">Code postal</th>
+					<th scope="col">Ville</th>
+					<th scope="col">Pays</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{address.address}}</td>
+					<td>{{address.address2}}</td>
+					<td>{{address.code_postal}}</td>
+					<td>{{address.city}}</td>
+					<td>{{address.country}}</td>
 				</tr>
 			</tbody>
 		</table>

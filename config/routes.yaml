@@ -1,3 +1,11 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+payment:
+    path: /admin/payment 
+    controller: App\Controller\PaymentController::index
+payment_submit:
+    path: /admin/payment-submit 
+    controller: App\Controller\PaymentController::submit 
+    condition: 'request.isXmlHttpRequest()' 
+    methods: [POST]

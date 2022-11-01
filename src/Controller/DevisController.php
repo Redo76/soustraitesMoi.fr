@@ -68,7 +68,7 @@ class DevisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             // essai upload
             $uploadedFiles = $form['Images']->getData();
             
@@ -126,8 +126,8 @@ class DevisController extends AbstractController
         
         $devis = $devisRepository->findByDevisId($id); 
         $address_id = $devis["adresse_id"];
-        $address = $addressRepository->findAdressById($address_id);
-
+        $address = $addressRepository->findAllAdressById($address_id)[0];
+        
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
@@ -156,26 +156,25 @@ class DevisController extends AbstractController
     }
 
     // test devis
-    #[Route('/test', name: 'devis_test', methods: ['GET', 'POST'])]
+    #[Route('/tous-les-devis', name: 'tous_devis', methods: ['GET', 'POST'])]
     public function imprimedevis(Request $request, DevisRepository $devisRepository)
     {
 
         $devis = $devisRepository->tousDevis();
-        return $this->render('devis/testdevis.html.twig', [
+        return $this->render('admin/tous_devis.html.twig', [
             'devis' => $devis,
         ]);
     }
 
-//    test afficher image devis uploadé   
-#[Route('/devis-upload/{id}', name: 'devis_upload', methods: ['GET', 'POST'])]
-public function affichedevis(Request $request, DevisRepository $devisRepository,  int $id)
-{
+    //    test afficher image devis uploadé   
+    #[Route('/devis-upload/{id}', name: 'devis_upload', methods: ['GET', 'POST'])]
+    public function affichedevis(Request $request, DevisRepository $devisRepository,  int $id)
+    {
 
-    $devis = $devisRepository->findByDevisUpload($id)['name'];
-    return $this->render('devis/devisupload.html.twig', [
-        'devis' => $devis,
-    ]);
-   
-}
-
+        $devis = $devisRepository->findByDevisUpload($id)['name'];
+        return $this->render('devis/devisupload.html.twig', [
+            'devis' => $devis,
+        ]);
+    
+    }
 }

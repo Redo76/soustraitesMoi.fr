@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\UploaderHelper;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
 use App\Form\RegistrationInfoFormType;
@@ -12,6 +13,7 @@ use App\Form\RegistrationExpertInfoFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -99,7 +101,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/inscription-expert', name: 'app_register_expert')]
-    public function registerExpert(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function registerExpert(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $request->getSession()->set('register', "expert");
         
@@ -108,6 +110,15 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFile = $form['rib']->getData();
+
+            if ($uploadedFile) {
+                // dd($user);
+                $newFilename = $uploaderHelper->uploadRib($uploadedFile, $slugger);
+                $user = $form->getData();
+                $user->setrib($newFilename);
+            }            
+
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

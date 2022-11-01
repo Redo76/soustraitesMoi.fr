@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -64,6 +65,14 @@ class RegistrationExpertInfoFormType extends AbstractType
                         'message'=> 'Veuillez entrer un numéro valide',
                     ]),
                 ]
+            ])
+            ->add('rib', FileType::class, [
+                'label' => 'Selectionner votre document en format pdf, jpg ou png :',
+                'label_attr' => ['class' => "form-label-misc"],
+                "required" => true,
+                "mapped" => false,
+                'attr' => ['class' => "fileInput"],
+                'row_attr' => ['class' => 'project_imgs mb-3'],
             ])
         ;
     }

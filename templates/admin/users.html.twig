@@ -16,6 +16,10 @@
 				<th>Prénom</th>
 				<th>E-mail</th>
 				<th>Téléphone</th>
+				{% if roleTitle == "Expert" %}
+					<th>RIB</th>
+					<th>CV</th>
+				{% endif %}
 				<th>Situation</th>
 				<th></th>
 			</tr>
@@ -39,6 +43,10 @@
 					<td>{{ user.lastname }}</td>
 					<td>{{ user.email }}</td>
 					<td>{{ user.phone }}</td>
+					{% if roleTitle == "Expert" %}
+						<td><a href="{{path('rib_upload',{id: user.id})}}">Voir le rib </a></td>
+						<td><a href="{{path('cv_upload',{id: user.id})}}">Voir le cv</a></td>
+					{% endif %}
 					<td>
 						{% if user.isCompany %}
 							Professionnel
