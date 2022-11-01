@@ -1,4 +1,4 @@
-(pour cv et devis) DANS Userrepository RAJOUTER :
+(pour cv et rib) DANS Userrepository RAJOUTER :
 
 // essai affichage rib par user et nom fichier rib
     public function findAllRib()
