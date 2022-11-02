@@ -79,6 +79,9 @@ class ProjectLogo
     #[ORM\OneToMany(mappedBy: 'projet_logo', targetEntity: Devis::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $devis;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $sessionId = null;
+
     public function __construct($user)
     {
         $this->user = $user;
@@ -398,6 +401,18 @@ class ProjectLogo
     public function setPrice(?string $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getSessionId(): ?string
+    {
+        return $this->sessionId;
+    }
+
+    public function setSessionId(?string $sessionId): self
+    {
+        $this->sessionId = $sessionId;
 
         return $this;
     }

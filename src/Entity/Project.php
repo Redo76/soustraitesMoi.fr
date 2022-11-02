@@ -54,6 +54,9 @@ class Project
     #[ORM\OneToMany(mappedBy: 'projet_libre', targetEntity: Devis::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $devis;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $sessionId = null;
+
     // LIER USER/PROJECT
     // à mettre pour que chaque nouveau projet soit rattaché au user connecté
     public function __construct($user)
@@ -226,6 +229,18 @@ class Project
     public function setPrice(?string $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getSessionId(): ?string
+    {
+        return $this->sessionId;
+    }
+
+    public function setSessionId(?string $sessionId): self
+    {
+        $this->sessionId = $sessionId;
 
         return $this;
     }

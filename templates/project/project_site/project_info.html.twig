@@ -29,6 +29,8 @@
     </div>
     {% elseif is_granted('ROLE_EXPERT') %}
         <a href="{{path('app_devis', {"id" : project.id, "type" : project.type})}}" class="btn">Proposez votre devis</a>
+    {% elseif project.statut is same as(false) and is_granted('ROLE_CLIENT')  %}
+        <a href="{{path('app_payment', {"id" : project.id, "type" : project.type})}}" class="btn">Procéder au paiement</a>
     {% endif %}
 </section>
 {% endblock %}

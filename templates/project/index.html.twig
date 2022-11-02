@@ -15,6 +15,7 @@
 						<tr>
 						<th scope="col">Nom du projet</th>
 						<th scope="col" >Type</th>
+						<th scope="col" >Description</th>
 						<th scope="col" >Date de publication</th>
 						<th scope="col" >Validation</th>
 						</tr>
@@ -24,11 +25,16 @@
 							<tr>
 							<td>{{project.nom_du_projet}}</td>
 							<td>{{project.type}}</td>
+							<td>
+								<a href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}" type="button" class="btn btn-secondary">Afficher le contenu</a>
+							</td>
 							<td>{{project.created_at|date("d/m/Y")}}</td>
 							<td>
-								{% if project.statut %}
+								{% if project.statut == true %}
 									Validé
-								{% else %}
+								{% elseif project.statut is same as(0) %}
+									Accepté
+								{% elseif project.statut is null %}
 									En cours
 								{% endif %}
 							</td>

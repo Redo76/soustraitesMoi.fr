@@ -169,7 +169,7 @@ class DevisController extends AbstractController
     #[Route('/devis-upload/{id}', name: 'devis_upload', methods: ['GET', 'POST'])]
     public function affichedevis(Request $request, DevisRepository $devisRepository,  int $id)
     {
-        dd($devisRepository->findByDevisUpload($id));
+        // dd($devisRepository->findByDevisUpload($id));
         $devis = $devisRepository->findByDevisUpload($id)['name'];
         return $this->render('devis/devisupload.html.twig', [
             'devis' => $devis,

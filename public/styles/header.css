@@ -172,6 +172,7 @@ header aside .profil_pic{
 @media only screen and (min-width: 768px){
     .sticky{
         position: unset;
+        margin-bottom: 1%;
     }
     .div_header{
         display: flex;
