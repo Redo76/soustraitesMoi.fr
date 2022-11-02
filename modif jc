@@ -1,2 +1,116 @@
 A RAJOUTER DANS Project.css (pour button nouveau projet dans page client "mes projets")
 margin-bottom: 20px;
+
+
+___________________________PROFIL EXPERT AFFICHAGE ET EDIT CV ET RIB ________________________________________________________________________________________________
+
+DANS TEMPLATE profil_expert->index RAJOUTER SOUS LES 2 BTN:
+
+<div id ="cv_rib_profil_expert">
+		{% if app.user.cv %}
+		<p class="p_profil_expert">Vous avez déposé un cv/portfolio :<br><br><span class="span_profil_expert">Le voir -></span> <a href="{{path('cv_upload',{id: app.user.id})}}"><img class="img_profil_expert" src="assets/img/cv.webp"></a></p>
+		<p>Si celui-là n'est plus à jour : Cliquez sur <span class="span_profil_expert">"Déposer votre CV"</span> pour en déposer un nouveau.</p>
+		{% elseif app.user.cv == null %}
+		<p class="p_profil_expert">😮 Vous n'avez pas encore déposé de cv/portfolio. Montrez nous vos créations, cliquez sur <span class="span_profil_expert">"Déposer votre CV"
+		</span>.<br> Nous souhaitons voir votre travail avant de vous confier un projet.</p>
+		{% endif %}
+		<p>_________________________________________</p> 
+		<p class="p_profil_expert">Vous souhaitez vérifier votre rib ?<br><br><span class="span_profil_expert">C'est ici -></span> <a href="{{path('rib_upload',{id: app.user.id})}}"><img class="img_profil_expert" src="assets/img/rib.webp"> </a></p>
+		<p>Si celui-là n'est plus à jour : Cliquez sur <span class="span_profil_expert">"Modifier profil"</span> pour en déposer un nouveau.</p>
+		</div>
+    
+_________________________________
+DANS TEMPLATE profil_expert->edit_infos RAJOUTER JUSTE AVANT BTN VALIDER:
+
+<h4>Modifier votre Rib</h4>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Déposer votre nouveau Rib</th>
+							<td>{{ form_row(EditExpert.rib) }}</td>
+						</tr>
+						</table>
+            
+__________________________________
+DANS style.css RAJOUTER :
+
+#cv_rib_profil_expert{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+    padding-left: 15px;
+    padding-right: 10px;
+}
+
+.span_profil_expert{
+    color: goldenrod;
+    font-weight: 500;
+}
+
+.p_profil_expert{
+    font-weight: 600;
+}
+
+.img_profil_expert{
+    width: 80px;
+    height: 80px;
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+    margin-left: 20px;
+}
+
+@media only screen and (min-width: 1200px){
+    #cv_rib_profil_expert{
+        align-items: center;
+    }
+}
+
+___________________________________________________
+
+DANS ExpertController DANS public function editInfos RAJOUTER (sous le if uploadavatar):
+
+$uploadedFile = $form['rib']->getData();
+if ($uploadedFile) {
+    $newFilename = $uploaderHelper->uploadRib($uploadedFile, $slugger);
+    $user = $form->getData();
+    $user->setrib($newFilename);
+}
+
+MESSAGE VALIDATION A RAJOUTER ENTRE FLUSH ET REDIRECT:
+
+ $this->addFlash(
+                'success',
+                'votre profil a bien été modifié'
+            );
+
+___________________________________________________
+
+DANS EditProfileExpertType.php RAJOUTER:
+
+ ->add('rib', FileType::class, [
+            "label" => false,
+            "required" => false,
+            'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
+            'mapped' => false,
+        ])
+
+
+______________________________________________________ CONFIRMATION INSCRIPTION ___________________________________________________________________________________
+
+DANS RegistrationController RAJOUTER DANS LES 4 FUNCTION :
+
+ $this->addFlash(
+                'success',
+                'votre inscription est validée: Bienvenue parmi nous !'
+            );
+
+
+________________________________________________________PETIT COUP REFERENCEMENT __________________________________________________________________________________
+
+DANS TEMPLATE->base RAJOUTER DANS LE head:
+
+<meta name="description" content="Vos idées, nos conseils, les meilleures solutions. Déposez gratuitement vos projets et faites les réaliser par les
+					meilleurs experts de France. Freelances créez votre profil et recevez les projets...">
+		<title>
+			{% block title %}SoustraitesMoi.fr nous aimons les microservices (et vous devriez aussi !)
+			{% endblock %}
