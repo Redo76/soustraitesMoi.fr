@@ -11,7 +11,8 @@ DANS TEMPLATE profil_expert->index RAJOUTER SOUS LES 2 BTN:
 		<p class="p_profil_expert">Vous avez déposé un cv/portfolio :<br><br><span class="span_profil_expert">Le voir -></span> <a href="{{path('cv_upload',{id: app.user.id})}}"><img class="img_profil_expert" src="assets/img/cv.webp"></a></p>
 		<p>Si celui-là n'est plus à jour : Cliquez sur <span class="span_profil_expert">"Déposer votre CV"</span> pour en déposer un nouveau.</p>
 		{% elseif app.user.cv == null %}
-		<p>😮 Vous n'avez pas encore déposé de cv/portfolio. Montrez nous vos créations, cliquez sur "Déposer votre CV".</p>
+		<p class="p_profil_expert">😮 Vous n'avez pas encore déposé de cv/portfolio. Montrez nous vos créations, cliquez sur <span class="span_profil_expert">"Déposer votre CV"
+		</span>.<br> Nous souhaitons voir votre travail avant de vous confier un projet.</p>
 		{% endif %}
 		<p>_________________________________________</p> 
 		<p class="p_profil_expert">Vous souhaitez vérifier votre rib ?<br><br><span class="span_profil_expert">C'est ici -></span> <a href="{{path('rib_upload',{id: app.user.id})}}"><img class="img_profil_expert" src="assets/img/rib.webp"> </a></p>
