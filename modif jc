@@ -76,6 +76,13 @@ if ($uploadedFile) {
     $user->setrib($newFilename);
 }
 
+MESSAGE VALIDATION A RAJOUTER ENTRE FLUSH ET REDIRECT:
+
+ $this->addFlash(
+                'success',
+                'votre profil a bien été modifié'
+            );
+
 ___________________________________________________
 
 DANS EditProfileExpertType.php RAJOUTER:
