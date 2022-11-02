@@ -103,3 +103,14 @@ DANS RegistrationController RAJOUTER DANS LES 4 FUNCTION :
                 'success',
                 'votre inscription est validée: Bienvenue parmi nous !'
             );
+
+
+________________________________________________________PETIT COUP REFERENCEMENT __________________________________________________________________________________
+
+DANS TEMPLATE->base RAJOUTER DANS LE head:
+
+<meta name="description" content="Vos idées, nos conseils, les meilleures solutions. Déposez gratuitement vos projets et faites les réaliser par les
+					meilleurs experts de France. Freelances créez votre profil et recevez les projets...">
+		<title>
+			{% block title %}SoustraitesMoi.fr nous aimons les microservices (et vous devriez aussi !)
+			{% endblock %}
