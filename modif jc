@@ -93,3 +93,13 @@ DANS EditProfileExpertType.php RAJOUTER:
             'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
             'mapped' => false,
         ])
+
+
+______________________________________________________ CONFIRMATION INSCRIPTION ___________________________________________________________________________________
+
+DANS RegistrationController RAJOUTER DANS LES 4 FUNCTION :
+
+ $this->addFlash(
+                'success',
+                'votre inscription est validée: Bienvenue parmi nous !'
+            );
