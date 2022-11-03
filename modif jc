@@ -95,6 +95,71 @@ DANS EditProfileExpertType.php RAJOUTER:
         ])
 
 
+
+
+
+
+
+
+___________________________________________ PAGE ADMIN DEVIS ________________________________________________________________________________________________________
+
+DANS DevisRepository -> function tousDevis : MODIFIER JUSTE LA REQUETE
+
+  $sql = "SELECT devis.*,user.first_name, user.last_name FROM `devis` INNER JOIN `user` ON devis.user_id=user.id ORDER BY id DESC;";
+  
+ ______________________________
+ 
+ DANS TEMPLATE Admin/tous_devis.html.twig METTRE :
+ 
+ {% extends 'base_admin.html.twig' %}
+
+{% block title %}
+    tous les devis
+{% endblock %}
+
+{% block body %}
+    <main class="p-5 w-100">
+        <h1 class="mb-4">Devis Expert</h1>
+
+        <table class="table text-white">
+            <thead>
+                <tr>
+                    <th>Numéro de devis</th>
+                    <th>Nom du projet</th>
+                    <th>Prénom de l'expert</th>
+                    <th>Nom de l'expert</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for devis in devis %}
+                    {% if devis.date_redaction %}
+                        <tr>
+                            <td>{{ devis.id }}</td>
+                            <td>{{ devis.reference }}</td>
+                            <td>{{ devis.first_name }}</td>
+                            <td>{{ devis.last_name}}</td>
+                            <td>
+                                <a href="{{path('devis_pdf_admin',{id: devis.id})}}">Générer un pdf</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>{{ devis.id }}</td>
+                            <td>{{ devis.reference }}</td>
+                             <td>{{ devis.first_name }}</td>
+                            <td>{{ devis.last_name}}</td>
+                            <td>
+                                <a href="{{path('devis_upload',{id: devis.id})}}">Voir le devis uploadé</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}
+
 ______________________________________________________ CONFIRMATION INSCRIPTION ___________________________________________________________________________________
 
 DANS RegistrationController RAJOUTER DANS LES 4 FUNCTION :
