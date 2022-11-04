@@ -40,22 +40,26 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                    )
-                );
-                
-                // $isComp = $form["isCompany"]->getData();
-                
-                $user->setRoles(["ROLE_CLIENT"]);
-                $user->setIsCompany($form->get('isCompany')->getData());
+            $userPasswordHasher->hashPassword(
+                $user,
+                $form->get('password')->getData()
+                )
+            );
+            
+            // $isComp = $form["isCompany"]->getData();
+            
+            $user->setRoles(["ROLE_CLIENT"]);
+            $user->setIsCompany($form->get('isCompany')->getData());
 
-                $request->getSession()->remove('register');
-                
-                $entityManager->persist($user);
-                $entityManager->flush();
-            // do anything else you need here, like send an email
+            $request->getSession()->remove('register');
+            
+            $entityManager->persist($user);
+            $entityManager->flush();
+            
+            $this->addFlash(
+                'success',
+                'votre inscription est validée: Bienvenue parmi nous !'
+            );
 
             return $userAuthenticator->authenticateUser(
                 $user,
@@ -86,7 +90,11 @@ class RegistrationController extends AbstractController
             
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
+
+            $this->addFlash(
+                'success',
+                'votre inscription est validée: Bienvenue parmi nous !'
+            );
 
             return $userAuthenticator->authenticateUser(
                 $user,
@@ -134,7 +142,11 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
+
+            $this->addFlash(
+                'success',
+                'votre inscription est validée: Bienvenue parmi nous !'
+            );
 
             return $userAuthenticator->authenticateUser(
                 $user,
@@ -166,7 +178,11 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
+            
+            $this->addFlash(
+                'success',
+                'votre inscription est validée: Bienvenue parmi nous !'
+            );
 
             return $userAuthenticator->authenticateUser(
                 $user,

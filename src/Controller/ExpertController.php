@@ -37,6 +37,7 @@ class ExpertController extends AbstractController
             /** @var UploadedFile $uploadedFile */
             $user = new User();
             $uploadedFile = $form['avatar']->getData();
+            $uploadedFile2 = $form['rib']->getData();
 
             if ($uploadedFile) {
                 // dd($user);
@@ -44,12 +45,22 @@ class ExpertController extends AbstractController
                 $user = $form->getData();
                 $user->setAvatar($newFilename);
             }
+            if ($uploadedFile2) {
+                $newFilename = $uploaderHelper->uploadRib($uploadedFile2, $slugger);
+                $user = $form->getData();
+                $user->setrib($newFilename);
+            }
             else {
                 $user = $form->getData();
             }
 
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'votre profil a bien été modifié'
+            );
 
             return $this->redirectToRoute('app_expert');
         }

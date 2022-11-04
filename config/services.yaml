@@ -5,7 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     avatar_directory: '%kernel.project_dir%/public/assets/uploads/avatar'
-    slides_directory: '%kernel.project_dir%/public/assets/uploads/slides'
+    STRIPE_SECRET: '%env(STRIPE_SECRET)%'
+    STRIPE_WEBHOOK: '%env(STRIPE_WEBHOOK)%'
     # avatar_directory: '%kernel.project_dir%/public/assets/uploads/avatar'
 
 services:

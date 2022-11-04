@@ -63,7 +63,7 @@ class DevisRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "SELECT * FROM `devis` ORDER BY id DESC;";
+        $sql = "SELECT devis.*,user.first_name, user.last_name FROM `devis` INNER JOIN `user` ON devis.user_id=user.id ORDER BY id DESC;";
 
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();

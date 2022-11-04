@@ -90,6 +90,12 @@ class EditProfileExpertType extends AbstractType
             'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
             'mapped' => false,
         ])
+        ->add('rib', FileType::class, [
+            "label" => false,
+            "required" => false,
+            'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
+            'mapped' => false,
+        ])
         ;
     }
 
