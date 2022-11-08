@@ -424,4 +424,7 @@ DANS ProjectRepository METTRE :
  DANS TEMPLATE vaid_projects METTRE (juste sous le h1)
  
  {{ form(form) }}
+ 
+ 
+ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ FAIRE PAREIL POUR 3e CATEGORIE DE PROJETS MAIS QUE J'AI PAS MOI  /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\
 
