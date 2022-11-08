@@ -563,3 +563,32 @@ DANS DevisRepository METTRE :
     DANS TEMPLATE tous_devis METTRE :
     
     {{ form(form) }}
+
+
+_____________________________________________ modif joffrine ____________________________________________________________________________________________________
+
+DANS index.css REMPLACER PAR :
+.section_partenaire{
+    background-color: #FFBF23;
+}
+
+@media only screen and (min-width: 992px)
+.quote_card {
+        margin: 3% 1%;
+    }
+    
+ (dans template home, sur toute derniere image rajouter id="img_bas_home" )   
+    #img_bas_home {
+        width: 700px;
+    }
+    
+   ________________________________________________
+   DANS TEMPLATE footer REMPLACER ADRESSE PAR :
+   
+   120 Route de Paris <br> 76240 Le Mesnil-Esnard
+   
+   ________________________________________________
+   Formulaire ProjetSite :
+   
+   ->add 'service ' REMPLACER LE LABEL PAR:
+    'label' => 'Services (Service client / vente à domicile) :',
