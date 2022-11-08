@@ -363,3 +363,65 @@ ________________________________________________________________________________
 DANS TEMPLATE in-progress_projects (juste sous le h1) AJOUTER :
 
 {{ form(form) }}
+
+
+
+
+___________________________________________________________________ RECHERCHE PROJETS VALIDES ______________________________________________________________________
+
+DANS ProjectCrudController remplacer #ROUTE '/' PAR :
+
+
+    #[Route('/', name: 'app_admin_projects', methods: ['GET','POST'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function indexAll(ProjectRepository $projectRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+        $form = $this->createForm(SearchProjectType::class);
+        $search = $form->handleRequest($request);
+
+        $projects = $projectRepository->findAllProjects();
+        if ($search==true) {
+            // on recherche les IP Projects correspondant aux mots clés saisis
+            $projects = $projectRepository->searchValidProjects($search->get('mots')->getData());
+        }
+
+        $projectsPagination = $paginator->paginate(
+            $projects, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+
+         // recherche
+         if ($form->isSubmitted() && $form->isValid()) {
+            $search= true;
+        }
+
+        return $this->render('admin/valid_projects.html.twig', [
+            'projects' => $projectsPagination,
+            'form' => $form->createView()
+        ]);
+    }
+    
+    
+_______________________________________________________________________
+DANS ProjectRepository METTRE :
+
+ public function searchValidProjects($mots)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_site`) AS p WHERE p.statut = true AND p.nom_du_projet LIKE '%" . $mots . "%' ORDER BY p.created_at DESC";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+    
+    
+ _____________________________________________________________________
+ DANS TEMPLATE vaid_projects METTRE (juste sous le h1)
+ 
+ {{ form(form) }}
+
