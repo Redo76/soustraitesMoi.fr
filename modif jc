@@ -503,3 +503,63 @@ DANS UserRepository METTRE :
 _____________________________
 DANS TEMPLATE admin->user RAJOUTER :
 {{ form(form) }}
+
+
+_____________________________________________________________ RECHERCHE DEVIS ________________________________________________________________________________________
+
+Entity Devis RAJOUTER :
+#[ORM\Index(name: 'devis', columns: ['reference'], flags: ['fulltext'])]
+
+faire migration
+________________________________________________________
+
+DANS DevisRepository METTRE :
+
+ /**
+     * Recherche les utilisateurs en fonction du formulaire
+     * @return void
+     */
+    public function searchDevis($mots)
+    {
+        
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT devis.*,user.first_name, user.last_name FROM `devis` INNER JOIN `user` ON devis.user_id=user.id WHERE devis.reference LIKE '%" . $mots . "%';";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+
+    }
+    
+   _____________________________________________________
+   
+   DANS DevisContoller METTRE :
+   
+   REMPLACER #ROUTE tous-les-devis PAR :
+   
+    #[Route('/tous-les-devis', name: 'tous_devis', methods: ['GET', 'POST'])]
+    public function imprimedevis(Request $request, DevisRepository $devisRepository)
+    {
+        $form = $this->createForm(SearchProjectType::class);
+        $search = $form->handleRequest($request);
+        $devis = $devisRepository->tousDevis();
+
+        if ($search->get('mots')->getdata()!="") {
+            // on recherche les devis correspondant aux mots clés saisis
+            $devis = $devisRepository->searchDevis($search->get('mots')->getData());
+        }
+
+        return $this->render('admin/tous_devis.html.twig', [
+            'devis' => $devis,
+            'form' => $form->createView()
+        ]);
+    }
+    
+    _________________________________________________________
+    
+    DANS TEMPLATE tous_devis METTRE :
+    
+    {{ form(form) }}
