@@ -336,7 +336,7 @@ DANS ProjectCrudController REMPLACER #ROUTE /en-cours PAR :
         $search = $form->handleRequest($request);
 
         $projects = $projectRepository->findAllInProgressProjects();
-        if ($search==true) {
+        if ($search->get('mots')->getdata()!="") {
             // on recherche les IP Projects correspondant aux mots clés saisis
             $projects = $projectRepository->searchProgressProjects($search->get('mots')->getData());
         }
@@ -347,11 +347,7 @@ DANS ProjectCrudController REMPLACER #ROUTE /en-cours PAR :
             10 /*limit per page*/
         );
         
-        // recherche
-        if ($form->isSubmitted() && $form->isValid()) {
-            $search= true;
-        }
-        
+               
         return $this->render('admin/in-progress_projects.html.twig', [
             'projects' => $projectsPagination,
             //recherche
@@ -380,7 +376,7 @@ DANS ProjectCrudController remplacer #ROUTE '/' PAR :
         $search = $form->handleRequest($request);
 
         $projects = $projectRepository->findAllProjects();
-        if ($search==true) {
+       if ($search->get('mots')->getdata()!="") {
             // on recherche les IP Projects correspondant aux mots clés saisis
             $projects = $projectRepository->searchValidProjects($search->get('mots')->getData());
         }
@@ -390,11 +386,6 @@ DANS ProjectCrudController remplacer #ROUTE '/' PAR :
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
-
-         // recherche
-         if ($form->isSubmitted() && $form->isValid()) {
-            $search= true;
-        }
 
         return $this->render('admin/valid_projects.html.twig', [
             'projects' => $projectsPagination,
@@ -428,3 +419,87 @@ DANS ProjectRepository METTRE :
  
  /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ FAIRE PAREIL POUR 3e CATEGORIE DE PROJETS MAIS QUE J'AI PAS MOI  /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\
 
+
+_____________________________________________________________ RECHERCHE UTILISATEURS ______________________________________________________________________________
+
+DANS UserRepository METTRE :
+ /**
+     * Recherche les utilisateurs en fonction du formulaire
+     * @return void
+     */
+    public function searchClient($mots,$role)
+    {
+        $query = $this->createQueryBuilder('u');
+        $query->where ('u.roles LIKE :role')
+        // if ($mots != null) {
+            ->andWhere('MATCH_AGAINST(u.firstName , u.lastName) AGAINST (:mots boolean)>0')
+                ->setParameters(array('mots'=> $mots, 'role' =>'%'.$role.'%'));
+        // }
+        return $query->getQuery()->getResult();
+    }
+    
+   ________________________________________________________________
+   DANS UserCrudController :
+   
+   REMPLACER #ROUTE /client par :
+    #[Route('/client', name: 'app_admin_client', methods: ['GET','POST'])]
+    public function indexClient(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+        $form = $this->createForm(SearchProjectType::class);
+        $search = $form->handleRequest($request);
+        
+        $role = "ROLE_CLIENT";
+        $users = $userRepository->findUsersByRole($role);
+
+        if ($search->get('mots')->getdata()!="") {
+            // on recherche les IP Projects correspondant aux mots clés saisis
+                $users = $userRepository->searchClient($search->get('mots')->getData(),$role);
+        }
+
+
+        $usersPagination = $paginator->paginate(
+            $users, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+
+        return $this->render('admin/users.html.twig', [
+            'users' => $usersPagination,
+            'roleTitle' => "Client", 
+            'form' => $form->createView()
+        ]);
+    }
+    
+    REMPLACER #ROUTE/Expert PAR :
+    
+    #[Route('/expert', name: 'app_admin_expert', methods: ['GET','POST'])]
+    public function indexExpert(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+        $form = $this->createForm(SearchProjectType::class);
+        $search = $form->handleRequest($request);
+        
+        $role = "ROLE_EXPERT";
+
+        $users = $userRepository->findUsersByRole($role);
+
+        if ($search->get('mots')->getdata()!="") {
+            // on recherche les IP Projects correspondant aux mots clés saisis
+            $users = $userRepository->searchClient($search->get('mots')->getData(),$role);
+        }
+
+        $usersPagination = $paginator->paginate(
+            $users, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            10 /*limit per page*/
+        );
+
+        return $this->render('admin/users.html.twig', [
+            'users' => $usersPagination,
+            'roleTitle' => "Expert",
+            'form' => $form->createView()
+        ]);
+    }
+
+_____________________________
+DANS TEMPLATE admin->user RAJOUTER :
+{{ form(form) }}
