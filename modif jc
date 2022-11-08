@@ -422,6 +422,11 @@ DANS ProjectRepository METTRE :
 
 _____________________________________________________________ RECHERCHE UTILISATEURS ______________________________________________________________________________
 
+ENTITY USER:
+#[ORM\Index(name: 'utilisateurs', columns: ['first_name','last_name'], flags: ['fulltext'])]
+
+
+
 DANS UserRepository METTRE :
  /**
      * Recherche les utilisateurs en fonction du formulaire
