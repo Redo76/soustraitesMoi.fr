@@ -135,7 +135,8 @@ DANS TEMPLATE Offres->index.html.twig
 					<p class="offre_grand">€ 0</p>
 					<p class="offre_moyen">Confiez-nous votre problématique</p>
 					<p class="offre_petit">Valable 3 mois.</p>
-					<button class="btn_offres">Je me lance!</button>
+					<button class="btn_offres"><a id="a_offres" href="{{ path('app_project_new') }}">Je me lance !</a></button>
+
 				</div>
 				<div class="card_bottom">
 					<ul>
@@ -204,7 +205,11 @@ DANS offres.css
     border-bottom-right-radius: 10px 10px;
     padding: 10px;
     position: relative;
+}
 
+#a_offres {
+    text-decoration: none;
+    color: white;
 }
 
 .card_bottom ul {
