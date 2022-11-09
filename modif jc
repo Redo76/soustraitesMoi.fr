@@ -1,7 +1,7 @@
 ...
 
 Carousel: trop haut? Manque espace entre header et lui.
-Dernière image en bas du home: réduire la largeur (demande Joffrine oubliée).
+
 
 _______________________
 si on est ok, ajout de "pas encore de compte ?" sur page login :
@@ -93,6 +93,11 @@ DANS REGISTER CSS (en dessous .barre_ou) AJOUTER:
 }
 
 @media only screen and (min-width: 768px)
+
+#section_mes_projets {
+    width: 90%;
+    margin: auto;
+} 
 
 #btn_mes_projets {
         height: 40px;
