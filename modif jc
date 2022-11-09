@@ -77,6 +77,7 @@ DANS REGISTER CSS (en dessous .barre_ou) AJOUTER:
  DANS TEMPLATE project->index.html.twig
  
  RAJOUTER id="btn_mes_projets" DANS LE <a> correspondant au btn "afficher contenu"
+ REMONTER LA DIV "addButton" DANS LA SECTION
  
  PUIS DANS project.css AJOUTER :
  #btn_mes_projets {
