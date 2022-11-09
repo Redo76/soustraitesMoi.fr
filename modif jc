@@ -72,3 +72,27 @@ DANS REGISTER CSS (en dessous .barre_ou) AJOUTER:
     .register h1 {
         font-size: 60px;
     }
+    
+ ______________________________ PROBLEME BTN "AFFICHER CONTENU" PAGE MES PROJETS________________________________________________________________
+ DANS TEMPLATE project->index.html.twig
+ 
+ RAJOUTER id="btn_mes_projets" DANS LE <a> correspondant au btn "afficher contenu"
+ 
+ PUIS DANS project.css AJOUTER :
+ #btn_mes_projets {
+    color: white;
+    margin-top: 2px;
+    background: #d2b511;
+    height: 70px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 900;
+    box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+    transition: 0.5s; 
+}
+
+@media only screen and (min-width: 768px)
+
+#btn_mes_projets {
+        height: 40px;
+    }
