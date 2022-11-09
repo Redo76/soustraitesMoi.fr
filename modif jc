@@ -2,6 +2,8 @@
 
 Carousel: trop haut? Manque espace entre header et lui.
 
+Dans le footer, le lien 'CGU" ne mène à rien. Soit le retirer, soit mettre le path vers politique confidentialité.
+
 
 _______________________
 si on est ok, ajout de "pas encore de compte ?" sur page login :
