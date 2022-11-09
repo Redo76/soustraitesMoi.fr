@@ -359,3 +359,19 @@ DANS offres.css
         font-size: 1.2em;
     }
 }
+
+
+_____________________________________________________________________________
+
+DANS TEMPLATE project_reseaux-> _form_reseaux.html.twig REMPLACER LE DERNIER h3 PAR:
+ <h3>Exemples de pages appréciées</h3>
+ 
+ 
+______________________________ FOOTER___________________________________
+
+Sur les <a href> contact et adresse mail mettre:
+{{path('app_contact')}}
+
+Est ce qu'on garde à propos et client? (facilite alignement)
+
+Voir logo!
