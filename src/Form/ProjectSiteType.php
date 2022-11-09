@@ -41,7 +41,7 @@ class ProjectSiteType extends AbstractType
                 'required' => true,
             ])
             ->add('service', TextType::class, [
-                'label' => 'Services(Service client / vente à domicile) :',
+                'label' => 'Services (Service client / vente à domicile) :',
                 'label_attr' => ['class' => "form-label"],
                 'attr' => ['maxlength' => 150],
                 'required' => true,
@@ -120,7 +120,9 @@ class ProjectSiteType extends AbstractType
             ->add('logo', TextType::class, [
                 'label' => 'Logo ?',
                 'label_attr' => ['class' => "form-label-misc"],
-                'attr' => ['maxlength' => 150],
+                'attr' => ['maxlength' => 150,
+                    'placeholder' => "par ex -> non j'en ai déja un"
+                ],
                 'required' => true,
             ])
             ->add('logo_files', FileType::class, [

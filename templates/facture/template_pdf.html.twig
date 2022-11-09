@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    .a{
+        display:flex;
+        flex-direction:row;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom : 10%
+    }
+    .b{
+        width:40%;
+    }
+    .c{
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom : 10%
+    }
+    .d{
+        display:flex;
+        flex-direction:row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    </style>
+    
+    <title>Facture</title>
+</head>
+<body>
+    <div class="a flex flex-row items-center justify-between mb-8">
+  <div>
+    <img
+      src="https://via.placeholder.com/290x320"
+      height="160"
+      width="145"
+    >
+  </div>
+
+  <div class="b w-2/5">
+    <h1 class="font-bold mb-2 text-4xl">Facture</h1>
+    <dl class="c flex flex-wrap justify-between">
+      <dt class="pr-2 w-4/12">Le :</dt>
+      <dd class="w-8/12">{{date | date('d/m/Y')}}</dd>
+    </dl>
+  </div>
+</div>
+
+<div class="d items-center flex justify-between mb-8">
+  <dl class="flex flex-wrap justify-between w-1/2">
+
+  </dl>
+
+  <div class="border-2 border-blue-600 px-4 py-2 w-1/2">
+    {{session.customer_details.name | upper}}<br />
+    {{session.customer_details.address.line1}}<br />
+    {{session.customer_details.address.line2}}<br />
+    {{session.customer_details.address.postal_code}}<br />
+    {{session.customer_details.address.city}}<br />
+  </div>
+</div>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th class="font-normal text-left">Code</th>
+      <th class="font-normal text-left">Nom du projet</th>
+      <th class="font-normal text-right">Quantité</th>
+      <th class="font-normal text-right">PU HT</th>
+      <th class="font-normal text-right">Montant HT</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr class="bg-white","bg-blue-100">
+        <td class="text-left">{{session.metadata.project_id}}</td>
+        <td class="text-left">{{session.metadata.project_name}}</td>
+        <td class="text-right">1</td>
+        <td class="text-right">{{session.amount_total }}</td>
+        <td class="text-right">1666&nbsp;€</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+  </tbody>
+</table>
+
+<div class="flex mb-8">
+  <dl class="bg-blue-100 flex flex-wrap leading-snug ml-auto numeric-tabular py-2 w-2/5">
+    <dt class="block m-0 p-0 pl-4 w-3/5">TOTAL HT</dt>
+    <dd class="block m-0 p-0 pr-4 text-right w-2/5">1500&nbsp;€</dd>
+  </dl>
+</div>
+
+<hr>
+
+<p class="mt-4 text-center"><small>SoustraitesMoi.fr Développer vos projets grâce aux conseils de nos experts.<br>
+  Siège Social : 123 rue des Gauffres, 12345, Demo-Ville<br>
+  Mesnil-Esnard - soustraitesmoi@gmail.com - 07 85 25 35 81</small></p>
+</body>
+</html>

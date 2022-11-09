@@ -20,7 +20,7 @@ class DevisFormType extends AbstractType
         $builder
         // essai upload
         ->add('Images', FileType::class, [
-            'label' => 'Uploader votre devis en pdf',
+            'label' => 'Téléverser votre devis en pdf',
             "multiple" => true,
             "required" => false,
             "mapped" => false,

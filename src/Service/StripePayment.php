@@ -18,8 +18,9 @@ class StripePayment
         Stripe::setApiVersion("2022-08-01");
     }
 
-	public function startPayment($project){
+	public function startPayment($project, $user){
 		$projectId = $project->getId();
+		$projectType = $project->getType();
 		$price = $project->getPrice()*100;
 
 		$session = Session::create([
@@ -36,15 +37,22 @@ class StripePayment
 					],
 				],
 			],
-			"success_url" => "https://fe08-2a01-e0a-8f3-d270-d5a9-596c-cc72-2ad2.eu.ngrok.io/payment/webhook/stripe",
-			"cancel_url" => "http://localhost:8000/offres",
+			"customer_email" => $user->getEmail(),
+			"success_url" => "http://localhost:8000/payment/success?session_id={CHECKOUT_SESSION_ID}",
+			"cancel_url" => "http://localhost:8000/payment/annulation",
 			"billing_address_collection" => "required",
 			'metadata' => [
 				'project_id' => $projectId,
+				'project_type' => $projectType,
+				'project_name' => $project->getNomDuProjet(),
 			]
 		]);
-		$project->setSessionId($session->id);
 
 		return $session;
 	}
+
+	public function findEvent($eventId)
+    {
+        return \Stripe\Checkout\Session::retrieve($eventId);
+    }
 }

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Merci pour votre commande
+{% endblock %}
+
+{% block body %}
+  <main class="mt-4 p-lg-5 w-100 container-md home_container">
+    <h1>Nous vous remercions de votre commande !</h1>
+    <p>
+      Nous apprécions votre confiance !
+      Si vous avez des questions, veuillez envoyer un e-mail à
+      <a href="mailto:orders@example.com">soustraitesmoi@gmail.com</a>.
+    </p>
+    <p class="mb-0">Si vous souhaitez garder une trace écrite de votre paiement vous pouvez télécharger votre facture ci-dessous.</p>
+    <a type="button" href="{{ path('pdf_facture',{'session_id' : sessionId}) }}" class="btn mb-3 mt-2">Consulter votre facture</a>
+	</main>
+{% endblock %}

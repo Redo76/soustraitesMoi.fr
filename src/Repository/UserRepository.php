@@ -92,6 +92,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
 
+    // public function findUserByEmail($email): ?User
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->andWhere('u.email = :email')
+    //         ->setParameter('email', $email)
+    //         ->getQuery()
+    //         ->getOneOrNullResult()
+    //     ;
+    // }
+
     public function findUsersByRole($role): array
     {
         // return $this->createQueryBuilder('u')
@@ -166,4 +176,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         return $resultSet->fetchAssociative();
     }
+
+     /**
+     * Recherche les utilisateurs en fonction du formulaire
+     * @return void
+     */
+    public function searchClient($mots,$role)
+    {
+        $query = $this->createQueryBuilder('u');
+        $query->where ('u.roles LIKE :role')
+        // if ($mots != null) {
+            ->andWhere('MATCH_AGAINST(u.firstName , u.lastName) AGAINST (:mots boolean)>0')
+                ->setParameters(array('mots'=> $mots, 'role' =>'%'.$role.'%'));
+        // }
+        return $query->getQuery()->getResult();
+    }
+    
 }

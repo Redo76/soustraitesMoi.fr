@@ -7,6 +7,7 @@ use Dompdf\Options;
 use App\Entity\Devis;
 use App\Entity\Image;
 use App\Form\DevisFormType;
+use App\Form\SearchProjectType;
 use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\Types\DateType;
@@ -158,10 +159,19 @@ class DevisController extends AbstractController
     #[Route('/tous-les-devis', name: 'tous_devis', methods: ['GET', 'POST'])]
     public function imprimedevis(Request $request, DevisRepository $devisRepository)
     {
+        $form = $this->createForm(SearchProjectType::class);
+        $search = $form->handleRequest($request);
 
         $devis = $devisRepository->tousDevis();
+
+        if ($search->get('mots')->getdata()!="") {
+            // on recherche les devis correspondant aux mots clés saisis
+            $devis = $devisRepository->searchDevis($search->get('mots')->getData());
+        }
+
         return $this->render('admin/tous_devis.html.twig', [
             'devis' => $devis,
+            'form' => $form->createView()
         ]);
     }
 

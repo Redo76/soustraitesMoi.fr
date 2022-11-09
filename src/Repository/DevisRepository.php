@@ -87,4 +87,23 @@ class DevisRepository extends ServiceEntityRepository
         return $resultSet->fetchAssociative();
     }
 
+     /**
+     * Recherche les utilisateurs en fonction du formulaire
+     * @return void
+     */
+    public function searchDevis($mots)
+    {
+        
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT devis.*,user.first_name, user.last_name FROM `devis` INNER JOIN `user` ON devis.user_id=user.id WHERE devis.reference LIKE '%" . $mots . "%';";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+
+    }
+
 }

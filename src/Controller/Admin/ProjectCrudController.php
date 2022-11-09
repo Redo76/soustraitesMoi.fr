@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Project;
 use App\Entity\ProjectLogo;
+use App\Form\SearchProjectType;
 use App\Repository\UserRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,11 +24,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 #[Route('/admin/projets')]
 class ProjectCrudController extends AbstractController
 {
-    #[Route('/valides', name: 'app_admin_validProjects', methods: ['GET'])]
+    #[Route('/valides', name: 'app_admin_validProjects', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function indexAllValid(ProjectRepository $projectRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $form = $this->createForm(SearchProjectType::class);
+        $search = $form->handleRequest($request);
+
         $projects = $projectRepository->findAllValidProjects();
+        if ($search->get('mots')->getdata()!="") {
+            // on recherche les IP Projects correspondant aux mots clés saisis
+            $projects = $projectRepository->searchValidProjects($search->get('mots')->getData());
+        }
     
         $projectsPagination = $paginator->paginate(
             $projects, /* query NOT result */
@@ -36,14 +44,22 @@ class ProjectCrudController extends AbstractController
         );
         return $this->render('admin/valid_projects.html.twig', [
             'projects' => $projectsPagination,
+            'form' => $form->createView()
         ]);
     }
 
-    #[Route('/acceptés', name: 'app_admin_projects', methods: ['GET'])]
+    #[Route('/acceptés', name: 'app_admin_projects', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function indexAll(ProjectRepository $projectRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $form = $this->createForm(SearchProjectType::class);
+        $search = $form->handleRequest($request);
+
         $projects = $projectRepository->findAllProjects();
+        if ($search->get('mots')->getdata()!="") {
+            // on recherche les IP Projects correspondant aux mots clés saisis
+            $projects = $projectRepository->searchAllProjects($search->get('mots')->getData());
+        }
 
         $projectsPagination = $paginator->paginate(
             $projects, /* query NOT result */
@@ -52,22 +68,33 @@ class ProjectCrudController extends AbstractController
         );
         return $this->render('admin/accepted_projects.html.twig', [
             'projects' => $projectsPagination,
+            'form' => $form->createView()
         ]);
     }
 
-    #[Route('/en-cours', name: 'app_admin_IpProjects', methods: ['GET'])]
+    #[Route('/en-cours', name: 'app_admin_IpProjects', methods: ['GET', 'POST'])]
     public function indexIP(ProjectRepository $projectRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $projects = $projectRepository->findAllInProgressProjects();
-        // dd($projects);
+        $form = $this->createForm(SearchProjectType::class);
+        $search = $form->handleRequest($request);
 
+        $projects = $projectRepository->findAllInProgressProjects();
+        if ($search->get('mots')->getdata()!="") {
+            // on recherche les IP Projects correspondant aux mots clés saisis
+            $projects = $projectRepository->searchProgressProjects($search->get('mots')->getData());
+        }
+        
         $projectsPagination = $paginator->paginate(
             $projects, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
+        
+        
         return $this->render('admin/in-progress_projects.html.twig', [
             'projects' => $projectsPagination,
+            //recherche
+            'form' => $form->createView()
         ]);
     }
 

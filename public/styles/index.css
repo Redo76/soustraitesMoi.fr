@@ -101,7 +101,7 @@
     font-size: 27px;
 }
 .section_partenaire{
-    background-color: #FFD7EF;
+    background-color: #FFBF23;
 }
 .section_partenaire h2{
     padding: 5% 0;
@@ -185,7 +185,7 @@
     width: 60%;
 }
 .section_projet2 img{
-    width: 100%;
+    width: 90%;
 }
 .container{
     padding: 10%;
@@ -352,7 +352,7 @@
         flex-direction: row;
     }
     .quote_card {
-        margin: 8% 1%;
+        margin: 3% 1%;
     }
     .quote {
         font-size: 18px;

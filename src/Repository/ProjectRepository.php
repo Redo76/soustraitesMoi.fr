@@ -56,11 +56,36 @@ class ProjectRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
+    public function searchValidProjects($mots)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut, price FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_site`) AS p WHERE p.statut = true AND p.nom_du_projet LIKE '%" . $mots . "%' ORDER BY p.created_at DESC";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+
     public function findAllProjects(): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut, price FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_site`) AS p WHERE p.statut = false ORDER BY p.created_at DESC";
+    
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
+    public function searchAllProjects($mots)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut, price FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_site`) AS p WHERE p.statut = false AND p.nom_du_projet LIKE '%" . $mots . "%' ORDER BY p.created_at DESC";
     
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
@@ -82,6 +107,18 @@ class ProjectRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
+    public function searchProgressProjects($mots)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut, price FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut, price FROM `project_site`) AS p WHERE p.statut IS NULL AND p.nom_du_projet LIKE '%" . $mots . "%' ORDER BY p.created_at DESC;";
+
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
 //    /**
 //     * @return Project[] Returns an array of Project objects
 //     */
