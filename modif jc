@@ -597,3 +597,37 @@ DANS index.css REMPLACER PAR :
    
    ->add 'service ' REMPLACER LE LABEL PAR:
     'label' => 'Services (Service client / vente à domicile) :',
+    
+    
+    ______________________________________________________________ TOUTES DERNIERES MODIF ____________________________________________________________________________
+    
+    DANS TEMPLATE _form_site.html.twig REMPLACER LE H3 PAR:
+     <h3>Fonctionnalités du site : (remplissez par oui ou par non)</h3>
+         <h3>Brief créatif (Souhaitez vous que l'on vous fournisse...?)<br> Répondez par oui ou par non et téléversez un fichier si nécessaire. :</h3>
+	 
+	 
+DANS FORM ProjectSiteType REMPLACER LE ADD->LOGO PAR :
+->add('logo', TextType::class, [
+                'label' => 'Logo ?',
+                'label_attr' => ['class' => "form-label-misc"],
+                'attr' => ['maxlength' => 150,
+            'placeholder' => "par ex -> non j'en ai déja un"
+            ],
+                'required' => true,
+            ])
+
+     
+DANS FORM DevisFormType REMPLACER LE LABEL DE add->Images PAR :
+'label' => 'Téléverser votre devis en pdf',
+
+
+DANS TEMPLATE Devis->index REMPLACER LE H6 TOUT EN HAUT PAR :
+ <h6 id="h6_devis">Remplissez ce formulaire.<br>
+        ou<br>
+        Téléversez votre modèle de devis.</h6>
+	
+	
+DANS TEMPLATE Expert->cvexpert.html.twig
+
+h3-> retirer le "mini" devant prtfolio
+    
