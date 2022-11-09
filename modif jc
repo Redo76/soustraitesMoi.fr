@@ -86,7 +86,7 @@ DANS REGISTER CSS (en dessous .barre_ou) AJOUTER:
     height: 70px;
     border-radius: 20px;
     cursor: pointer;
-    font-weight: 900;
+    font-weight: 600;
     box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
     transition: 0.5s; 
 }
@@ -94,5 +94,13 @@ DANS REGISTER CSS (en dessous .barre_ou) AJOUTER:
 @media only screen and (min-width: 768px)
 
 #btn_mes_projets {
+        height: 40px;
+    }
+    
+@media only screen and (min-width: 1200px)
+
+ #btn_mes_projets {
+        margin-top: 0px;
+        padding-top: 8px;
         height: 40px;
     }
