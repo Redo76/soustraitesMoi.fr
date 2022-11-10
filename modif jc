@@ -1,6 +1,6 @@
 ...
 
-Carousel: trop haut? Manque espace entre header et lui.
+
 
 Dans le footer, le lien 'CGU" ne mène à rien. Soit le retirer, soit mettre le path vers politique confidentialité.
 
@@ -371,6 +371,10 @@ ______________________________ FOOTER___________________________________
 
 Sur les <a href> contact et adresse mail mettre:
 {{path('app_contact')}}
+
+Sur "mini logo" balise image à remplacer par:
+<img src="{{asset('assets/img/strmfooter.webp')}}" alt="logo du site">
+
 
 Est ce qu'on garde à propos et client? (facilite alignement)
 
