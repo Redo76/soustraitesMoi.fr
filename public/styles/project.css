@@ -392,6 +392,32 @@
 .inputPrice{
     width: 55%;
 }
+#btn_mes_projets {
+    color: white;
+    margin-top: 2px;
+    background: #d2b511;
+    height: 70px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+    transition: 0.5s; 
+}
+
+/*page liste des projets */
+
+#h1_listeprojets {
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-weight: 800;
+    font-size: 39px;
+}
+
+.list table {
+    margin-bottom: 50px;
+}
 
 
 @media only screen and (min-width: 768px) {
@@ -542,6 +568,21 @@
         width: 40%;
         padding: 4%;
     }
+
+    #section_mes_projets {
+        width: 90%;
+        margin: auto;
+    } 
+    
+    #btn_mes_projets {
+            height: 40px;
+    }
+
+     /* page liste des projets  */
+    .list {
+        width: 80%;
+        margin: auto;
+    }
 }
 
 @media only screen and (min-width: 1200px) {
@@ -650,5 +691,10 @@
     .NoValidBtn {
         width: 40%;
         padding: 3%;
+    }
+    #btn_mes_projets {
+        margin-top: 0px;
+        padding-top: 8px;
+        height: 40px;
     }
 }

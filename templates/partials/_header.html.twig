@@ -39,7 +39,7 @@
             <div class="login_side">
                 <a href="{{path('app_register')}}" class="button">Inscription</a>
                 <div class="text-center">
-                    <p class="mb-0 text-white">Déja Membres ?</p>
+                    <p class="mb-0 text-white">Déja Membre ?</p>
                     <a href="{{path('app_login')}}">Connectez-vous !</a>
                 </div>
             </div>
@@ -47,16 +47,22 @@
         <ul class="d-flex flex-column mb-2">
             {% if is_granted('ROLE_EXPERT')  %}
             <li>
-                <a href="#" class="nav-link">
+                <a href="{{path('app_projects')}}" class="nav-link">
                     <i class="fa-solid fa-sheet-plastic"></i>
                     Consulter des projets
                 </a>
             </li>
+            <li>
+                <a href="{{path('app_devis_user')}}" class="nav-link">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    Mes devis
+                </a>
+            </li>
             {% elseif is_granted('ROLE_CLIENT')  %}
             <li>
-                <a href="#" class="nav-link">
+                <a href="{{path('app_project_index')}}" class="nav-link">
                     <i class="fa-solid fa-file-signature"></i>
-                    Vos projets
+                    Mes projets
                 </a>
             </li>
             {% elseif is_granted('ROLE_ADMIN') %}
@@ -71,14 +77,14 @@
             <li>
                 <a href="{{path('app_expert')}}" class="nav-link">
                     <i class="fa-regular fa-user"></i>
-                    Utilisateur
+                    Mon profil
                 </a>
             </li>
             {% elseif is_granted('ROLE_CLIENT')  %}
             <li>
                 <a href="{{path('app_client')}}" class="nav-link">
                     <i class="fa-regular fa-user"></i>
-                    Utilisateur
+                    Mon profil
                 </a>
             </li>
             {% endif %}
@@ -91,7 +97,7 @@
             <li>
                 <a href="{{path('app_offres')}}" class="nav-link">
                     <i class="fa-solid fa-tags"></i>
-                    Nos offres
+                    Je me lance ?
                 </a>
             </li>
         </ul>
@@ -107,12 +113,12 @@
                 {% if is_granted('ROLE_EXPERT')  %}
                 <li><a href="{{path('app_projects')}}" class="nav-link ">Consulter les projets</a></li>
                 {% elseif is_granted('ROLE_CLIENT')  %}
-                <li><a href="{{path('app_project_index')}}" class="nav-link ">Vos projets</a></li>
+                <li><a href="{{path('app_project_index')}}" class="nav-link ">Mes projets</a></li>
                 {% elseif is_granted('ROLE_ADMIN') %}
                 <li><a href="{{path('admin')}}" class="nav-link ">Administration</a></li>
                 {% endif %}
                 <li><a href="{{path('app_home')}}#nosServices" class="nav-link ">Nos services</a></li>
-                <li><a href="{{path('app_offres')}}" class="nav-link ">Nos offres</a></li>
+                <li><a href="{{path('app_offres')}}" class="nav-link ">Je me lance ?</a></li>
                 <li><a href="{{path('app_contact')}}" class="nav-link ">Contact</a></li>
             </ul>
             {% if app.user %}

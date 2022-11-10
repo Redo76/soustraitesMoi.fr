@@ -120,8 +120,7 @@ class ProjectSiteType extends AbstractType
             ->add('logo', TextType::class, [
                 'label' => 'Logo ?',
                 'label_attr' => ['class' => "form-label-misc"],
-                'attr' => ['maxlength' => 150,
-                    'placeholder' => "par ex -> non j'en ai déja un"
+                'attr' => ['maxlength' => 150,'placeholder' => "par ex -> non j'en ai déja un"
                 ],
                 'required' => true,
             ])
@@ -146,7 +145,7 @@ class ProjectSiteType extends AbstractType
             ->add('visuals', TextType::class, [
                 'label' => 'Visuels ?',
                 'label_attr' => ['class' => "form-label-misc"],
-                'attr' => ['maxlength' => 255],
+                'attr' => ['maxlength' => 255,'placeholder' => 'oui/non je fournis (ou pas) les illustrations'],
                 'required' => true,
             ])
             ->add('visuals_files', FileType::class, [

@@ -204,4 +204,8 @@
     #carousel div.nextRightSecond img {
         width: 200px;
     }
+    
+    #carousel_btn {
+        margin-top: 70px;
+    }
 }

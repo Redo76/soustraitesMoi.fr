@@ -49,9 +49,7 @@
 
 @media only screen and (min-width: 768px) {
     #h3_cv {
-        margin-top: 2%;
-        margin-bottom: 2%;
-        font-size: 64px;
+        font-size: 48px;
     }
     
     #cv_expert {

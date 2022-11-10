@@ -1,3 +1,21 @@
+.register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.register h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 42px;
+    font-weight: 600;
+}
+.register img {
+    width: 150px;
+    height: 150px;
+}
+
 #modalInscription{
     position: absolute;
     background-color: white;
@@ -90,6 +108,17 @@
     padding: 0 5%;
     margin-bottom: 6px;
 }
+#login_div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#login_div p {
+    margin-top: 20px;
+}
+
 .barre{
     border: none;
     border-bottom: rgba(0, 0, 0, 0.599) 1px solid;
@@ -139,6 +168,12 @@
 }
 
 @media only screen and (min-width: 768px){
+    .register {
+        flex-direction: row;
+    }
+    .register h1 {
+        font-size: 60px;
+    }
     #modalInscription{
         flex-direction: row;
         justify-content: flex-start;
@@ -172,6 +207,9 @@
     .barre_ou{
         justify-content: center;
     }
+    #login_div a {
+        margin-left: 10px;
+    }
     .barre_ou span{
         padding: 0 2%;
     }
@@ -179,6 +217,9 @@
         width: 300px;
     }
 
+    #registration_expert_form_rib {
+        width: 480px;
+    }
 }
 
 @media only screen and (min-width: 992px){

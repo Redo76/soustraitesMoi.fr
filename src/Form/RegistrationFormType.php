@@ -90,7 +90,7 @@ class RegistrationFormType extends AbstractType
             ->add('companyCommercialName', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Nom comercial','maxlength' => 180],
+                'attr' => ['placeholder' => 'Nom commercial','maxlength' => 180],
             ])
             ->add('jobInCompany', TextType::class, [
                 'label' => false,

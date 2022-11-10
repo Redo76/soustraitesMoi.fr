@@ -11,7 +11,7 @@
 		{% for project in projects %}
 			<div class="list">
 				<table class="table table-striped">
-					<thead class="table-primary">
+					<thead class="table-dark">
 						<tr>
 						<th scope="col">Nom du projet</th>
 						<th scope="col" >Type</th>
@@ -26,7 +26,7 @@
 							<td>{{project.nom_du_projet}}</td>
 							<td>{{project.type}}</td>
 							<td>
-								<a href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}" type="button" class="btn btn-secondary">Afficher le contenu</a>
+								<a href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}" type="button" class="btn btn-secondary" id="btn_mes_projets">Afficher le contenu</a>
 							</td>
 							<td>{{project.created_at|date("d/m/Y")}}</td>
 							<td>
@@ -52,11 +52,11 @@
 	{% else %}
 		<p colspan="6">aucun projet déposé</p>
 	{% endif %}
-	</section>
-
 	<div id="addButton">
         <a type="button" href="{{ path('app_project_new') }}" class="btn mb-3">Créer un nouveau projet</a>
     </div>
+	</section>
+
 	{# <a href="{{ path('app_project_new') }}">Create new</a> #}
 
 

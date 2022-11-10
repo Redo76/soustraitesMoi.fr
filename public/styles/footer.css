@@ -66,8 +66,8 @@
     align-self: center;
 }
 .minilogo img{
-    height: auto;
-    width: 70px;
+    height: 40px;
+    width: 160px;
 }
 
 .copyright{
@@ -155,8 +155,8 @@ hr{
         align-self: center;
     }
     .minilogo img{
-        height: auto;
-        width: 70px;
+        height: 60px;
+        width: 260px;
     }
     
     .copyright{

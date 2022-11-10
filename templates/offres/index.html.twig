@@ -5,8 +5,7 @@
 
 {% block body %}
 	 <aside id="h1_p_offres">
-     <h1>Decouvrez nos packs</h1>
-    <p>Pour un projet sur mesure sélectionnez le pack gratuit</p>
+    <p>Pour un projet sur mesure<br> lancez vous gratuitement</p>
     </aside>
     <main id="offres">
 		<section id="cards">
@@ -16,7 +15,8 @@
 					<p class="offre_grand">€ 0</p>
 					<p class="offre_moyen">Confiez-nous votre problématique</p>
 					<p class="offre_petit">Valable 3 mois.</p>
-					<button class="btn_offres">Je me lance!</button>
+					<button class="btn_offres"><a id="a_offres" href="{{ path('app_project_new') }}">Je me lance !</a></button>
+
 				</div>
 				<div class="card_bottom">
 					<ul>
@@ -25,48 +25,6 @@
 					</ul>
                     <div>
                     <img id="img_card1" src="{{asset('assets/img/offre1.svg')}}">
-                    </div>
-				</div>
-			</div>
-
-			<div class="card_complete">
-				<div class="card_top">
-					<h3>Pack Créateur</h3>
-					<p class="offre_grand">€ 30 <span id="offres_span">(par mois)</span></p>
-					<p class="offre_moyen">Idéal pour les débutants</p>
-					<p class="offre_petit">Valable 3 mois</p>
-					<button class="btn_offres">Je me lance</button>
-				</div>
-				<div class="card_bottom">
-					<ul>
-						<li><i class="fa-sharp fa-solid fa-circle-check"></i> Bénéficiez d'un accompagnement personnalisé</li>
-						<li><i class="fa-sharp fa-solid fa-circle-check"></i> Lancez vous sereinement</li>
-						<li><i class="fa-sharp fa-solid fa-circle-check"></i> Hors frais de dépôt de société</li>
-					</ul>
-                     <div>
-                    <img id="img_card2" src="{{asset('assets/img/offre1.svg')}}">
-                    </div>
-				</div>
-			</div>
-
-			<div class="card_complete" id="card_differente">
-				<div id="card_top_different">
-                <div id="card_populaire">Populaire</div>
-					<h3>Pack Communication</h3>
-					<p class="offre_grand">€ 295</p>
-					<p class="offre_moyen">Votre identité clé en main</p>
-					<p class="offre_petit">Valable 1 mois</p>
-					<button id="btn_different">Je me lance</button>
-				</div>
-				<div class="card_bottom">
-					<ul>
-						<li><i class="fa-sharp fa-solid fa-circle-check"></i> La création de votre logo</li>
-						<li><i class="fa-sharp fa-solid fa-circle-check"></i> La création de votre carte de visite recto</li>
-						<li><i class="fa-sharp fa-solid fa-circle-check"></i> 500 cartes de visites imprimées et livrées chez vous</li>
-						<li><i class="fa-sharp fa-solid fa-circle-check"></i> 2h de coaching pour développer votre société</li>
-					</ul>
-                     <div>
-                    <img id="img_card3" src="{{asset('assets/img/offre1.svg')}}">
                     </div>
 				</div>
 			</div>

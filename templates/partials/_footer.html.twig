@@ -8,9 +8,9 @@
                 <h5>Navigation</h5>
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2"><a href="#finder" class="nav-link p-0 text-muted">Accueil</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">À propos</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Contact</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Clients</a></li>
+                    <li class="nav-item mb-2"><a href="{{path('app_contact')}}" class="nav-link p-0 text-muted">Contact</a></li>
+                    {# <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Contact</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Clients</a></li> #}
                 </ul>
             </div>
 
@@ -28,7 +28,7 @@
             <div class="text-white column contact">
                 <p>Adresse : 120 Route de Paris <br> 76240 Le Mesnil-Esnard </p>
                 <p>Tél : 07 85 25 35 81</p>
-                <p id="email">Email : <a href="mailto:soustraitesmoi@gmail.com">soustraitesmoi@gmail.com</a></p>
+                <p id="email">Email : <a href="{{path('app_contact')}}">soustraitesmoi@gmail.com</a></p>
             </div>
         </div>
 
@@ -38,13 +38,12 @@
                 <div class="paymentsWrapper">
                     <div class="displayFlex lg:justifyContentFlexStart md:justifyContentCenter payment">
                         <i class="fa-brands fa-cc-visa"></i>
-                        <i class="fa-brands fa-cc-paypal"></i>
                         <i class="fa-brands fa-cc-stripe"></i>
                     </div>
-                    <p>Paiements sécurisés par PayPal et Stripe.</p>
+                    <p>Paiements sécurisés par Stripe.</p>
                 </div>
                 <div class="minilogo">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdSyQBdkrg3c2EAvpX9J0aARBl2qo4s9IGcA&usqp=CAU" alt="">
+                    <img src="{{asset('assets/img/strmfooter.webp')}}" alt="logo du site">
                 </div>
                 {# <p>© 2022 Company, Inc. All rights reserved.</p> #}
                 <div class="social_div">
