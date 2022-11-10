@@ -9,6 +9,19 @@ Header: changer le "Nos offres" par déposer? ou je me lance? ou j'en sais trop 
 Page profil client, retirer le btn "modifier mot de passe" ou trouver une idée.
 
 
+________________________________________________________________________
+DANS TEMPLATE partial->header
+mettre le <a href> Mes projets
+<a href="{{path('app_project_index')}}" class="nav-link">
+
+mettre dans le <a href> Consulter des projets
+<a href="{{('app_projects')}}" class="nav-link">
+
+Retirer le "s" à "déja Membres?"
+
+Remplacer "utilisateur" par "mon profil" (c'est ce qu'on a mis en desktop)
+
+
 _______________________
 si on est ok, ajout de "pas encore de compte ?" sur page login :
 
@@ -473,3 +486,50 @@ ________________________________________________________
 DANS FORM RegistrationForm DANS LE add->CompanyCommercialName REMPLACER LE attr PAR :
 
                 'attr' => ['placeholder' => 'Nom commercial','maxlength' => 180],
+		
+		
+		
+________________________________________________________
+DANS cvexpert.html.twig:
+
+REMPLACER <img> PAR :
+<img id="cv_img" src="assets/img/strmcv.webp">
+
+DANS <div id="cv_hide"> RAJOUTER :
+{{ form_row(EditExpert.rib) }}
+
+DANS cv.css MODIFIER :
+@media only screen and (min-width: 768px) {
+    #h3_cv {
+   font-size: 48px;
+    }
+
+_________________________________________________________
+DANS TEMPLATE projects.html.twig AJOUTER (juste sous block body)
+
+<h1 id="h1_listeprojets">Projets à réaliser</h1>
+
+DANS Project.css AJOUTER :
+
+/*page liste des projets */
+
+#h1_listeprojets {
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-weight: 800;
+    font-size: 39px;
+}
+
+.list table {
+    margin-bottom: 50px;
+}
+
+@media only screen and (min-width: 768px)
+
+ /* page liste des projets  */
+    .list {
+        width: 80%;
+        margin: auto;
+    }
