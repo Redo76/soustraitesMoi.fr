@@ -6,12 +6,17 @@
 {% block body %}
   <main class="mt-4 p-lg-5 w-100 container-md home_container">
     <h1>Nous vous remercions de votre commande !</h1>
-    <p>
+    <p class="mb-1">
       Nous apprécions votre confiance !
       Si vous avez des questions, veuillez envoyer un e-mail à
-      <a href="mailto:orders@example.com">soustraitesmoi@gmail.com</a>.
+      <a href="{{path('app_contact')}}">soustraitesmoi@gmail.com</a>.
     </p>
     <p class="mb-0">Si vous souhaitez garder une trace écrite de votre paiement vous pouvez télécharger votre facture ci-dessous.</p>
-    <a type="button" href="{{ path('pdf_facture',{'session_id' : sessionId}) }}" class="btn mb-3 mt-2">Consulter votre facture</a>
-	</main>
+    <a  href="{{ path('pdf_facture',{'session_id' : sessionId}) }}" class=" mb-3 mt-2">Consulter votre facture</a>
+    
+    <div class="d-flex align-center justify-content-end">
+        <a type="button" href="{{ path('app_project_index')}}" class="btn m-2">Consulter mes projets</a>
+        <a type="button" href="{{ path('app_home')}}" class="btn m-2">Retour à l'accueil</a>
+    </div>
+  </main>
 {% endblock %}

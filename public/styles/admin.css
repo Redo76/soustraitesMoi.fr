@@ -31,9 +31,18 @@ a{
 
 h5{
     font-family: 'Calligraffitti', cursive;
+    color: white;
 }
+h5:hover{
+    color: #3E3F3A;
+}
+
 h6{
     color: rgba(211, 211, 211, 0.651);
+}
+
+.site:hover{
+    color: #3E3F3A;
 }
 
 .nav-link{
