@@ -374,4 +374,93 @@ Sur les <a href> contact et adresse mail mettre:
 
 Est ce qu'on garde à propos et client? (facilite alignement)
 
-Voir logo!
+DANS footer.css METTRE :
+
+.minilogo img{
+    height: 40px;
+    width: 160px;
+}
+
+@media only screen and (min-width: 768px)
+
+ .minilogo img{
+        height: 60px;
+        width: 260px;
+    }
+
+
+__________________________________________________________________
+DANS FORM ProjectSiteType DANS LE add 'visuals' REMPLACER LE attr PAR:
+
+ 'attr' => [
+                    'maxlength' => 255,
+                    'placeholder' => 'oui/non je fournis (ou pas) les illustrations'
+                ],
+		
+		
+DANS LE ADD 'logo' REMPLACER LE attr PAR:
+
+'attr' => [
+                    'maxlength' => 150,
+                    'placeholder' => "par ex -> non j'en ai déja un"
+                ],
+		
+DANS TEMPLATE ProjectSite-> _site_form.html.twig RAJOUTER:
+
+(juste au dessus de  {{ form_row(form.logo_files) }} )
+ <p>Si vous avez un logo, déposez le ici :</p>
+ 
+ (juste au dessus de  {{ form_row(form.visuals_files) }} )
+ <p>Si vous fournissez les visuels, déposez les ici:<p>
+ 
+ _________________________________________
+ DANS Caroussel.css  @media only screen and (min-width: 1200px):
+ 
+  #carousel_btn {
+        margin-top: 70px;
+    }
+    
+    
+ ___________________________________________
+ DANS register.css @media only screen and (min-width: 768px) :
+ 
+ #registration_expert_form_rib {
+        width: 480px;
+    }
+    
+    
+  _____________________________ PAGE ADMIN MOBILE
+  
+  DANS admin.css sur body
+  
+   background-color: #3E3F3A;
+   
+   A VOIR SI ON MET:
+   
+  sur body :
+     font-size: 2.5em;
+     
+     h6{
+    font-size: 42px;
+}
+
+.nav-link{
+    font-size:30px;
+}
+     
+     
+     @media only screen and (min-width: 768px){
+    body{
+        font-size: 1em;
+    }
+
+    .nav-link{
+        font-size:15px;
+    }
+
+    h6{
+        font-size: 20px;
+    }
+
+}
+ 
