@@ -468,3 +468,8 @@ DANS TEMPLATE ProjectSite-> _site_form.html.twig RAJOUTER:
 
 }
  
+
+________________________________________________________
+DANS FORM RegistrationForm DANS LE add->CompanyCommercialName REMPLACER LE attr PAR :
+
+                'attr' => ['placeholder' => 'Nom commercial','maxlength' => 180],
