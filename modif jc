@@ -1,633 +1,535 @@
-A RAJOUTER DANS Project.css (pour button nouveau projet dans page client "mes projets")
-margin-bottom: 20px;
+...
 
 
-___________________________PROFIL EXPERT AFFICHAGE ET EDIT CV ET RIB ________________________________________________________________________________________________
 
-DANS TEMPLATE profil_expert->index RAJOUTER SOUS LES 2 BTN:
+Dans le footer, le lien 'CGU" ne mène à rien. Soit le retirer, soit mettre le path vers politique confidentialité.
 
-<div id ="cv_rib_profil_expert">
-		{% if app.user.cv %}
-		<p class="p_profil_expert">Vous avez déposé un cv/portfolio :<br><br><span class="span_profil_expert">Le voir -></span> <a href="{{path('cv_upload',{id: app.user.id})}}"><img class="img_profil_expert" src="assets/img/cv.webp"></a></p>
-		<p>Si celui-là n'est plus à jour : Cliquez sur <span class="span_profil_expert">"Déposer votre CV"</span> pour en déposer un nouveau.</p>
-		{% elseif app.user.cv == null %}
-		<p class="p_profil_expert">😮 Vous n'avez pas encore déposé de cv/portfolio. Montrez nous vos créations, cliquez sur <span class="span_profil_expert">"Déposer votre CV"
-		</span>.<br> Nous souhaitons voir votre travail avant de vous confier un projet.</p>
-		{% endif %}
-		<p>_________________________________________</p> 
-		<p class="p_profil_expert">Vous souhaitez vérifier votre rib ?<br><br><span class="span_profil_expert">C'est ici -></span> <a href="{{path('rib_upload',{id: app.user.id})}}"><img class="img_profil_expert" src="assets/img/rib.webp"> </a></p>
-		<p>Si celui-là n'est plus à jour : Cliquez sur <span class="span_profil_expert">"Modifier profil"</span> pour en déposer un nouveau.</p>
-		</div>
+Header: changer le "Nos offres" par déposer? ou je me lance? ou j'en sais trop rien :)
+
+Page profil client, retirer le btn "modifier mot de passe" ou trouver une idée.
+
+
+________________________________________________________________________
+DANS TEMPLATE partial->header
+mettre le <a href> Mes projets
+<a href="{{path('app_project_index')}}" class="nav-link">
+
+mettre dans le <a href> Consulter des projets
+<a href="{{('app_projects')}}" class="nav-link">
+
+Retirer le "s" à "déja Membres?"
+
+Remplacer "utilisateur" par "mon profil" (c'est ce qu'on a mis en desktop)
+
+
+_______________________
+si on est ok, ajout de "pas encore de compte ?" sur page login :
+
+DANS TEMPLATE login.html.twig RAJOUTER SOUS LE BTN:
+<div id="login_div">
+					<p>Vous n'avez pas encore de compte?
+					</p>
+					<a href="{{path('app_register_client')}}" class="mdp_link pt-1">Créer mon compte</a>
+				</div>
+<div id="login_div">
+					<p>Vous n'avez pas encore de compte?
+					</p>
+					<a href="{{path('app_register_client')}}" class="mdp_link pt-1">Créer mon compte</a>
+				</div>
+        
+DANS REGISTER CSS (en dessous .barre_ou) AJOUTER:
+#login_div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#login_div p {
+    margin-top: 20px;
+}
+
+@media only screen and (min-width: 768px)
+#login_div a {
+        margin-left: 10px;
+    }
     
-_________________________________
-DANS TEMPLATE profil_expert->edit_infos RAJOUTER JUSTE AVANT BTN VALIDER:
-
-<h4>Modifier votre Rib</h4>
-				<table class="table">
-					<tbody>
-						<tr>
-							<th>Déposer votre nouveau Rib</th>
-							<td>{{ form_row(EditExpert.rib) }}</td>
-						</tr>
-						</table>
-            
-__________________________________
-DANS style.css RAJOUTER :
-
-#cv_rib_profil_expert{
+ ________________________________________________________
+ Si ça vous convient ajout titre et img page inscription client & expert:
+ 
+ DANS TEMPLATE client_register et expert_register AJOUTER (au dessus du main):
+ <aside class="register">
+    <h1>Création compte client </h1>
+    <img src="assets/img/compte.webp">
+    </aside>
+    
+   DANS register.css ajouter :
+   
+  .register {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin-top: 20px;
-    padding-left: 15px;
-    padding-right: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 }
 
-.span_profil_expert{
-    color: goldenrod;
-    font-weight: 500;
-}
-
-.p_profil_expert{
+.register h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 42px;
     font-weight: 600;
 }
-
-.img_profil_expert{
-    width: 80px;
-    height: 80px;
-    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-    margin-left: 20px;
+.register img {
+    width: 150px;
+    height: 150px;
 }
 
-@media only screen and (min-width: 1200px){
-    #cv_rib_profil_expert{
-        align-items: center;
+@media only screen and (min-width: 768px)
+
+.register {
+        flex-direction: row;
     }
+    .register h1 {
+        font-size: 60px;
+    }
+    
+ ______________________________ PROBLEME BTN "AFFICHER CONTENU" PAGE MES PROJETS________________________________________________________________
+ DANS TEMPLATE project->index.html.twig
+ 
+ RAJOUTER id="btn_mes_projets" DANS LE <a> correspondant au btn "afficher contenu"
+ REMONTER LA DIV "addButton" DANS LA SECTION
+ 
+ PUIS DANS project.css AJOUTER :
+ #btn_mes_projets {
+    color: white;
+    margin-top: 2px;
+    background: #d2b511;
+    height: 70px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+    transition: 0.5s; 
 }
 
-___________________________________________________
+@media only screen and (min-width: 768px)
 
-DANS ExpertController DANS public function editInfos RAJOUTER (sous le if uploadavatar):
+#section_mes_projets {
+    width: 90%;
+    margin: auto;
+} 
 
-$uploadedFile = $form['rib']->getData();
-if ($uploadedFile) {
-    $newFilename = $uploaderHelper->uploadRib($uploadedFile, $slugger);
-    $user = $form->getData();
-    $user->setrib($newFilename);
-}
+#btn_mes_projets {
+        height: 40px;
+    }
+    
+@media only screen and (min-width: 1200px)
 
-MESSAGE VALIDATION A RAJOUTER ENTRE FLUSH ET REDIRECT:
-
- $this->addFlash(
-                'success',
-                'votre profil a bien été modifié'
-            );
-
-___________________________________________________
-
-DANS EditProfileExpertType.php RAJOUTER:
-
- ->add('rib', FileType::class, [
-            "label" => false,
-            "required" => false,
-            'row_attr' => ['class' => 'mb-0 ms-2 avatar'],
-            'mapped' => false,
-        ])
+ #btn_mes_projets {
+        margin-top: 0px;
+        padding-top: 8px;
+        height: 40px;
+    }
 
 
+_________________________________________________ PAGE DES OFFRES _______________________________________________________________________________________________
 
+DANS TEMPLATE Offres->index.html.twig
 
+{% extends 'base.html.twig' %}
 
-
-
-
-___________________________________________ PAGE ADMIN DEVIS ________________________________________________________________________________________________________
-
-DANS DevisRepository -> function tousDevis : MODIFIER JUSTE LA REQUETE
-
-  $sql = "SELECT devis.*,user.first_name, user.last_name FROM `devis` INNER JOIN `user` ON devis.user_id=user.id ORDER BY id DESC;";
-  
- ______________________________
- 
- DANS TEMPLATE Admin/tous_devis.html.twig METTRE :
- 
- {% extends 'base_admin.html.twig' %}
-
-{% block title %}
-    tous les devis
+{% block title %}Nos Offres de packs
 {% endblock %}
 
 {% block body %}
-    <main class="p-5 w-100">
-        <h1 class="mb-4">Devis Expert</h1>
+	 <aside id="h1_p_offres">
+    <p>Pour un projet sur mesure<br> lancez vous gratuitement</p>
+    </aside>
+    <main id="offres">
+		<section id="cards">
+			<div class="card_complete">
+				<div class="card_top">
+					<h3>Gratuit</h3>
+					<p class="offre_grand">€ 0</p>
+					<p class="offre_moyen">Confiez-nous votre problématique</p>
+					<p class="offre_petit">Valable 3 mois.</p>
+					<button class="btn_offres"><a id="a_offres" href="{{ path('app_project_new') }}">Je me lance !</a></button>
 
-        <table class="table text-white">
-            <thead>
-                <tr>
-                    <th>Numéro de devis</th>
-                    <th>Nom du projet</th>
-                    <th>Prénom de l'expert</th>
-                    <th>Nom de l'expert</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for devis in devis %}
-                    {% if devis.date_redaction %}
-                        <tr>
-                            <td>{{ devis.id }}</td>
-                            <td>{{ devis.reference }}</td>
-                            <td>{{ devis.first_name }}</td>
-                            <td>{{ devis.last_name}}</td>
-                            <td>
-                                <a href="{{path('devis_pdf_admin',{id: devis.id})}}">Générer un pdf</a>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td>{{ devis.id }}</td>
-                            <td>{{ devis.reference }}</td>
-                             <td>{{ devis.first_name }}</td>
-                            <td>{{ devis.last_name}}</td>
-                            <td>
-                                <a href="{{path('devis_upload',{id: devis.id})}}">Voir le devis uploadé</a>
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </main>
+				</div>
+				<div class="card_bottom">
+					<ul>
+						<li><i class="fa-sharp fa-solid fa-circle-check"></i> Déposez votre projet</li>
+						<li><i class="fa-sharp fa-solid fa-circle-check"></i> Obtenez un ou plusieurs devis</li>
+					</ul>
+                    <div>
+                    <img id="img_card1" src="{{asset('assets/img/offre1.svg')}}">
+                    </div>
+				</div>
+			</div>
+		</section>
+	</main>
 {% endblock %}
 
-______________________________________________________ CONFIRMATION INSCRIPTION ___________________________________________________________________________________
+______________________________
+DANS offres.css
 
-DANS RegistrationController RAJOUTER DANS LES 4 FUNCTION :
-
- $this->addFlash(
-                'success',
-                'votre inscription est validée: Bienvenue parmi nous !'
-            );
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
 
 
-________________________________________________________PETIT COUP REFERENCEMENT __________________________________________________________________________________
+#offres {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 
-DANS TEMPLATE->base RAJOUTER DANS LE head:
+}
 
-<meta name="description" content="Vos idées, nos conseils, les meilleures solutions. Déposez gratuitement vos projets et faites les réaliser par les
-					meilleurs experts de France. Freelances créez votre profil et recevez les projets...">
-		<title>
-			{% block title %}SoustraitesMoi.fr Développer vos projets grâce aux conseils de nos experts.
-			{% endblock %}
+#h1_p_offres p {
+    font-size: 39px;
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+    font-weight: 600;
+}
 
+#cards {
+    width: 75%;
+    height: 260vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: white;
+    padding-top: 40px;
+}
 
+.card_complete {
+    width: 90%;
+    height: 70vh;
+    border-radius: 10px;
+}
 
+.card_top {
+    background-color: #d2b511;
+    height: 270px;
+    border-top-left-radius: 10px 10px;
+    border-top-right-radius: 10px 10px;
+    padding: 30px 0px 10px 20px;
+}
 
-___________________________________________________________________________________________________________________________________________________________________
-_________________________________________________________CREATION RECHERCHE ADMIN _________________________________________________________________________________
+.card_bottom {
+    background-color: #f6f6f6;
+    height: 35vh;
+    border-bottom-left-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    padding: 10px;
+    position: relative;
+}
 
-DANS ENTITY Project AJOUTER :
-#[ORM\Index(name: 'project', columns: ['nom_du_projet'], flags: ['fulltext'])]
+#a_offres {
+    text-decoration: none;
+    color: white;
+}
 
-faire migration et verifier dans table->structure qu'il y a bien un index fulltext créé.
+.card_bottom ul {
+    margin: 5%;
+    padding: 0;
+    list-style-type: none;
+}
 
+.card_bottom li {
+    padding-top: 10px;
+}
 
-___________________________________________________________________________
+.btn_offres {
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    width: 120px;
+    margin-top: 2%;
+}
 
-DANS SRC CREER DOSSIER Extensions , DANS CE DOSSIER CREER AUTRE DOSSIER Doctrine, DANS CE Doctrine créer fichier MATCHAGAINST ET Y COLLER :
+.card_top h3 {
+    font-weight: 600;
+}
 
-<?php
-namespace App\Extensions\Doctrine;
+.offre_grand {
+    font-size: 2.5em;
+    font-weight: 600;
+}
 
-use Doctrine\ORM\Query\AST\Functions\FunctionNode;
-use Doctrine\ORM\Query\Lexer;
-use Doctrine\ORM\Query\Parser;
-use Doctrine\ORM\Query\SqlWalker;
+.offre_moyen {
+    font-size: 0.9em;
+}
 
-class MatchAgainst extends FunctionNode
-{
-    /** @var array list of \Doctrine\ORM\Query\AST\PathExpression */
-    protected $pathExp = null;
-    /** @var string */
-    protected $against = null;
-    /** @var bool */
-    protected $booleanMode = false;
-    /** @var bool */
-    protected $queryExpansion = false;
+.offre_petit {
+    font-size: 0.9em;
+}
 
-    public function parse(Parser $parser)
-    {
-        // match
-        $parser->match(Lexer::T_IDENTIFIER);
-        $parser->match(Lexer::T_OPEN_PARENTHESIS);
-        // first Path Expression is mandatory
-        $this->pathExp = [];
-        $this->pathExp[] = $parser->StateFieldPathExpression();
-        // Subsequent Path Expressions are optional
-        $lexer = $parser->getLexer();
-        while ($lexer->isNextToken(Lexer::T_COMMA)) {
-            $parser->match(Lexer::T_COMMA);
-            $this->pathExp[] = $parser->StateFieldPathExpression();
-        }
-        $parser->match(Lexer::T_CLOSE_PARENTHESIS);
-        // against
-        if (strtolower($lexer->lookahead['value']) !== 'against') {
-            $parser->syntaxError('against');
-        }
-        $parser->match(Lexer::T_IDENTIFIER);
-        $parser->match(Lexer::T_OPEN_PARENTHESIS);
-        $this->against = $parser->StringPrimary();
-        if (strtolower($lexer->lookahead['value']) === 'boolean') {
-            $parser->match(Lexer::T_IDENTIFIER);
-            $this->booleanMode = true;
-        }
-        if (strtolower($lexer->lookahead['value']) === 'expand') {
-            $parser->match(Lexer::T_IDENTIFIER);
-            $this->queryExpansion = true;
-        }
-        $parser->match(Lexer::T_CLOSE_PARENTHESIS);
+#offres_span {
+    font-size: 0.3em;
+}
+
+#img_card1 {
+    width: 100px;
+    height:100px;
+    position: absolute;
+    bottom:-20px;
+    right:-10px;
+}
+
+@media only screen and (min-width: 768px){
+   
+    #offres {
+        height: 65vh;
+    }
+    
+    .card_complete {
+        margin-top: 20px;
+        width: 60%;
+        height: 30vh;
     }
 
-    public function getSql(SqlWalker $walker)
-    {
-        $fields = [];
-        foreach ($this->pathExp as $pathExp) {
-            $fields[] = $pathExp->dispatch($walker);
-        }
-        $against = $walker->walkStringPrimary($this->against)
-            . ($this->booleanMode ? ' IN BOOLEAN MODE' : '')
-            . ($this->queryExpansion ? ' WITH QUERY EXPANSION' : '');
-        return sprintf('MATCH (%s) AGAINST (%s)', implode(', ', $fields), $against);
+    #cards {
+        width: 50%;
+        height: 60vh;
+        background-color: whitesmoke;
+        box-shadow: 4px 4px gray;
+        border-radius: 15px;
+    }
+
+    #img_card1 {
+        width: 150px;
+        height: 150px;
+        left:-10px;
+    }
+    #h1_p_offres p {
+        font-size: 48px;
+        margin-top: 20px;
+    }
+    .card_bottom  {
+        height: 25vh;
+        background-color: white;
     }
 }
 
-___________________________________________________________________________________
 
-DANS CONFIG->PACKAGES->doctrine.yaml DANS orm: AJOUTER (/!\ attention à l'indentation)
+@media only screen and (min-width: 1024px){
+    #offres {
+        height: 90%;
+        padding: 1% 10% 7% 10%;
+        width: 80%;
+        margin: auto;
+    }
+    
+    #cards {
+        width: 100%;
+        height: 80%;
+        padding-top: 50px;
+    }
+    
+    .card_complete {
+        width: 50%;
+        height: 100%;
+        padding: 0 1%;
+    }
+    
+    .card_top {
+        height: 55%;
+    }
+    .card_bottom {
+        height: 40vh;
+        margin-bottom: 30px;
+    }
+   
+    #h1_p_offres p {
+        font-size: 48px;
+    }
+    
+    .offre_grand {
+        font-size: 3.5em;
+        font-weight: 600;
+    }
+    
+    .offre_moyen {
+        font-size: 1.2em;
+    }
+    
+    .offre_petit {
+        font-size: 1.2em;
+    }
+    
+    #offres_span {
+        font-size: 0.3em;
+    }
+    
+    .btn_offres {
+        border-radius: 5px;
+        width: 200px;
+        height: 60px;
+        margin-top: 10%;
+    }
+    
+    li {
+        font-size: 1.2em;
+    }
+}
 
- dql:
-            string_functions:
-                MATCH_AGAINST: App\Extensions\Doctrine\MatchAgainst
+
+_____________________________________________________________________________
+
+DANS TEMPLATE project_reseaux-> _form_reseaux.html.twig REMPLACER LE DERNIER h3 PAR:
+ <h3>Exemples de pages appréciées</h3>
+ 
+ 
+______________________________ FOOTER___________________________________
+
+Sur les <a href> contact et adresse mail mettre:
+{{path('app_contact')}}
+
+Sur "mini logo" balise image à remplacer par:
+<img src="{{asset('assets/img/strmfooter.webp')}}" alt="logo du site">
+
+
+Est ce qu'on garde à propos et client? (facilite alignement)
+
+DANS footer.css METTRE :
+
+.minilogo img{
+    height: 40px;
+    width: 160px;
+}
+
+@media only screen and (min-width: 768px)
+
+ .minilogo img{
+        height: 60px;
+        width: 260px;
+    }
+
+
+__________________________________________________________________
+DANS FORM ProjectSiteType DANS LE add 'visuals' REMPLACER LE attr PAR:
+
+ 'attr' => [
+                    'maxlength' => 255,
+                    'placeholder' => 'oui/non je fournis (ou pas) les illustrations'
+                ],
 		
 		
-____________________________________________________________________________________
+DANS LE ADD 'logo' REMPLACER LE attr PAR:
 
-Créer un form SearchProjectType Y COLLER :
+'attr' => [
+                    'maxlength' => 150,
+                    'placeholder' => "par ex -> non j'en ai déja un"
+                ],
+		
+DANS TEMPLATE ProjectSite-> _site_form.html.twig RAJOUTER:
 
-<?php
-
-namespace App\Form;
-
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
-class SearchProjectType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('mots', SearchType::class, [
-                'label' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Entrez un ou plusieurs mots clés'
-                ]
-            ])
-            ->add('Rechercher', SubmitType::class)
-        ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            // Configure your form options here
-        ]);
-    }
-}
-
-____________________________________________________________________________________
-DANS ProjectRepository AJOUTER :
-
- public function searchProgressProjects($mots)
-    {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_site`) AS p WHERE p.statut IS NULL AND p.nom_du_projet LIKE '%" . $mots . "%' ORDER BY p.created_at DESC;";
-
-        $stmt = $conn->prepare($sql);
-        $resultSet = $stmt->executeQuery();
-
-        // returns an array of arrays (i.e. a raw data set)
-        return $resultSet->fetchAllAssociative();
-    }
-    
-    
-______________________________________________________________________________________
-DANS ProjectCrudController REMPLACER #ROUTE /en-cours PAR :
-
- #[Route('/en-cours', name: 'app_admin_IpProjects', methods: ['GET','POST'])]
-    public function indexIP(ProjectRepository $projectRepository, PaginatorInterface $paginator, Request $request): Response
-    {
-        
-        $form = $this->createForm(SearchProjectType::class);
-        $search = $form->handleRequest($request);
-
-        $projects = $projectRepository->findAllInProgressProjects();
-        if ($search->get('mots')->getdata()!="") {
-            // on recherche les IP Projects correspondant aux mots clés saisis
-            $projects = $projectRepository->searchProgressProjects($search->get('mots')->getData());
-        }
-        
-        $projectsPagination = $paginator->paginate(
-            $projects, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
-        );
-        
-               
-        return $this->render('admin/in-progress_projects.html.twig', [
-            'projects' => $projectsPagination,
-            //recherche
-            'form' => $form->createView()
-        ]);
-    }
-
-_________________________________________________________________________________________________
-DANS TEMPLATE in-progress_projects (juste sous le h1) AJOUTER :
-
-{{ form(form) }}
-
-
-
-
-___________________________________________________________________ RECHERCHE PROJETS VALIDES ______________________________________________________________________
-
-DANS ProjectCrudController remplacer #ROUTE '/' PAR :
-
-
-    #[Route('/', name: 'app_admin_projects', methods: ['GET','POST'])]
-    #[IsGranted('ROLE_ADMIN')]
-    public function indexAll(ProjectRepository $projectRepository, PaginatorInterface $paginator, Request $request): Response
-    {
-        $form = $this->createForm(SearchProjectType::class);
-        $search = $form->handleRequest($request);
-
-        $projects = $projectRepository->findAllProjects();
-       if ($search->get('mots')->getdata()!="") {
-            // on recherche les IP Projects correspondant aux mots clés saisis
-            $projects = $projectRepository->searchValidProjects($search->get('mots')->getData());
-        }
-
-        $projectsPagination = $paginator->paginate(
-            $projects, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
-        );
-
-        return $this->render('admin/valid_projects.html.twig', [
-            'projects' => $projectsPagination,
-            'form' => $form->createView()
-        ]);
-    }
-    
-    
-_______________________________________________________________________
-DANS ProjectRepository METTRE :
-
- public function searchValidProjects($mots)
-    {
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = "SELECT * FROM (SELECT id, nom_du_projet , type, created_at, user_id , statut FROM `project` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_logo` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_reseaux` UNION SELECT id, nom_du_projet , type, created_at, user_id, statut FROM `project_site`) AS p WHERE p.statut = true AND p.nom_du_projet LIKE '%" . $mots . "%' ORDER BY p.created_at DESC";
-
-        $stmt = $conn->prepare($sql);
-        $resultSet = $stmt->executeQuery();
-
-        // returns an array of arrays (i.e. a raw data set)
-        return $resultSet->fetchAllAssociative();
-    }
-    
-    
- _____________________________________________________________________
- DANS TEMPLATE vaid_projects METTRE (juste sous le h1)
+(juste au dessus de  {{ form_row(form.logo_files) }} )
+ <p>Si vous avez un logo, déposez le ici :</p>
  
- {{ form(form) }}
+ (juste au dessus de  {{ form_row(form.visuals_files) }} )
+ <p>Si vous fournissez les visuels, déposez les ici:<p>
  
+ _________________________________________
+ DANS Caroussel.css  @media only screen and (min-width: 1200px):
  
- /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ FAIRE PAREIL POUR 3e CATEGORIE DE PROJETS MAIS QUE J'AI PAS MOI  /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\ /!\
-
-
-_____________________________________________________________ RECHERCHE UTILISATEURS ______________________________________________________________________________
-
-ENTITY USER:
-#[ORM\Index(name: 'utilisateurs', columns: ['first_name','last_name'], flags: ['fulltext'])]
-
-
-
-DANS UserRepository METTRE :
- /**
-     * Recherche les utilisateurs en fonction du formulaire
-     * @return void
-     */
-    public function searchClient($mots,$role)
-    {
-        $query = $this->createQueryBuilder('u');
-        $query->where ('u.roles LIKE :role')
-        // if ($mots != null) {
-            ->andWhere('MATCH_AGAINST(u.firstName , u.lastName) AGAINST (:mots boolean)>0')
-                ->setParameters(array('mots'=> $mots, 'role' =>'%'.$role.'%'));
-        // }
-        return $query->getQuery()->getResult();
+  #carousel_btn {
+        margin-top: 70px;
     }
     
-   ________________________________________________________________
-   DANS UserCrudController :
-   
-   REMPLACER #ROUTE /client par :
-    #[Route('/client', name: 'app_admin_client', methods: ['GET','POST'])]
-    public function indexClient(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
-    {
-        $form = $this->createForm(SearchProjectType::class);
-        $search = $form->handleRequest($request);
-        
-        $role = "ROLE_CLIENT";
-        $users = $userRepository->findUsersByRole($role);
-
-        if ($search->get('mots')->getdata()!="") {
-            // on recherche les IP Projects correspondant aux mots clés saisis
-                $users = $userRepository->searchClient($search->get('mots')->getData(),$role);
-        }
-
-
-        $usersPagination = $paginator->paginate(
-            $users, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
-        );
-
-        return $this->render('admin/users.html.twig', [
-            'users' => $usersPagination,
-            'roleTitle' => "Client", 
-            'form' => $form->createView()
-        ]);
+    
+ ___________________________________________
+ DANS register.css @media only screen and (min-width: 768px) :
+ 
+ #registration_expert_form_rib {
+        width: 480px;
     }
     
-    REMPLACER #ROUTE/Expert PAR :
     
-    #[Route('/expert', name: 'app_admin_expert', methods: ['GET','POST'])]
-    public function indexExpert(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
-    {
-        $form = $this->createForm(SearchProjectType::class);
-        $search = $form->handleRequest($request);
-        
-        $role = "ROLE_EXPERT";
-
-        $users = $userRepository->findUsersByRole($role);
-
-        if ($search->get('mots')->getdata()!="") {
-            // on recherche les IP Projects correspondant aux mots clés saisis
-            $users = $userRepository->searchClient($search->get('mots')->getData(),$role);
-        }
-
-        $usersPagination = $paginator->paginate(
-            $users, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            10 /*limit per page*/
-        );
-
-        return $this->render('admin/users.html.twig', [
-            'users' => $usersPagination,
-            'roleTitle' => "Expert",
-            'form' => $form->createView()
-        ]);
-    }
-
-_____________________________
-DANS TEMPLATE admin->user RAJOUTER :
-{{ form(form) }}
-
-
-_____________________________________________________________ RECHERCHE DEVIS ________________________________________________________________________________________
-
-Entity Devis RAJOUTER :
-#[ORM\Index(name: 'devis', columns: ['reference'], flags: ['fulltext'])]
-
-faire migration
-________________________________________________________
-
-DANS DevisRepository METTRE :
-
- /**
-     * Recherche les utilisateurs en fonction du formulaire
-     * @return void
-     */
-    public function searchDevis($mots)
-    {
-        
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = "SELECT devis.*,user.first_name, user.last_name FROM `devis` INNER JOIN `user` ON devis.user_id=user.id WHERE devis.reference LIKE '%" . $mots . "%';";
-
-        $stmt = $conn->prepare($sql);
-        $resultSet = $stmt->executeQuery();
-
-        // returns an array of arrays (i.e. a raw data set)
-        return $resultSet->fetchAllAssociative();
-
-    }
-    
-   _____________________________________________________
+  _____________________________ PAGE ADMIN MOBILE
+  
+  DANS admin.css sur body
+  
+   background-color: #3E3F3A;
    
-   DANS DevisContoller METTRE :
+   A VOIR SI ON MET:
    
-   REMPLACER #ROUTE tous-les-devis PAR :
-   
-    #[Route('/tous-les-devis', name: 'tous_devis', methods: ['GET', 'POST'])]
-    public function imprimedevis(Request $request, DevisRepository $devisRepository)
-    {
-        $form = $this->createForm(SearchProjectType::class);
-        $search = $form->handleRequest($request);
-        $devis = $devisRepository->tousDevis();
-
-        if ($search->get('mots')->getdata()!="") {
-            // on recherche les devis correspondant aux mots clés saisis
-            $devis = $devisRepository->searchDevis($search->get('mots')->getData());
-        }
-
-        return $this->render('admin/tous_devis.html.twig', [
-            'devis' => $devis,
-            'form' => $form->createView()
-        ]);
-    }
-    
-    _________________________________________________________
-    
-    DANS TEMPLATE tous_devis METTRE :
-    
-    {{ form(form) }}
-
-
-_____________________________________________ modif joffrine ____________________________________________________________________________________________________
-
-DANS index.css REMPLACER PAR :
-.section_partenaire{
-    background-color: #FFBF23;
-}
-
-@media only screen and (min-width: 992px)
-.quote_card {
-        margin: 3% 1%;
-    }
-    
- (dans template home, sur toute derniere image rajouter id="img_bas_home" )   
-    #img_bas_home {
-        width: 700px;
-    }
-    
-   ________________________________________________
-   DANS TEMPLATE footer REMPLACER ADRESSE PAR :
-   
-   120 Route de Paris <br> 76240 Le Mesnil-Esnard
-   
-   ________________________________________________
-   Formulaire ProjetSite :
-   
-   ->add 'service ' REMPLACER LE LABEL PAR:
-    'label' => 'Services (Service client / vente à domicile) :',
-    
-    
-    ______________________________________________________________ TOUTES DERNIERES MODIF ____________________________________________________________________________
-    
-    DANS TEMPLATE _form_site.html.twig REMPLACER LE H3 PAR:
-     <h3>Fonctionnalités du site : (remplissez par oui ou par non)</h3>
-         <h3>Brief créatif (Souhaitez vous que l'on vous fournisse...?)<br> Répondez par oui ou par non et téléversez un fichier si nécessaire. :</h3>
-	 
-	 
-DANS FORM ProjectSiteType REMPLACER LE ADD->LOGO PAR :
-->add('logo', TextType::class, [
-                'label' => 'Logo ?',
-                'label_attr' => ['class' => "form-label-misc"],
-                'attr' => ['maxlength' => 150,
-            'placeholder' => "par ex -> non j'en ai déja un"
-            ],
-                'required' => true,
-            ])
-
+  sur body :
+     font-size: 2.5em;
      
-DANS FORM DevisFormType REMPLACER LE LABEL DE add->Images PAR :
-'label' => 'Téléverser votre devis en pdf',
+     h6{
+    font-size: 42px;
+}
 
+.nav-link{
+    font-size:30px;
+}
+     
+     
+     @media only screen and (min-width: 768px){
+    body{
+        font-size: 1em;
+    }
 
-DANS TEMPLATE Devis->index REMPLACER LE H6 TOUT EN HAUT PAR :
- <h6 id="h6_devis">Remplissez ce formulaire.<br>
-        ou<br>
-        Téléversez votre modèle de devis.</h6>
-	
-	
-DANS TEMPLATE Expert->cvexpert.html.twig
+    .nav-link{
+        font-size:15px;
+    }
 
-h3-> retirer le "mini" devant prtfolio
-    
+    h6{
+        font-size: 20px;
+    }
+
+}
+ 
+
+________________________________________________________
+DANS FORM RegistrationForm DANS LE add->CompanyCommercialName REMPLACER LE attr PAR :
+
+                'attr' => ['placeholder' => 'Nom commercial','maxlength' => 180],
+		
+		
+		
+________________________________________________________
+DANS cvexpert.html.twig:
+
+REMPLACER <img> PAR :
+<img id="cv_img" src="assets/img/strmcv.webp">
+
+DANS <div id="cv_hide"> RAJOUTER :
+{{ form_row(EditExpert.rib) }}
+
+DANS cv.css MODIFIER :
+@media only screen and (min-width: 768px) {
+    #h3_cv {
+   font-size: 48px;
+    }
+
+_________________________________________________________
+DANS TEMPLATE projects.html.twig AJOUTER (juste sous block body)
+
+<h1 id="h1_listeprojets">Projets à réaliser</h1>
+
+DANS Project.css AJOUTER :
+
+/*page liste des projets */
+
+#h1_listeprojets {
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-weight: 800;
+    font-size: 39px;
+}
+
+.list table {
+    margin-bottom: 50px;
+}
+
+@media only screen and (min-width: 768px)
+
+ /* page liste des projets  */
+    .list {
+        width: 80%;
+        margin: auto;
+    }
