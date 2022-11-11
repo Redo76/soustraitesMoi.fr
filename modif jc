@@ -2,8 +2,24 @@
 
 DANS carousel.css
 
-@media only screen and (min-width: 1200px)->dans #carousel AJOUTER:
+dans #carousel AJOUTER:
  margin-top: 50px;
+ 
+ 
+ _________________________________________________
+ Pour image tout en bas de la page home qu'elle trouve trop large:
+ DANS index.css
+ 
+ @media only screen and (min-width: 768px)
+ #img_bas_home {
+        width: 600px;
+    }
+    
+ @media only screen and (min-width: 1200px)
+ #img_bas_home {
+        width: 700px;
+    }
+ 
  
  ____________________________________ RECHERCHE SUR EMAIL__________________________________________________________________________________________________________
  
