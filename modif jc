@@ -20,3 +20,7 @@ DANS carousel.css
  
  ______________________________________________________
  
+ PAGE Client/mes projets (template/project/index.html.twig)
+ Btn "nouveau projet" pas aligné.
+ Faut remonter div id="addButton" la mettre juste en dessous de la div knp_pagination
+ 
