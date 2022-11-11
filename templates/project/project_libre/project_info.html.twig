@@ -8,9 +8,8 @@
 <section class="nouveau_projet">
 <div class="brand-logo"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"><img src="https://st.depositphotos.com/1005574/2401/v/450/depositphotos_24012089-stock-illustration-gold-button.jpg"></div>
     {{ include('project/project_libre/libre_info.html.twig') }}
-{% if project.statut is same as(false) and is_granted('ROLE_ADMIN')   %}
+    {% if project.statut is same as(false) and is_granted('ROLE_ADMIN')   %}
     <div class=" d-flex flex-wrap align-items-center justify-content-around">
-        <a href="{{path('admin_project_validate', {'id': project.id, 'type': project.type})}}" onclick="return confirm('Êtes-vous sûr de votre choix ?')" class="ValidBtn">VALIDER LE PROJET</a>
         <form action="{{path('admin_project_price', {'id': project.id, 'type': project.type})}}" method="post">
             <label for="price" class="labelPrice">Proposer un prix :</label>
             <div class="d-flex justify-content-around">
