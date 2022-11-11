@@ -178,6 +178,7 @@
 
     #carousel {
         height:400px;
+        margin-top: 50px;
         transform: translateY(-50%);
     }
 
@@ -204,7 +205,7 @@
     #carousel div.nextRightSecond img {
         width: 200px;
     }
-    
+
     #carousel_btn {
         margin-top: 70px;
     }

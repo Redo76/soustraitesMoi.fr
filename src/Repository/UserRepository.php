@@ -186,7 +186,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $query = $this->createQueryBuilder('u');
         $query->where ('u.roles LIKE :role')
         // if ($mots != null) {
-            ->andWhere('MATCH_AGAINST(u.firstName , u.lastName) AGAINST (:mots boolean)>0')
+            ->andWhere('MATCH_AGAINST(u.firstName , u.lastName, u.email) AGAINST (:mots boolean)>0')
                 ->setParameters(array('mots'=> $mots, 'role' =>'%'.$role.'%'));
         // }
         return $query->getQuery()->getResult();
