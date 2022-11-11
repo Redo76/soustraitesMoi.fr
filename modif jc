@@ -24,3 +24,122 @@ DANS carousel.css
  Btn "nouveau projet" pas aligné.
  Faut remonter div id="addButton" la mettre juste en dessous de la div knp_pagination
  
+ _______________________________________________________
+ 
+ DANS template->devis->index.html.twig
+ DANS LE <h6 id="h6_devis"> en dessous de Téléversez votre modèle de devis:
+ SUPPRIMER:
+  ou<br>
+        Uploader votre modèle de devis.
+ 
+ __________________________________________ENVOI MAIL + MESSAGE CONFIRM APRES DEPOT TOUS TYPE PROJET _______________________________________________________________
+ 
+ DANS ProjectController:
+ 
+ METTRE LES USE:
+ use Symfony\Component\Mailer\MailerInterface;
+ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+ 
+ RAJOUTER Userrepository $userRepository,MailerInterface $mailer dans les parenthèses des 4 public function (freeProject, logoProject etc...)
+ 
+ PUIS AJOUTER (juste au dessus du return $this->redirectToRoute)
+ 
+  // essai mail + message confirmation
+            // envoi email
+            $userId = $project->getUser()->getId();
+            $user = $userRepository->findUserById($userId);
+            $email = (new TemplatedEmail())
+                ->from($user->getEmail())
+                ->to('soustraitesmoi@gmail.com')
+                ->subject('Proposition de projet')
+                ->htmlTemplate('emails/project_depot.html.twig')
+    
+                // pass variables (name => value) to the template
+                ->context([
+                    'user' => $user,
+                    'projectName' => $project->getNomDuProjet(),
+                ]);
+                
+                $mailer->send($email);
+
+            // message confirmation envoi
+            $this->addFlash(
+                'success',
+                'votre projet a bien été déposé. Après analyse par notre équipe,
+                vous recevrez un mail de confirmation'
+            );
+            
+            
+ ENFIN CREER UN TEMPLATE project_depot.html.twig DANS template->emails ET Y COLLER
+ 
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h3>Vous avez reçu une demande de projet de la part de: </h3>
+        <p>{{ user.firstName }} {{ user.lastName }}</p>
+        <h3>Son adresse mail: </h3>
+        <p>{{ user.email }}</p>
+		<h3>Nom de son projet: </h3>
+		<p>{{projectName}}</p>
+	</body>
+</html>
+
+
+
+______________________________________ENVOI EMAIL + MESSAGE CONFIRMATION APRES DEPOT D'UN DEVIS_____________________________________________________________________
+
+DANS DevisController
+ 
+METTRE LES USE:
+ use Symfony\Component\Mailer\MailerInterface;
+ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+ 
+ RAJOUTER Userrepository $userRepository,MailerInterface $mailer dans les parenthèses de public function index
+ 
+ PUIS AJOUTER (juste au dessus du return $this->redirectToRoute('app_home')
+ 
+   // essai email
+            $userId = $devis->getUser()->getId();
+            $user = $userRepository->findUserById($userId);
+            $email = (new TemplatedEmail())
+                ->from('soustraitesmoi@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Proposition de devis')
+                ->htmlTemplate('emails/devis_depot.html.twig')
+
+                // pass variables (name => value) to the template
+                ->context([
+                    'user' => $user,
+                    'projectName' => $project->getNomDuProjet(),
+                ]);
+
+            $mailer->send($email);
+
+
+            $this->addFlash(
+                'success',
+                "votre devis a bien été enregistré. Notre équipe vous recontactera
+                s'il est retenu"
+            );
+            
+  ENFIN DANS template->emails CREER UN devis_depot.html.twig ET Y COLLER :
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h3>Vous avez reçu une proposition de devis de la part de: </h3>
+        <p>{{ user.firstName }} {{ user.lastName }}</p>
+        <h3>Son adresse mail: </h3>
+        <p>{{ user.email }}</p>
+		<h3>Devis concernant le projet: </h3>
+		<p>{{projectName}}</p>
+	</body>
+</html>
+
+_________________________________________________________________________________
