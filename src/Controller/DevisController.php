@@ -29,12 +29,14 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Http\RememberMe\ResponseListener;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class DevisController extends AbstractController
 {
     #[Route('/devis/{id}&{type}', name: 'app_devis', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_EXPERT')]
-    public function index(int $id, string $type, Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, DevisRepository $devisRepository, AddressRepository $addressRepository , EntityManagerInterface $entityManager, ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository, ProjectReseauxRepository $projectReseauxRepository, ProjectSiteRepository $projectSiteRepository): Response
+    public function index(int $id, string $type, Request $request, Userrepository $userRepository,MailerInterface $mailer, SluggerInterface $slugger, UploaderHelper $uploaderHelper, DevisRepository $devisRepository, AddressRepository $addressRepository , EntityManagerInterface $entityManager, ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository, ProjectReseauxRepository $projectReseauxRepository, ProjectSiteRepository $projectSiteRepository): Response
     {
         $user= $this->getUser();
         $devis = new Devis($user);
@@ -90,9 +92,28 @@ class DevisController extends AbstractController
             $entityManager->persist($devis);
             $entityManager->flush();
 
+            // essai email
+            $userId = $devis->getUser()->getId();
+            $user = $userRepository->findUserById($userId);
+            $email = (new TemplatedEmail())
+                ->from($user->getEmail())
+                ->to('soustraitesmoi@gmail.com')
+                ->subject('Proposition de devis')
+                ->htmlTemplate('emails/devis_depot.html.twig')
+
+                // pass variables (name => value) to the template
+                ->context([
+                    'user' => $user,
+                    'projectName' => $project->getNomDuProjet(),
+                ]);
+
+            $mailer->send($email);
+
+
             $this->addFlash(
                 'success',
-                'votre devis a bien été enregistré'
+                "votre devis a bien été enregistré. Notre équipe vous recontactera
+                s'il est retenu"
             );
             return $this->redirectToRoute('app_home');
         }

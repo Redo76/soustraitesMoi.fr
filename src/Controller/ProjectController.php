@@ -25,6 +25,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 #[Route('/project')]
 class ProjectController extends AbstractController
@@ -54,7 +56,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/libre', name: 'app_project_free', methods: ['GET', 'POST'])]
-    public function freeProject(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectRepository $projectRepository): Response
+    public function freeProject(Request $request, Userrepository $userRepository,MailerInterface $mailer, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectRepository $projectRepository): Response
     {
         $project = new Project($this->getUser());
         $form = $this->createForm(ProjectType::class, $project);
@@ -76,6 +78,30 @@ class ProjectController extends AbstractController
 
             $projectRepository->add($project, true);
 
+            // envoi email
+            $userId = $project->getUser()->getId();
+            $user = $userRepository->findUserById($userId);
+            $email = (new TemplatedEmail())
+                ->from($user->getEmail())
+                ->to('soustraitesmoi@gmail.com')
+                ->subject('Proposition de projet')
+                ->htmlTemplate('emails/project_depot.html.twig')
+        
+                // pass variables (name => value) to the template
+                ->context([
+                    'user' => $user,
+                    'projectName' => $project->getNomDuProjet(),
+                ]);
+                
+                $mailer->send($email);
+        
+            // message confirmation envoi
+            $this->addFlash(
+                'success',
+                'votre projet a bien été déposé. Après analyse par notre équipe,
+                vous recevrez un mail de confirmation'
+            );
+
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -86,7 +112,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/logo', name: 'app_project_logo', methods: ['GET', 'POST'])]
-    public function logoProject(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectLogoRepository $projectLogoRepository): Response
+    public function logoProject(Request $request, Userrepository $userRepository,MailerInterface $mailer, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectLogoRepository $projectLogoRepository): Response
     {
         $project = new ProjectLogo($this->getUser());
         $form = $this->createForm(ProjectLogoType::class, $project);
@@ -121,6 +147,30 @@ class ProjectController extends AbstractController
 
             $projectLogoRepository->add($project, true);
 
+            // envoi email
+            $userId = $project->getUser()->getId();
+            $user = $userRepository->findUserById($userId);
+            $email = (new TemplatedEmail())
+                ->from($user->getEmail())
+                ->to('soustraitesmoi@gmail.com')
+                ->subject('Proposition de projet')
+                ->htmlTemplate('emails/project_depot.html.twig')
+        
+                // pass variables (name => value) to the template
+                ->context([
+                    'user' => $user,
+                    'projectName' => $project->getNomDuProjet(),
+                ]);
+                
+                $mailer->send($email);
+        
+            // message confirmation envoi
+            $this->addFlash(
+                'success',
+                'votre projet a bien été déposé. Après analyse par notre équipe,
+                vous recevrez un mail de confirmation'
+            );
+
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -131,7 +181,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/réseaux-sociaux', name: 'app_project_reseaux', methods: ['GET', 'POST'])]
-    public function reseauxProject(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectReseauxRepository $projectReseauxRepository): Response
+    public function reseauxProject(Request $request, Userrepository $userRepository,MailerInterface $mailer, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectReseauxRepository $projectReseauxRepository): Response
     {
         $project = new ProjectReseaux($this->getUser());
         $form = $this->createForm(ProjectReseauxType::class, $project);
@@ -164,6 +214,30 @@ class ProjectController extends AbstractController
 
             $projectReseauxRepository->add($project, true);
 
+            // envoi email
+            $userId = $project->getUser()->getId();
+            $user = $userRepository->findUserById($userId);
+            $email = (new TemplatedEmail())
+                ->from($user->getEmail())
+                ->to('soustraitesmoi@gmail.com')
+                ->subject('Proposition de projet')
+                ->htmlTemplate('emails/project_depot.html.twig')
+        
+                // pass variables (name => value) to the template
+                ->context([
+                    'user' => $user,
+                    'projectName' => $project->getNomDuProjet(),
+                ]);
+                
+                $mailer->send($email);
+        
+            // message confirmation envoi
+            $this->addFlash(
+                'success',
+                'votre projet a bien été déposé. Après analyse par notre équipe,
+                vous recevrez un mail de confirmation'
+            );
+
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -174,7 +248,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/site-internet', name: 'app_project_site', methods: ['GET', 'POST'])]
-    public function siteProject(Request $request, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectSiteRepository $projectSiteRepository): Response
+    public function siteProject(Request $request, Userrepository $userRepository,MailerInterface $mailer, SluggerInterface $slugger, UploaderHelper $uploaderHelper, ProjectSiteRepository $projectSiteRepository): Response
     {
         $project = new ProjectSite($this->getUser());
         $form = $this->createForm(ProjectSiteType::class, $project);
@@ -207,6 +281,30 @@ class ProjectController extends AbstractController
             $project->setType("Site Internet");
 
             $projectSiteRepository->add($project, true);
+
+            // envoi email
+            $userId = $project->getUser()->getId();
+            $user = $userRepository->findUserById($userId);
+            $email = (new TemplatedEmail())
+                ->from($user->getEmail())
+                ->to('soustraitesmoi@gmail.com')
+                ->subject('Proposition de projet')
+                ->htmlTemplate('emails/project_depot.html.twig')
+        
+                // pass variables (name => value) to the template
+                ->context([
+                    'user' => $user,
+                    'projectName' => $project->getNomDuProjet(),
+                ]);
+                
+                $mailer->send($email);
+        
+            // message confirmation envoi
+            $this->addFlash(
+                'success',
+                'votre projet a bien été déposé. Après analyse par notre équipe,
+                vous recevrez un mail de confirmation'
+            );
 
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
         }
