@@ -1,1 +1,8 @@
 ...
+
+DANS carousel.css
+
+@media only screen and (min-width: 1200px)->dans #carousel AJOUTER:
+ margin-top: 50px;
+ 
+ ____________________________________
