@@ -150,6 +150,9 @@ a:hover{
         width: 260px;
         height: 230px;
     }
+    .profil_card button {
+        padding: 2%;
+    }
     /* Profil expert */
     /* Main */
 

@@ -72,6 +72,13 @@
                     Administration
                 </a>
             </li>
+            {% else %}
+            <li>
+                <a href="{{path('app_offres')}}" class="nav-link">
+                    <i class="fa-solid fa-tags"></i>
+                    Je me lance ?
+                </a>
+            </li>
             {% endif %}
             {% if is_granted('ROLE_EXPERT')  %}
             <li>
@@ -94,12 +101,6 @@
                     Nos Services
                 </a>
             </li>
-            <li>
-                <a href="{{path('app_offres')}}" class="nav-link">
-                    <i class="fa-solid fa-tags"></i>
-                    Je me lance ?
-                </a>
-            </li>
         </ul>
     </aside>
     <div class="div_header">
@@ -116,9 +117,10 @@
                 <li><a href="{{path('app_project_index')}}" class="nav-link ">Mes projets</a></li>
                 {% elseif is_granted('ROLE_ADMIN') %}
                 <li><a href="{{path('admin')}}" class="nav-link ">Administration</a></li>
+                {% else %}
+                <li><a href="{{path('app_offres')}}" class="nav-link ">Je me lance ?</a></li>
                 {% endif %}
                 <li><a href="{{path('app_home')}}#nosServices" class="nav-link ">Nos services</a></li>
-                <li><a href="{{path('app_offres')}}" class="nav-link ">Je me lance ?</a></li>
                 <li><a href="{{path('app_contact')}}" class="nav-link ">Contact</a></li>
             </ul>
             {% if app.user %}
