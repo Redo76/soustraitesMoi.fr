@@ -5,4 +5,18 @@ DANS carousel.css
 @media only screen and (min-width: 1200px)->dans #carousel AJOUTER:
  margin-top: 50px;
  
- ____________________________________
+ ____________________________________ RECHERCHE SUR EMAIL__________________________________________________________________________________________________________
+ 
+ ENTITY USER:
+ #[ORM\Index(name: 'utilisateurs', columns: ['first_name','last_name','email'], flags: ['fulltext'])]
+ (ou juste rajouet ,'email' après last_name)
+ 
+ FAIRE MIGRATION
+ 
+ DANS UserRepository:
+  public function searchClient($mots,$role)
+ ->andWhere('MATCH_AGAINST(u.firstName , u.lastName, u.email) AGAINST (:mots boolean)>0')
+ (ou juste rajouter ,u.email après u.lastName)
+ 
+ ______________________________________________________
+ 
