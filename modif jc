@@ -159,3 +159,22 @@ METTRE LES USE:
 </html>
 
 _________________________________________________________________________________
+
+POUR CORRIGER IMAGES ECRASEES QUAND CLIENT UPLOAD:
+
+DANS Project.css
+DANS .div_img_prjt -> METTRE
+ width: 200px;
+    height: 200px;
+    
+    
+______________________________________________________
+
+TOUJOURS PROBLEME BTN "afficher le contenu" EN TABLETTE:
+
+DANS Project.css
+@media 768 px METTRE
+
+#btn_mes_projets {
+            height: 50px;
+    }
