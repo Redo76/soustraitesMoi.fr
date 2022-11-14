@@ -178,3 +178,22 @@ DANS Project.css
 #btn_mes_projets {
             height: 50px;
     }
+    
+ _______________________________________________________
+ 
+ PAGE "mes projets" BUTTON PAS ALIGNE
+ DANS Project.css AJOUTER
+ 
+ #addButton {
+    margin-left: 10px;
+}
+
+@media768px
+ #addButton {
+    margin-left: 90px;
+}
+
+@media 1200px
+ #addButton {
+    margin-left: 150px;
+}
