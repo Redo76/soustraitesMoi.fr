@@ -318,6 +318,10 @@ class ProjectController extends AbstractController
     #[Route('/{id}&{type}', name: 'app_project_info', methods: ['GET', 'POST'])]
     public function edit(int $id, string $type, ImageRepository $imageRepository, UserRepository $userRepository, ProjectRepository $projectRepository, ProjectLogoRepository $projectLogoRepository, ProjectReseauxRepository $projectReseauxRepository, ProjectSiteRepository $projectSiteRepository): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $type = ["type" => $type]["type"];
         if ($type == "Libre") {
             $project = $projectRepository->findOneBy(["id" => $id]);
