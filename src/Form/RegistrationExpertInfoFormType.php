@@ -71,7 +71,7 @@ class RegistrationExpertInfoFormType extends AbstractType
                 'label_attr' => ['class' => "form-label-misc"],
                 "required" => true,
                 "mapped" => false,
-                'attr' => ['class' => "fileInput"],
+                // 'attr' => ['class' => "fileInput"],
                 'row_attr' => ['class' => 'project_imgs mb-3'],
             ])
         ;

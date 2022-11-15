@@ -6,12 +6,12 @@
 	<body>
 		<p>Bonjour {{ user.firstName }},</p>
         <p>Après étude des devis soumis par nos experts, nous vous proposons la réalisation de votre projet "{{projectName}}" pour un montant de {{price}} €</p>
-        <br>
         <p>
-			Afin de commencer la réalisation de votre projet, veuillez procéder au paiement via ce lien : <br>
+			Afin de commencer la réalisation de votre projet, veuillez vous connecter sur notre site. Accédez à la page 'Mes Projets' et sélectionner le projet "{{projectName}}" pour procéder au paiement.<br>
 			<a href="{{ url|raw }}">{{ url|raw }}</a>
 		</p>
-
+		<br>
+		<p>Merci de la confiance accordée à Soustraitesmoi.fr.</p>
         <p>Nous vous souhaitons une excellente journée,</p>
 		<p>Cordialement.</p>
 	</body>

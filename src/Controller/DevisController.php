@@ -97,7 +97,7 @@ class DevisController extends AbstractController
             $user = $userRepository->findUserById($userId);
             $email = (new TemplatedEmail())
                 ->from($user->getEmail())
-                ->to('soustraitesmoi@gmail.com')
+                ->to('contact@soustraitesmoi.fr ')
                 ->subject('Proposition de devis')
                 ->htmlTemplate('emails/devis_depot.html.twig')
 

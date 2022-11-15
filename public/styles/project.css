@@ -141,7 +141,6 @@
 
 .btn {
     color: white;
-    margin-top: 20px;
     background: #d2b511;
     height: 40px;
     border-radius: 20px;
@@ -416,7 +415,14 @@
 }
 
 .list table {
-    margin-bottom: 50px;
+    margin-bottom: 4%;
+}
+
+#addButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5% 0;
 }
 
 
@@ -450,6 +456,7 @@
     }
 
     .btn{
+        margin-top: 2%;
         font-size: 16px;
     }
 
@@ -575,13 +582,28 @@
     } 
     
     #btn_mes_projets {
-            height: 40px;
+        height: 55px;
+    }
+
+    #addButton{
+        display: block;
+        padding: 0 5% 2% 10%;
     }
 
      /* page liste des projets  */
+    .main_list {
+        padding: 13% 0;
+    }
     .list {
         width: 80%;
         margin: auto;
+    }
+
+}
+
+@media only screen and (min-width: 992px){
+    .main_list {
+        padding: 0;
     }
 }
 

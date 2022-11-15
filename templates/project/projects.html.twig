@@ -3,34 +3,36 @@
 {% block title %}Liste Projet{% endblock %}
 
 {% block body %}
-<h1 id="h1_listeprojets">Projets à réaliser</h1>
-<div class="list">
-    <table class="table table-striped">
-        <thead class="table-dark">
-            <tr>
-            <th scope="col">Nom du projet</th>
-            <th scope="col" >Type</th>
-            <th scope="col" >Description</th>
-            <th scope="col" >Date de publication</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for project in projects %}
+<main class="main_list">
+    <h1 id="h1_listeprojets">Projets à réaliser</h1>
+    <div class="list">
+        <table class="table table-striped">
+            <thead class="table-dark">
                 <tr>
-                <td>{{project.nom_du_projet}}</td>
-                <td>{{project.type}}</td>
-                <td>
-                    <a class="button" href="{{path('app_project_info', {"id" : project.id, "type" : project.type})}}">Consulter</a>
-                </td>
-                <td>{{project.created_at|date("d/m/Y")}}</td>
+                <th scope="col">Nom du projet</th>
+                <th scope="col" >Type</th>
+                <th scope="col" >Description</th>
+                <th scope="col" >Date de publication</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                    <tr>
+                    <td>{{project.nom_du_projet}}</td>
+                    <td>{{project.type}}</td>
+                    <td>
+                        <a class="button" href="{{path('app_project_info', {"id" : project.id, "type" : project.type})}}">Consulter</a>
+                    </td>
+                    <td>{{project.created_at|date("d/m/Y")}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <div class="navigation">
-        {{ knp_pagination_render(projects) }}
+        <div class="navigation">
+            {{ knp_pagination_render(projects) }}
+        </div>
+
     </div>
-
-</div>
+</main>
 {% endblock %}

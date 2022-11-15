@@ -119,7 +119,7 @@ class ProjectCrudController extends AbstractController
         $userId = $project->getUser()->getId();
         $user = $userRepository->findUserById($userId);
         $email = (new TemplatedEmail())
-            ->from('soustraitesmoi@gmail.com')
+            ->from('contact@soustraitesmoi.fr ')
             ->to($user->getEmail())
             ->subject('Validation de votre projet')
             ->htmlTemplate('emails/project_validated.html.twig')
@@ -157,7 +157,7 @@ class ProjectCrudController extends AbstractController
         $userId = $project->getUser()->getId();
         $user = $userRepository->findUserById($userId);
         $email = (new TemplatedEmail())
-            ->from('soustraitesmoi@gmail.com')
+            ->from('contact@soustraitesmoi.fr ')
             ->to($user->getEmail())
             ->subject('Acceptation de votre projet')
             ->htmlTemplate('emails/project_accepted.html.twig')
@@ -219,7 +219,7 @@ class ProjectCrudController extends AbstractController
             $userId = $project->getUser()->getId();
             $user = $userRepository->findUserById($userId);
             $email = (new TemplatedEmail())
-                ->from('soustraitesmoi@gmail.com')
+                ->from('contact@soustraitesmoi.fr ')
                 ->to($user->getEmail())
                 ->subject('Suppression de votre projet')
                 ->htmlTemplate('emails/project_denied.html.twig')
@@ -279,9 +279,9 @@ class ProjectCrudController extends AbstractController
 
         $userId = $project->getUser()->getId();
         $user = $userRepository->findUserById($userId);
-        $url = $this->generateUrl('app_project_info', array('type' => $type, 'id' => $id), UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->generateUrl('app_home',[], UrlGeneratorInterface::ABSOLUTE_URL);
         $email = (new TemplatedEmail())
-            ->from('soustraitesmoi@gmail.com')
+            ->from('contact@soustraitesmoi.fr ')
             ->to($user->getEmail())
             ->subject('Proposition commerciale pour votre projet')
             ->htmlTemplate('emails/project_offre.html.twig')
@@ -318,9 +318,10 @@ class ProjectCrudController extends AbstractController
         $price = $project->getPrice();
 
         $userId = $project->getUser()->getId();
+        $url = $this->generateUrl('app_home',[], UrlGeneratorInterface::ABSOLUTE_URL);
         $user = $userRepository->findUserById($userId);
         $email = (new TemplatedEmail())
-            ->from('soustraitesmoi@gmail.com')
+            ->from('contact@soustraitesmoi.fr ')
             ->to($user->getEmail())
             ->subject('Relance de votre projet')
             ->htmlTemplate('emails/project_relance.html.twig')
@@ -330,6 +331,7 @@ class ProjectCrudController extends AbstractController
                 'user' => $user,
                 'price' => $price,
                 'projectName' => $project->getNomDuProjet(),
+                'url' => $url,
             ]);
             
         $mailer->send($email);

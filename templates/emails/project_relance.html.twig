@@ -5,8 +5,13 @@
 	</head>
 	<body>
 		<p>Bonjour {{ user.firstName }},</p>
+		<p>Merci d’avoir confié votre projet à nos experts.</p>
         <p>Afin de mener à bien la réalisation de votre projet "{{projectName}}", nous vous prions de bien vouloir procéder au paiement de votre projet estimé à {{price}} €</p>
-        <br>
+		<p>
+			Veuillez vous connecter sur notre site. Accédez à la page 'Mes Projets' et sélectionner le projet "{{projectName}}" et procéder au paiement afin que nos experts puissent se mettre au travail. <br>
+			<a href="{{ url|raw }}">{{ url|raw }}</a>
+		</p>
+		<br>
         <p>Nous vous souhaitons une excellente journée,</p>
 		<p>Cordialement.</p>
 	</body>

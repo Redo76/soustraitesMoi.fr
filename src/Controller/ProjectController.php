@@ -83,7 +83,7 @@ class ProjectController extends AbstractController
             $user = $userRepository->findUserById($userId);
             $email = (new TemplatedEmail())
                 ->from($user->getEmail())
-                ->to('soustraitesmoi@gmail.com')
+                ->to('contact@soustraitesmoi.fr ')
                 ->subject('Proposition de projet')
                 ->htmlTemplate('emails/project_depot.html.twig')
         
@@ -152,7 +152,7 @@ class ProjectController extends AbstractController
             $user = $userRepository->findUserById($userId);
             $email = (new TemplatedEmail())
                 ->from($user->getEmail())
-                ->to('soustraitesmoi@gmail.com')
+                ->to('contact@soustraitesmoi.fr ')
                 ->subject('Proposition de projet')
                 ->htmlTemplate('emails/project_depot.html.twig')
         
@@ -219,7 +219,7 @@ class ProjectController extends AbstractController
             $user = $userRepository->findUserById($userId);
             $email = (new TemplatedEmail())
                 ->from($user->getEmail())
-                ->to('soustraitesmoi@gmail.com')
+                ->to('contact@soustraitesmoi.fr ')
                 ->subject('Proposition de projet')
                 ->htmlTemplate('emails/project_depot.html.twig')
         
@@ -287,7 +287,7 @@ class ProjectController extends AbstractController
             $user = $userRepository->findUserById($userId);
             $email = (new TemplatedEmail())
                 ->from($user->getEmail())
-                ->to('soustraitesmoi@gmail.com')
+                ->to('contact@soustraitesmoi.fr ')
                 ->subject('Proposition de projet')
                 ->htmlTemplate('emails/project_depot.html.twig')
         

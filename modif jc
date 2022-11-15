@@ -66,7 +66,7 @@ dans #carousel AJOUTER:
             $user = $userRepository->findUserById($userId);
             $email = (new TemplatedEmail())
                 ->from($user->getEmail())
-                ->to('soustraitesmoi@gmail.com')
+                ->to('contact@soustraitesmoi.fr ')
                 ->subject('Proposition de projet')
                 ->htmlTemplate('emails/project_depot.html.twig')
     
@@ -121,7 +121,7 @@ METTRE LES USE:
             $userId = $devis->getUser()->getId();
             $user = $userRepository->findUserById($userId);
             $email = (new TemplatedEmail())
-                ->from('soustraitesmoi@gmail.com')
+                ->from('contact@soustraitesmoi.fr ')
                 ->to($user->getEmail())
                 ->subject('Proposition de devis')
                 ->htmlTemplate('emails/devis_depot.html.twig')

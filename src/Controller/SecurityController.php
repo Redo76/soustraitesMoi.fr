@@ -71,7 +71,7 @@ class SecurityController extends AbstractController
 
                 //envoi du mail
                 $email = (new TemplatedEmail())
-                    ->from('soustraitesmoi@gmail.com')
+                    ->from('contact@soustraitesmoi.fr ')
                     ->to($user->getEmail())
                     ->subject('Réinitialisation du mot de passe')
                     ->htmlTemplate('emails/password_reset.html.twig')

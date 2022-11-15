@@ -166,8 +166,8 @@ class PaymentController extends AbstractController
                 $userId = $project->getUser()->getId();
                 $user = $userRepository->findUserById($userId);
                 $email = (new TemplatedEmail())
-                    ->from('soustraitesmoi@gmail.com')
-                    ->to('soustraitesmoi@gmail.com')
+                    ->from('contact@soustraitesmoi.fr ')
+                    ->to('contact@soustraitesmoi.fr ')
                     ->subject('Validation de paiement')
                     ->htmlTemplate('emails/payment_validation.html.twig')
         
