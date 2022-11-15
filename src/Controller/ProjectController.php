@@ -28,7 +28,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
-#[Route('/project')]
+#[Route('/projet')]
 class ProjectController extends AbstractController
 {
     #[Route('/mes-projets', name: 'app_project_index', methods: ['GET'])]
@@ -321,6 +321,7 @@ class ProjectController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
+
 
         $type = ["type" => $type]["type"];
         if ($type == "Libre") {

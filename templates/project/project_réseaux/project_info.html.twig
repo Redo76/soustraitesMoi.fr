@@ -28,8 +28,15 @@
     </div>
     {% elseif is_granted('ROLE_EXPERT') %}
         <a href="{{path('app_devis', {"id" : project.id, "type" : project.type})}}" class="btn">Proposez votre devis</a>
-    {% elseif project.statut is same as(false) and project.price and is_granted('ROLE_CLIENT')  %}
-        <a href="{{path('app_payment', {"id" : project.id, "type" : project.type})}}" class="btn">Procéder au paiement</a>
+    {% elseif project.statut is same as(false) and is_granted('ROLE_CLIENT')  %}
+        {% if project.price  %}
+            <a href="{{path('app_payment', {"id" : project.id, "type" : project.type})}}" class="btn">Procéder au paiement</a>
+        {% else %}
+            <p>
+                Votre projet est actuellement en train d'être étudié par nos experts. <br>
+                Après étude de plusieurs devis de la part de nos experts, vous serez notifié lorsque un prix sera proposé.
+            </p>
+        {% endif %}
     {% endif %}
 </section>
 {% endblock %}

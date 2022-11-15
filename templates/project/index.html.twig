@@ -27,7 +27,11 @@
 							<td>{{project.nom_du_projet}}</td>
 							<td>{{project.type}}</td>
 							<td>
-								<a href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}" type="button" class="btn btn-secondary" id="btn_mes_projets">Afficher le contenu</a>
+								<form action="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}" method="post">
+									{# <input type="hidden" name="_method" value="PUT" /> #}
+									<input type="submit" value="Afficher le contenu" class="btn btn-secondary" />
+								</form>
+								{# <a href="{{ path('app_project_info', {'id': project.id ,'type' : project.type}) }}" type="button" class="btn btn-secondary" id="btn_mes_projets">Afficher le contenu</a> #}
 							</td>
 							<td>{{project.created_at|date("d/m/Y")}}</td>
 							<td>
